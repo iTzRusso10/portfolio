@@ -6,7 +6,7 @@ import { useSpring, a } from '@react-spring/three';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-const ReactLogo = ({isMobile}) => {
+const ReactLogo = ({ isMobile }) => {
     const Robot = useLoader(GLTFLoader, './models/robot_playground.glb');
     const mixer = new THREE.AnimationMixer(Robot.scene);
     const clip = Robot.animations[0];
@@ -53,8 +53,8 @@ const ReactLogo = ({isMobile}) => {
                 />
                 <primitive
                     object={Robot.scene}
-                    scale={0.9}
-                    position={ [0, -0.5, 0]}
+                    scale={1.2}
+                    position={[0, -0.9, 0]}
                 />
             </a.mesh>
         </EffectComposer>
@@ -68,31 +68,35 @@ const ReactLogoCanvas = () => {
     useEffect(() => {
         // Add a listener for changes to the screen size
         const mediaQuery = window.matchMedia("(max-width: 640px)");
-    
+
         // Set the initial value of the `isMobile` state variable
         setIsMobile(mediaQuery.matches);
-    
+
         // Define a callback function to handle changes to the media query
         const handleMediaQueryChange = (event) => {
-          setIsMobile(event.matches);
+            setIsMobile(event.matches);
         };
-    
+
         // Add the callback function as a listener for changes to the media query
         mediaQuery.addEventListener("change", handleMediaQueryChange);
-    
+
         // Remove the listener when the component is unmounted
         return () => {
-          mediaQuery.removeEventListener("change", handleMediaQueryChange);
+            mediaQuery.removeEventListener("change", handleMediaQueryChange);
         };
-      }, []);
+    }, []);
 
     return (
         <Canvas
             shadows={true}
             frameloop='demand'
             dpr={[1, 2]}
-            camera={{fov: 45}}
+            camera={{ fov: 45 }}
             gl={{ preserveDrawingBuffer: true }}
+            style={{
+                width: '100%',
+                height: '70%',
+            }}
         >
             <Suspense fallback={null}>
                 <OrbitControls
@@ -102,7 +106,7 @@ const ReactLogoCanvas = () => {
                     enablePan={false}
                     autoRotate={true}
                 />
-                <ReactLogo isMobile={isMobile}/>
+                <ReactLogo isMobile={isMobile} />
             </Suspense>
             <Preload all />
         </Canvas>

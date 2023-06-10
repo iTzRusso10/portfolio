@@ -5,7 +5,7 @@ const Navbar = () => {
   const [active, setActive] = useState(null);
   const [toggle, setToggle] = useState(false);
   return (
-    <nav className="w-full flex items-center fixed bg-black py-7 px-7">
+    <nav className="w-full flex items-center fixed bg-transparent py-7 px-7">
       <div className="w-full justify-between flex max-w-7xl mx-auto">
         <p className="flex font-bold cursor-pointer text-white">
           Giuseppe&nbsp;
@@ -27,11 +27,11 @@ const Navbar = () => {
 
       {/* Navigazione Mobile */}
       
-      <div className="sm:hidden flex justify-end items-center ">
-        <img src={!toggle ? "./src/assets/cross.png" : "./src/assets/menu.png"} alt="menu"
-          className='w-[28px] h-[28px] object-contain'
+      <div className="sm:hidden flex justify-end items-center">
+        <img src={!toggle ? "./src/assets/cross.svg" : "./src/assets/menu.svg"} alt="menu"
+          className='w-[40px] h-[30px] object-contain cursor-pointer'
           onClick={() => setToggle(!toggle)} />
-        <div className={`${!toggle ? 'flex' : 'hidden'} flex-col p-6 bg-hero-pattern absolute top-12 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl `} >
+        <div className={`${!toggle ? 'flex' : 'hidden'} flex-col p-6 bg-hero-pattern absolute top-12 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl mt-3`} >
           {navLink.map((el) => (
             <li
               key={el.id}
