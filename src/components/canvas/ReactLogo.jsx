@@ -8,29 +8,18 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const ReactLogo = ({ isMobile }) => {
     const Robot = useLoader(GLTFLoader, './models/robot_playground.glb');
+    
     const mixer = new THREE.AnimationMixer(Robot.scene);
     const clip = Robot.animations[0];
     const action = mixer.clipAction(clip);
-    console.log(Robot)
     useFrame((_, delta) => mixer.update(delta));
     action.play();
-
-    const props = useSpring({
-        scale: [1, 1, 1],
-        from: { scale: [0, 0, 0] },
-        config:
-        {
-            mass: 1,
-            tension: 280,
-            friction: 120
-        }
-    });
+    
 
     return (
         <EffectComposer multisampling={5}>
             <Bloom intensity={1.5} luminanceThreshold={1.5} />
-            <a.mesh
-                scale={props.scale}
+            <mesh
                 castShadow={true}
                 receiveShadow={true}
             >
@@ -56,7 +45,7 @@ const ReactLogo = ({ isMobile }) => {
                     scale={1.2}
                     position={[0, -0.9, 0]}
                 />
-            </a.mesh>
+            </mesh>
         </EffectComposer>
     )
 }

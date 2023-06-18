@@ -3,13 +3,13 @@ import { useState } from "react";
 
 const Navbar = () => {
   const [active, setActive] = useState(null);
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
   return (
     <nav className="w-full flex items-center fixed bg-transparent py-7 px-7">
       <div className="w-full justify-between flex max-w-7xl mx-auto">
         <p className="flex font-bold cursor-pointer text-white">
           Giuseppe&nbsp;
-          <span>| Front-End Developer</span>
+          <span className="max-[327px]:hidden">| Front-End Developer</span>
         </p>
         <ul className="list-none flex text-white items-center gap-5">
           {navLink.map((el) => (
@@ -31,7 +31,7 @@ const Navbar = () => {
         <img src={!toggle ? "./src/assets/cross.svg" : "./src/assets/menu.svg"} alt="menu"
           className='w-[40px] h-[30px] object-contain cursor-pointer'
           onClick={() => setToggle(!toggle)} />
-        <div className={`${!toggle ? 'flex' : 'hidden'} flex-col p-6 bg-hero-pattern absolute top-12 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl mt-3`} >
+        <div className={`${!toggle ? 'flex' : 'hidden'} flex-col p-6 bg-hero-pattern absolute top-[3.5rem] right-5 mx-4 my-2 min-w-[140px] z-10 rounded-xl mt-3`} >
           {navLink.map((el) => (
             <li
               key={el.id}
