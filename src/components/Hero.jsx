@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="w-full h-screen flex flex-col lg:flex-row justify-center items-center">
+    <section className="w-full h-[100dvh] flex flex-col lg:flex-row justify-center items-center">
       <div className="flex flex-col items-center p-6 gap-4 mt-28 lg:mt-0 lg:w-full max-[327px]:mt-16">
         <h1 className="text-white font-black text-4xl max-[327px]:text-center">Giuseppe <span className="text-[#B205BB]">Russo</span></h1>
         <p className="text-white text-center text-sm lg:text-md lg:px-12">Sono un React Developer con un solido background, con discrete abilità in Three.js. Con il mio impegno e la mia creatività, cerco di trasformare le idee in realtà. La mia missione è esplorare l'universo del codice, ricercare l'eccellenza e creare esperienze digitali straordinarie.  Lavoro per migliorare ogni giorno, affrontando nuove sfide con entusiasmo. Credo fermamente che l'unico limite sia il cielo quando si tratta di sviluppo web.</p>

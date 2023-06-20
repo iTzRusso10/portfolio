@@ -1,5 +1,7 @@
 import { navLink } from "../constants";
 import { useState } from "react";
+import cross from '../assets/cross.svg';
+import menu from '../assets/menu.svg';
 
 const Navbar = () => {
   const [active, setActive] = useState(null);
@@ -28,7 +30,7 @@ const Navbar = () => {
       {/* Navigazione Mobile */}
       
       <div className="sm:hidden flex justify-end items-center">
-        <img src={!toggle ? "./src/assets/cross.svg" : "./src/assets/menu.svg"} alt="menu"
+        <img src={!toggle ? cross : menu} alt="menu"
           className='w-[40px] h-[30px] object-contain cursor-pointer'
           onClick={() => setToggle(!toggle)} />
         <div className={`${!toggle ? 'flex' : 'hidden'} flex-col p-6 bg-hero-pattern absolute top-[3.5rem] right-5 mx-4 my-2 min-w-[140px] z-10 rounded-xl mt-3`} >
