@@ -77,7 +77,6 @@ const ReactLogoCanvas = () => {
     return (
         <Canvas
             shadows={true}
-            frameloop='demand'
             dpr={[1, 2]}
             camera={{ fov: 45 }}
             gl={{ preserveDrawingBuffer: true }}
