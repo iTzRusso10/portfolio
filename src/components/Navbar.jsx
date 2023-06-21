@@ -7,7 +7,7 @@ const Navbar = () => {
   const [active, setActive] = useState(null);
   const [toggle, setToggle] = useState(true);
   return (
-    <nav className="w-full flex items-center fixed bg-[#000127] md:bg-transparent py-7 px-7">
+    <nav className="w-full flex items-center fixed bg-[#000127] md:bg-transparent p-7 max-[320px]:p-4">
       <div className="w-full justify-between flex max-w-7xl mx-auto">
         <p className="flex font-bold cursor-pointer text-white">
           Giuseppe&nbsp;

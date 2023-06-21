@@ -91,7 +91,6 @@ const ReactLogoCanvas = () => {
                     maxPolarAngle={Math.PI / 2}
                     minPolarAngle={Math.PI / 2}
                     enablePan={false}
-                    autoRotate={true}
                 />
                 <ReactLogo isMobile={isMobile} />
             </Suspense>
