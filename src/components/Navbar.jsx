@@ -7,7 +7,7 @@ const Navbar = () => {
   const [active, setActive] = useState(null);
   const [toggle, setToggle] = useState(true);
   return (
-    <nav className="w-full flex items-center fixed bg-[#000127] md:bg-transparent p-7 max-[320px]:p-4">
+    <nav className="w-full flex items-center fixed bg-[#000127] md:bg-transparent p-7 max-[330px]:p-4">
       <div className="w-full justify-between flex max-w-7xl mx-auto">
         <p className="flex font-bold cursor-pointer text-white">
           Giuseppe&nbsp;
@@ -33,7 +33,7 @@ const Navbar = () => {
         <img src={!toggle ? cross : menu} alt="menu"
           className='w-[40px] h-[30px] object-contain cursor-pointer'
           onClick={() => setToggle(!toggle)} />
-        <div className={`${!toggle ? 'flex' : 'hidden'} flex-col p-6 bg-hero-pattern absolute top-[3.5rem] right-5 mx-4 my-2 min-w-[140px] z-10 rounded-xl mt-3`} >
+        <div className={`${!toggle ? 'flex' : 'hidden'} flex-col p-6 gap-3  bg-hero-pattern absolute top-[3.5rem] right-5 mx-4 my-2 min-w-[140px] z-10 rounded-xl mt-3`} >
           {navLink.map((el) => (
             <li
               key={el.id}
