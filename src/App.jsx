@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
-
+import Work from "./components/Work.jsx";
 
 const App = () => {
   return (
@@ -9,8 +9,8 @@ const App = () => {
         <Navbar />
         <Hero />
       </div>
-      <div className="relative z-0 bg-blue-700">
-
+      <div className="relative z-0 bg-[#000127]">
+        <Work />
       </div>
     </>
   );

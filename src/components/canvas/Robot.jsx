@@ -49,7 +49,7 @@ const ReactLogo = ({ isMobile }) => {
     )
 }
 
-const ReactLogoCanvas = () => {
+const RobotCanvas = () => {
 
     const [isMobile, setIsMobile] = useState(false);
 
@@ -99,4 +99,4 @@ const ReactLogoCanvas = () => {
     )
 }
 
-export default ReactLogoCanvas;
+export default RobotCanvas;
