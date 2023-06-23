@@ -29,7 +29,7 @@ const Navbar = () => {
 
       {/* Navigazione Mobile */}
       
-      <div className="sm:hidden flex justify-end items-center">
+      <div className="sm:hidden flex justify-end items-center z-[300]">
         <img src={!toggle ? cross : menu} alt="menu"
           className='w-[40px] h-[30px] object-contain cursor-pointer'
           onClick={() => setToggle(!toggle)} />
