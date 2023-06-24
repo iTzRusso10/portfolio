@@ -1,6 +1,7 @@
 import React from "react";
 import resize from "../assets/resize.png";
-import video from '../../public/video/minigames-react-video.mp4'
+import video from '../video/minigames-react-video.mp4'
+import poster from '../img/poster-video.png'
 
 const Work = () => {
   return (
@@ -16,7 +17,7 @@ const Work = () => {
           similique quos eligendi ullam rerum?
         </p>
       </div>
-      <video controls className="rounded-lg" preload="auto">
+      <video controls className="rounded-lg" preload="auto" poster={poster}>
         <source src={video} type="video/mp4" />
       </video>
       <a
