@@ -20,10 +20,13 @@ const Hero = () => {
           sfide con entusiasmo. Credo fermamente che l'unico limite sia il cielo
           quando si tratta di sviluppo web.
         </p>
-        <div className="flex gap-5">
-          <img src={Instagram} className="w-[30px] h-[30px] z-10" />
-          <img src={GitHub} className="w-[30px] h-[30px] z-10" />
-          <img src={Linkedin} className="w-[30px] h-[30px] z-10" />
+        <div className="flex gap-6">
+          <a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/giuseppe-russo-792900264/">
+            <img src={Linkedin} className="w-[30px] h-[30px] z-10" />
+          </a>
+          <a rel="noopener noreferrer" target="_blank" href="https://github.com/iTzRusso10" >
+            <img src={GitHub} className="w-[30px] h-[30px] z-10"  />
+          </a>
         </div>
       </div>
       <RobotCanvas />
