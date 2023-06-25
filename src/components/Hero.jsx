@@ -11,7 +11,7 @@ const Hero = () => {
         <h1 className="text-white font-black text-4xl max-[350px]:text-center max-[360px]:text-md">
           GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
         </h1>
-        <p className="text-white text-center md:text-base md:px-6 text-[12px] lg:text-base lg:px-12">
+        <p className="text-center text-[12px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
           Sono un Junior React Developer con un solido background, con discrete
           abilità in Three.js. Con il mio impegno e la mia creatività, cerco di
           trasformare le idee in realtà. La mia missione è esplorare l'universo
@@ -50,7 +50,7 @@ const Hero = () => {
             repeat: Infinity,
             repeatType: "loop",
           }}
-          className="w-3 h-3 rounded-full bg-white mb-.5 "
+          className="mb-.5 h-3 w-3 rounded-full bg-white "
         />
       </div>
     </section>
