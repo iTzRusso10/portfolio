@@ -6,9 +6,9 @@ import RobotCanvas from "./canvas/Robot";
 
 const Hero = () => {
   return (
-    <section className="w-full h-[100svh] flex flex-col lg:flex-row justify-center items-center">
-      <div className="flex flex-col items-center md:h-[50%] md:justify-center px-6 md:gap-10 gap-2 md:p-6 lg:p-6 mt-24 lg:mt-0 lg:gap-4 lg:w-full max-[327px]:mt-16">
-        <h1 className="text-white font-black text-4xl max-[350px]:text-center max-[360px]:text-md">
+    <section className="flex h-[100svh] w-full flex-col items-center justify-center md:justify-start md:h-full lg:flex-row">
+      <div className="mt-28 flex flex-col items-center gap-2 px-6 max-[327px]:mt-16  md:justify-start md:gap-10 md:p-6 lg:mt-0 lg:w-full lg:gap-4 lg:p-6">
+        <h1 className="max-[350px]:text-md text-4xl font-black text-white max-[350px]:text-center">
           GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
         </h1>
         <p className="text-center text-[12px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
@@ -26,21 +26,21 @@ const Hero = () => {
             target="_blank"
             href="https://www.linkedin.com/in/giuseppe-russo-792900264/"
           >
-            <img src={Linkedin} className="w-[30px] h-[30px] z-10" />
+            <img src={Linkedin} className="z-10 h-[30px] w-[30px]" />
           </a>
           <a
             rel="noopener noreferrer"
             target="_blank"
             href="https://github.com/iTzRusso10"
           >
-            <img src={GitHub} className="w-[30px] h-[30px] z-10" />
+            <img src={GitHub} className="z-10 h-[30px] w-[30px]" />
           </a>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full h-80 md:h-96">
+      <div className="h-[400px] w-full">
         <RobotCanvas />
       </div>
-      <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary absolute p-2 bottom-3 lg:hidden">
+      <div className="flex border-secondary relative bottom-3 h-[70px] w-[35px] rounded-3xl border-4 p-2 lg:hidden">
         <motion.div
           animate={{
             y: [0, 23, 0],
