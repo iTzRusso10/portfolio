@@ -82,7 +82,7 @@ const RobotCanvas = () => {
             camera={{ fov: 38 }}
             gl={{ preserveDrawingBuffer: true }}
             style={{
-               height: '100%'
+               height: '90%'
             }}
         >
             <Suspense fallback={<Loader />}>
