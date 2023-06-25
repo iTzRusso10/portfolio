@@ -1,17 +1,13 @@
 import { useProgress, Html } from "@react-three/drei";
 
 export default function Loader() {
-  const { active, progress } = useProgress();
+  const { progress } = useProgress();
 
   return (
     <>
-      {active && (
-        <Html>
-          <div
-          className="text-white font-black"
-          >{progress.toFixed(0.2)}%</div>
-        </Html>
-      )}
+      <Html>
+        <div className="font-black text-white">{progress.toFixed(0.2)}%</div>
+      </Html>
     </>
   );
 }
