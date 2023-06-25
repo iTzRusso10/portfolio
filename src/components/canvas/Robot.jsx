@@ -31,8 +31,8 @@ const ReactLogo = ({ isMobile }) => {
         />
         <primitive
           object={Robot.scene}
-          scale={!isMobile ? 1.2 : 0.9}
-          position={isMobile ? [0, -0.5, 0] : [0, -0.9, 0]}
+          scale={1.2}
+          position={isMobile ? [0, -0.7, 0] : [0, -0.9, 0]}
         />
       </mesh>
     </EffectComposer>
@@ -67,12 +67,8 @@ const RobotCanvas = () => {
     <Canvas
       shadows={true}
       dpr={[1, 2]}
-      camera={{ fov: 45 }}
+      camera={{ fov: 40 }}
       gl={{ preserveDrawingBuffer: true }}
-      style={{
-        width: "100%",
-        height: "70%",
-      }}
     >
       <Suspense fallback={null}>
         <OrbitControls
