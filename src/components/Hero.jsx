@@ -6,7 +6,7 @@ import RobotCanvas from "./canvas/Robot";
 
 const Hero = () => {
   return (
-    <section className="flex h-[100svh] w-full flex-col items-center justify-center md:h-full md:justify-start lg:h-[100svh] lg:flex-row">
+    <section className="flex h-full w-full flex-col items-center justify-center md:h-full md:justify-start lg:h-[100svh] lg:flex-row">
       <div className="mt-28 flex flex-col items-center gap-2 px-6 max-[327px]:mt-16  md:justify-start md:gap-10 md:p-6 lg:mt-0 lg:w-full lg:gap-4 lg:p-6">
         <h1 className="max-[350px]:text-md p-2 text-4xl font-black text-white max-[350px]:text-center">
           GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
@@ -37,7 +37,7 @@ const Hero = () => {
           </a>
         </div>
       </div>
-      <div className="h-full w-[80%] lg:h-[50%]">
+      <div className="h-[200px] w-[80%] lg:h-[50%] md:-[h-50%] lg:w-[50%]">
         <RobotCanvas />
       </div>
       <div className="flex flex-col justify-center p-2">
