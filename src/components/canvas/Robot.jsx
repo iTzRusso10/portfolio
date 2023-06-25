@@ -42,7 +42,7 @@ const ReactLogo = ({ isMobile }) => {
                 <primitive
                     object={Robot.scene}
                     scale={1.4}
-                    position={isMobile ? [0,-1.2, 0] : [0, -0.9, 0]}
+                    position={isMobile ? [0,-1.2, 0] : [0, -1.2, 0]}
                 />
             </mesh>
         </EffectComposer>
