@@ -4,6 +4,7 @@ import React, { Suspense, useState, useEffect } from "react";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import Loader from '../Loader';
 
 const ReactLogo = ({ isMobile }) => {
     const Robot = useLoader(GLTFLoader, './models/robot_playground.glb');
@@ -84,7 +85,7 @@ const RobotCanvas = () => {
                height: '100%'
             }}
         >
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader />}>
                 <OrbitControls
                     enableZoom={false}
                     maxPolarAngle={Math.PI / 2}
