@@ -6,12 +6,12 @@ import RobotCanvas from "./canvas/Robot";
 
 const Hero = () => {
   return (
-    <section className="w-full h-[100svh]  flex flex-col lg:flex-row justify-center items-center">
-      <div className="flex flex-col items-center md:h-[50%] md:justify-center px-6 md:gap-10 gap-2 md:p-6 lg:p-6 mt-28 lg:mt-0 lg:gap-4 lg:w-full max-[327px]:mt-16">
-        <h1 className="text-white font-black text-4xl max-[350px]:text-center max-[350px]:text-md">
+    <section className="flex h-[100svh] w-full flex-col items-center justify-center lg:flex-row">
+      <div className="mt-28 flex flex-col items-center gap-2 px-6 max-[327px]:mt-16 md:h-[50%] md:justify-center md:gap-10 md:p-6 lg:mt-0 lg:w-full lg:gap-4 lg:p-6">
+        <h1 className="max-[350px]:text-md text-4xl font-black text-white max-[350px]:text-center">
           GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
         </h1>
-        <p className="text-white text-center md:text-base md:px-6 text-[12px] lg:text-base lg:px-12">
+        <p className="text-center text-[12px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
           Sono un Junior React Developer con un solido background, con discrete
           abilità in Three.js. Con il mio impegno e la mia creatività, cerco di
           trasformare le idee in realtà. La mia missione è esplorare l'universo
@@ -21,16 +21,24 @@ const Hero = () => {
           quando si tratta di sviluppo web.
         </p>
         <div className="flex gap-6">
-          <a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/giuseppe-russo-792900264/">
-            <img src={Linkedin} className="w-[30px] h-[30px] z-10" />
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://www.linkedin.com/in/giuseppe-russo-792900264/"
+          >
+            <img src={Linkedin} className="z-10 h-[30px] w-[30px]" />
           </a>
-          <a rel="noopener noreferrer" target="_blank" href="https://github.com/iTzRusso10" >
-            <img src={GitHub} className="w-[30px] h-[30px] z-10"  />
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://github.com/iTzRusso10"
+          >
+            <img src={GitHub} className="z-10 h-[30px] w-[30px]" />
           </a>
         </div>
       </div>
       <RobotCanvas />
-      <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary absolute p-2 bottom-3 lg:hidden">
+      <div className="border-secondary absolute bottom-3 h-[64px] w-[35px] rounded-3xl border-4 p-2 lg:hidden">
         <motion.div
           animate={{
             y: [0, 23, 0],
@@ -40,7 +48,7 @@ const Hero = () => {
             repeat: Infinity,
             repeatType: "loop",
           }}
-          className="w-3 h-3 rounded-full bg-white mb-.5 "
+          className="mb-.5 h-3 w-3 rounded-full bg-white "
         />
       </div>
     </section>
