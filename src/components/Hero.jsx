@@ -37,7 +37,9 @@ const Hero = () => {
           </a>
         </div>
       </div>
-      <RobotCanvas />
+      <div className="h-full w-[80%] lg:h-[50%]">
+        <RobotCanvas />
+      </div>
       <div className="flex flex-col justify-center p-2">
         <div className=" border-secondary bottom-15 h-[70px] w-[35px] rounded-3xl border-4 p-2 lg:hidden">
           <motion.div
