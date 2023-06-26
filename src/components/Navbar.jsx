@@ -1,13 +1,34 @@
 import { navLink } from "../constants";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import cross from "../assets/cross.svg";
 import menu from "../assets/menu.svg";
 
 const Navbar = () => {
   const [active, setActive] = useState(null);
   const [toggle, setToggle] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop > 70) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed z-[300] flex w-full items-center bg-[#000127] p-7 max-[330px]:p-4">
+    <nav
+      className={`${
+        scrolled ? "bg-[#000127]" : "bg-transparent"
+      } fixed z-[300] flex w-full items-center bg-[#000127] p-7 max-[330px]:p-4`}
+    >
       <div className="mx-auto flex w-full max-w-7xl justify-between">
         <p className="flex cursor-pointer font-bold text-white">
           Giuseppe&nbsp;

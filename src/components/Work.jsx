@@ -26,7 +26,7 @@ const Work = () => {
   return (
     <div ref={ref}>
       <motion.div
-        className="z-[1] flex w-full flex-col justify-center gap-5 px-6 py-12 "
+        className="z-[1] flex w-full flex-col justify-center gap-5 px-6 py-12 lg:px-0 lg:py-0 "
         ref={ref}
         variants={variants}
         initial="hidden"
@@ -65,7 +65,7 @@ const Work = () => {
             <h1 className="text-center text-4xl font-black text-[#B205BB]">
               <span className="text-4xl text-white">My</span> Work
             </h1>
-            <p className="text-center text-white lg:">
+            <p className="text-center text-white ">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt
               possimus inventore nam cum error veniam, magni veritatis id.
               Expedita, eaque repudiandae. Doloremque exercitationem architecto,
@@ -73,7 +73,7 @@ const Work = () => {
             </p>
           </div>
           <div className="w-1 h-[300px] rounded-full bg-white"></div>
-          <div className="flex flex-col gap-3 w-[40%]">
+          <div className="flex flex-col gap-3 w-[40%] lg:p-20">
             <video
               controls
               className="rounded-lg  "
