@@ -61,11 +61,11 @@ const Work = () => {
         </div>
 
         <div className="flex gap-5 items-center justify-center max-[768px]:hidden">
-          <div className="flex w-[40%] flex-col gap-4">
+          <div className="flex w-[40%] flex-col gap-4 lg:p-20">
             <h1 className="text-center text-4xl font-black text-[#B205BB]">
               <span className="text-4xl text-white">My</span> Work
             </h1>
-            <p className="text-center text-white">
+            <p className="text-center text-white lg:">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt
               possimus inventore nam cum error veniam, magni veritatis id.
               Expedita, eaque repudiandae. Doloremque exercitationem architecto,

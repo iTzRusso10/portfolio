@@ -3,11 +3,20 @@ import Instagram from "../assets/instagram.png";
 import GitHub from "../assets/github.png";
 import Linkedin from "../assets/linkedin.png";
 import RobotCanvas from "./canvas/Robot";
-
+import Blob from '../assets/blob.svg';
+import BlobMobile from '../assets/blob-mobile.svg'
 const Hero = () => {
   return (
-    <section className="flex h-full w-full flex-col items-center justify-center md:h-full md:justify-start lg:h-[100svh] lg:flex-row lg:justify-center">
-      <div className="mt-28 flex flex-col items-center gap-2 px-6 max-[327px]:mt-16  md:justify-start md:gap-10 md:p-6 lg:mt-0 lg:w-full lg:gap-4 lg:p-6">
+    <section className=" flex h-full w-full flex-col items-center justify-center md:h-full md:justify-start lg:h-[100svh] lg:flex-row lg:justify-center">
+        <img
+          src={Blob}
+          className="absolute w-full h-full object-cover max-[700px]:hidden"
+        /> 
+        <img
+          src={BlobMobile}
+          className="absolute w-full h-full object-cover lg:hidden"
+        /> 
+      <div className=" z-[100] mt-28 flex flex-col items-center gap-2 px-6 max-[327px]:mt-16  md:justify-start md:gap-10 md:p-6 lg:mt-0 lg:w-full lg:gap-4 lg:p-6">
         <h1 className="max-[350px]:text-md p-2 text-center text-4xl font-black text-white max-[350px]:text-center">
           GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
         </h1>
@@ -20,7 +29,7 @@ const Hero = () => {
           sfide con entusiasmo. Credo fermamente che l'unico limite sia il cielo
           quando si tratta di sviluppo web.
         </p>
-        <div className="flex gap-6">
+        <div className="z-[100] flex gap-6">
           <a
             rel="noopener noreferrer"
             target="_blank"
@@ -37,10 +46,10 @@ const Hero = () => {
           </a>
         </div>
       </div>
-      <div className="md:-[h-50%] h-[200px] w-[80%] lg:h-[50%] lg:w-[100%]">
+      <div className="md:-[h-50%] z-[100] h-[200px] w-[80%] lg:h-[50%] lg:w-[100%]">
         <RobotCanvas />
       </div>
-      <div className="flex flex-col justify-center p-2">
+      <div className="z-[100] flex flex-col justify-center p-2">
         <div className=" border-secondary bottom-15 h-[70px] w-[35px] rounded-3xl border-4 p-2 lg:hidden">
           <motion.div
             animate={{
