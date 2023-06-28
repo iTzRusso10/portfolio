@@ -18,7 +18,7 @@ const Hero = () => {
         /> 
       <div className=" z-[100] mt-[6rem] flex flex-col items-center gap-1 px-6 max-[327px]:mt-16  md:justify-start md:gap-10 md:p-6 lg:mt-0 lg:w-full lg:gap-4 lg:p-6">
         <h1 className="max-[350px]:text-md text-center text-4xl font-black text-white max-[350px]:text-center">
-          GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
+          GIUSEPPE <span className="text-[#B205BB]">RUSSO</span>
         </h1>
         <p className="text-center text-[12px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
           Sono un Junior React Developer con un solido background, con discrete
