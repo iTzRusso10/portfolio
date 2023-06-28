@@ -11,6 +11,5 @@ jobs:
           node-version: '18'
       - run: npm install -g bats
       - run: bats -v
-concurrency:
-    group: build-push-docker-${{ github.ref }}
-    cancel-in-progress: true
+concurrency: staging_environment
+    
