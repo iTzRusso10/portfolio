@@ -11,5 +11,6 @@ jobs:
           node-version: '18'
       - run: npm install -g bats
       - run: bats -v
-concurrency: staging_environment
-    
+    concurrency:
+        group: ${{ github.workflow }}-${{ github.ref }}
+        cancel-in-progress: true
