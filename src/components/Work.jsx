@@ -32,7 +32,7 @@ const Work = () => {
         initial="hidden"
         animate={inView ? "show" : "hidden"}
       >
-        <div className="flex flex-col justify-center gap-3 md:hidden">
+        <div className="flex flex-col justify-center gap-3 min-[769px]:hidden">
           <div className="flex flex-col items-center justify-center gap-3 ">
             <h1 className="text-4xl font-black text-[#B205BB] ">
               <span className="text-4xl text-white">My</span> Work
