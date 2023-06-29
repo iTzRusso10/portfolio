@@ -7,7 +7,7 @@ import Blob from '../assets/blob.svg';
 import BlobMobile from '../assets/blob-mobile.svg'
 const Hero = () => {
   return (
-    <section className=" flex h-screen w-full flex-col items-center justify-around md:h-full md:justify-start lg:h-[100svh] lg:flex-row lg:justify-center">
+    <section className=" flex h-full w-full flex-col items-center justify-center md:h-full md:justify-start lg:h-[100svh] lg:flex-row lg:justify-center">
         <img
           src={Blob}
           className="absolute w-full h-full object-cover max-[700px]:hidden"
@@ -18,7 +18,7 @@ const Hero = () => {
         /> 
       <div className=" z-[100] mt-[6rem] flex flex-col items-center gap-1 px-6 max-[327px]:mt-16  md:justify-start md:gap-10 md:p-6 lg:mt-0 lg:w-full lg:gap-4 lg:p-6">
         <h1 className="max-[350px]:text-md text-center text-4xl font-black text-white max-[350px]:text-center">
-          GIUSEPPE <span className="text-[#B205BB]">RUSSO</span>
+          GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
         </h1>
         <p className="text-center text-[12px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
           Sono un Junior React Developer con un solido background, con discrete
@@ -49,7 +49,7 @@ const Hero = () => {
       <div className="md:-[h-50%] z-[100] h-[235px] w-[80%] lg:h-[50%] lg:w-[100%]">
         <RobotCanvas />
       </div>
-      <div className="z-[100] flex flex-col justify-center p-2 mt-5">
+      <div className="z-[100] flex flex-col justify-center p-2 mt-3">
         <div className=" border-secondary bottom-15 h-[70px] w-[35px] rounded-3xl border-4 p-2 lg:hidden">
           <motion.div
             animate={{

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const Work = () => {
   const [ref, inView] = useInView({
     triggerOnce: false, // Cambia a false se vuoi che l'animazione si attivi ogni volta che l'elemento entra nella vista
-    threshold: 0.2, // Cambia in base a quando vuoi che l'animazione si attivi (0.1 indica che l'animazione si attiverà quando almeno il 10% dell'elemento è visibile)
+    threshold: 0.5, // Cambia in base a quando vuoi che l'animazione si attivi (0.1 indica che l'animazione si attiverà quando almeno il 10% dell'elemento è visibile)
   });
 
   const variants = {
