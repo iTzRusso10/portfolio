@@ -23,6 +23,7 @@ const Work = () => {
     exit: { opacity: 0, y: 100, transition: { duration: 0.5 } },
   };
 
+
   return (
     <div ref={ref}>
       <motion.div
@@ -48,26 +49,29 @@ const Work = () => {
             >
               <source src={video} type="video/mp4" />
             </video>
-            <p className="text-center text-white p-3">
-              <span className="font-black">Minigames with React</span> è una collezione di tre giochi interattivi
-              che ho creato utilizzando React. Questa applicazione dimostra le
-              mie capacità di sviluppo frontend, tra cui la gestione dello stato
-              dell'applicazione, l'interazione con l'utente e l'uso dei
-              componenti React. I giochi inclusi nel progetto sono:{" "}
+            <p className="p-3 text-center text-white">
+              <span className="font-black">Minigames with React</span> è una
+              collezione di tre giochi interattivi che ho creato utilizzando
+              React. Questa applicazione dimostra le mie capacità di sviluppo
+              frontend, tra cui la gestione dello stato dell'applicazione,
+              l'interazione con l'utente e l'uso dei componenti React. I giochi
+              inclusi nel progetto sono:{" "}
               <ul className="list-disc">
-                <li className="mt-2 mb-2">
-                <span className="font-black">Indovina il Numero</span>: Un gioco classico in cui il computer
-                  sceglie un numero casuale e l'utente deve indovinare quale
-                  numero è stato scelto.
+                <li className="mb-2 mt-2">
+                  <span className="font-black">Indovina il Numero</span>: Un
+                  gioco classico in cui il computer sceglie un numero casuale e
+                  l'utente deve indovinare quale numero è stato scelto.
                 </li>
                 <li className="mb-3">
-                <span className="font-black">Box Fortunata</span>: In questo gioco, l'utente seleziona una delle
-                  molte scatole presenti sullo schermo, ogni giro la box giusta cambia
-                  anche se sbagli! Occhio!
+                  <span className="font-black">Box Fortunata</span>: In questo
+                  gioco, l'utente seleziona una delle molte scatole presenti
+                  sullo schermo, ogni giro la box giusta cambia anche se sbagli!
+                  Occhio!
                 </li>
                 <li className="mb-3">
-                <span className="font-black">Tira il Dado</span>: Un semplice gioco di dadi in cui l'utente "tira"
-                  un dado e ottiene deve indovinare il numero che uscirà.
+                  <span className="font-black">Tira il Dado</span>: Un semplice
+                  gioco di dadi in cui l'utente "tira" un dado e ottiene deve
+                  indovinare il numero che uscirà.
                 </li>
               </ul>
               Ogni gioco è stato progettato con l'obiettivo di creare
@@ -93,28 +97,29 @@ const Work = () => {
             <h1 className="text-center text-4xl font-black text-[#B205BB]">
               <span className="text-4xl text-white">My</span> Work
             </h1>
-            <p className="text-center text-white text-sm">
-              <span className="font-black">Minigames with React</span> è una collezione di tre giochi interattivi
-              che ho creato utilizzando React. Questa applicazione dimostra le
-              mie capacità di sviluppo frontend, tra cui la gestione dello stato
-              dell'applicazione, l'interazione con l'utente e l'uso dei
-              componenti React. I giochi inclusi nel progetto sono:{" "}
-              <ul className="list-disc">
-                <li className="mt-1 mb-1">
-                <span className="font-black">Indovina il Numero</span>: Un gioco classico in cui il computer
-                  sceglie un numero casuale e l'utente deve indovinare quale
-                  numero è stato scelto.
+            <p className="text-center text-sm text-white">
+              <span className="font-black">Minigames with React</span> è una
+              collezione di tre giochi interattivi che ho creato utilizzando
+              React. Questa applicazione dimostra le mie capacità di sviluppo
+              frontend, tra cui la gestione dello stato dell'applicazione,
+              l'interazione con l'utente e l'uso dei componenti React. I giochi
+              inclusi nel progetto sono:{" "}
+                <li className="mb-1 mt-1">
+                  <span className="font-black">Indovina il Numero</span>: Un
+                  gioco classico in cui il computer sceglie un numero casuale e
+                  l'utente deve indovinare quale numero è stato scelto.
                 </li>
                 <li className="mb-1">
-                <span className="font-black">Box Fortunata</span>: In questo gioco, l'utente seleziona una delle
-                  molte scatole presenti sullo schermo, ogni giro la box giusta cambia
-                  anche se sbagli! Occhio!
+                  <span className="font-black">Box Fortunata</span>: In questo
+                  gioco, l'utente seleziona una delle molte scatole presenti
+                  sullo schermo, ogni giro la box giusta cambia anche se sbagli!
+                  Occhio!
                 </li>
                 <li className="mb-1">
-                <span className="font-black">Tira il Dado</span>: Un semplice gioco di dadi in cui l'utente "tira"
-                  un dado e ottiene deve indovinare il numero che uscirà.
+                  <span className="font-black">Tira il Dado</span>: Un semplice
+                  gioco di dadi in cui l'utente "tira" un dado e ottiene deve
+                  indovinare il numero che uscirà.
                 </li>
-              </ul>
               Ogni gioco è stato progettato con l'obiettivo di creare
               un'esperienza utente coinvolgente e divertente. Spero che ti
               divertirai a esplorarli tanto quanto mi sono divertito a creare!"

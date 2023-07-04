@@ -4,22 +4,34 @@ import React, { Suspense } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Loader from "../Loader";
+import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
 const World = ({ isMobile }) => {
   const World = useLoader(GLTFLoader, "./models/stylized_planet.glb");
-  console.log(World);
   const mixer = new THREE.AnimationMixer(World.scene);
-  const clip = World.animations[0];
+  const clip = World.animations[3];
   const action = mixer.clipAction(clip);
   useFrame((_, delta) => mixer.update(delta));
   action.play();
 
+  World.materials.Clouds.emissive = {
+    r:1,
+    g:1,
+    b:1,
+    isColor: false
+  }
+
+  World.materials.Clouds.emissiveIntensity = 1.5
+  World.materials.Clouds.toneMapped = false
+
   return (
-    <primitive
-      object={World.scene}
-      scale={1.4}
-      position={[0, -0.2, 0]}
-    />
+    <>
+      <EffectComposer multisampling={1}>
+        <Bloom intensity={1} luminanceThreshold={0.5} />
+        <ambientLight intensity={0.5}/>
+        <primitive object={World.scene} scale={1.4} position={[0, -0.2, 0]} />
+      </EffectComposer>
+    </>
   );
 };
 

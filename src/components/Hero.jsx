@@ -20,7 +20,7 @@ const Hero = () => {
         <h1 className="max-[350px]:text-md text-center text-4xl font-black text-white max-[350px]:text-center">
           GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
         </h1>
-        <p className="text-center text-[12px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
+        <p className="text-center text-[13px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
           Sono un Junior React Developer con un solido background, con discrete
           abilità in Three.js. Con il mio impegno e la mia creatività, cerco di
           trasformare le idee in realtà. La mia missione è esplorare l'universo
