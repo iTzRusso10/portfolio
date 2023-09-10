@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Preload } from "@react-three/drei";
 import React, { Suspense } from "react";
@@ -15,21 +16,21 @@ const World = ({ isMobile }) => {
   action.play();
 
   World.materials.Clouds.emissive = {
-    r:1,
-    g:1,
-    b:1,
-    isColor: false
-  }
+    r: 1,
+    g: 1,
+    b: 1,
+    isColor: false,
+  };
 
-  World.materials.Clouds.emissiveIntensity = 1.5
-  World.materials.Clouds.toneMapped = false
+  World.materials.Clouds.emissiveIntensity = 1.5;
+  World.materials.Clouds.toneMapped = false;
 
   return (
     <>
       <EffectComposer multisampling={1}>
         <Bloom intensity={1} luminanceThreshold={0.5} />
-        <ambientLight intensity={0.5}/>
-        <primitive object={World.scene} scale={1.4} position={[0, -0.2, 0]} />
+        <ambientLight intensity={0.5} />
+        <primitive object={World.scene} scale={1.4} position={[0, 0, 0]} />
       </EffectComposer>
     </>
   );
