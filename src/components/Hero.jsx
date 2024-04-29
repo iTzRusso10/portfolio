@@ -20,8 +20,8 @@ const Hero = () => {
           GIUSEPPE <span className="text-[#B205BB]"> RUSSO</span>
         </h1>
         <p className="text-center text-[13px] text-white md:px-6 md:text-base lg:px-12 lg:text-base">
-          Sono un Junior React Developer con un solido background, con discrete
-          abilità in Three.js. Con il mio impegno e la mia creatività, cerco di
+          Sono un Web Developer con un solido background, con discrete abilità
+          in Three.js. Con il mio impegno e la mia creatività, cerco di
           trasformare le idee in realtà. La mia missione è esplorare
           l&apos;universo del codice, ricercare l&apos;eccellenza e creare
           esperienze digitali straordinarie. Lavoro per migliorare ogni giorno,
