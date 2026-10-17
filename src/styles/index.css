@@ -849,3 +849,69 @@ html.has-cursor * {
   animation-duration: 0s !important;
   animation-delay: 0s !important;
 }
+
+/* ------------------------------------------------------------ 3D panels */
+
+.term-3d {
+  perspective: 1100px;
+}
+.term-stage {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(var(--tz, 0px));
+  will-change: transform;
+}
+.term-stage > .term {
+  height: 100%;
+}
+/* Glass plates stacked behind the window: they shift in parallax as it tilts. */
+.term-plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.9rem;
+  border: 1px solid rgb(var(--c-signal) / 0.6);
+  background: rgb(var(--c-signal) / 0.08);
+  box-shadow: 0 0 50px -8px rgb(var(--c-signal) / 0.55);
+  transform: translateZ(-45px);
+  pointer-events: none;
+}
+.term-plate-far {
+  border-color: rgb(var(--c-glow) / 0.35);
+  background: transparent;
+  box-shadow: none;
+  transform: translateZ(-90px);
+}
+/* Glare that follows the pointer across the glass. */
+.term::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.09), transparent 45%);
+  transition: opacity 0.4s var(--ease-out);
+}
+[data-hover="true"] > .term::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-stage {
+    transform: none;
+  }
+  .term-plate {
+    display: none;
+  }
+}
+
+/* Touch devices: no live blur behind the glass panels (costly on mobile GPUs). */
+@media (hover: none) {
+  .term {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgb(14 9 30 / 0.9);
+  }
+}

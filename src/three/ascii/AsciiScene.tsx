@@ -38,6 +38,7 @@ interface RendererProps {
 /** Renders the shape into a one-texel-per-cell target, then draws that target as glyphs. */
 function AsciiRenderer({ atlas, quality, input, shape, placement, reducedMotion, running, onReady }: RendererProps) {
   const camera = useThree((s) => s.camera);
+  const gl = useThree((s) => s.gl);
   const resources = useMemo(() => {
     const objectMaterial = createObjectMaterial();
     const shapeRig = buildShape(shape, objectMaterial, quality);
@@ -80,6 +81,12 @@ function AsciiRenderer({ atlas, quality, input, shape, placement, reducedMotion,
     agitation: 0,
     scrollAngle: 0,
   });
+
+  // Compile shaders up front, so the first frame on screen doesn't stall the page.
+  useEffect(() => {
+    gl.compile(resources.objectScene, camera);
+    gl.compile(resources.screenScene, camera);
+  }, [gl, camera, resources]);
 
   // Every time the canvas comes back on screen, the shape materialises again.
   useEffect(() => {

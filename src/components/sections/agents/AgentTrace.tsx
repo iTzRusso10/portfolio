@@ -3,6 +3,7 @@ import { traceCursorAt } from "../../../animation/trace";
 import { AGENT_NAMES, agentTrace, agentsCopy, type TraceKind } from "../../../content/agents";
 import { projectRef } from "../../../content/projects";
 import { useReducedMotion } from "../../../hooks/useMediaQuery";
+import { Panel3D } from "../../ui/Panel3D";
 
 const ICONS: Record<TraceKind, string> = { goal: "›", plan: "◇", tool: "⚙", result: "✓" };
 
@@ -75,55 +76,57 @@ export function AgentTrace() {
 
   return (
     <figure ref={root} className="w-full">
-      <div className="overflow-hidden rounded-2xl bg-[rgb(18_11_38/0.72)] ring-1 ring-ink/10 backdrop-blur-md text-ink shadow-[0_40px_120px_-40px_rgb(168_85_247/0.45)]">
-        <div className="flex items-center justify-between border-b border-ink/10 px-4 py-2.5">
-          <span className="label text-ink/60">{agentsCopy.traceTitle}</span>
-          <span className="label flex items-center gap-2 text-ink/60">
-            <span aria-hidden="true" className="trace-dot h-1.5 w-1.5 rounded-full bg-signal" />
-            <span ref={status}>in attesa</span>
-          </span>
-        </div>
-        <ol className="space-y-2 px-4 py-4 font-mono sm:space-y-1 text-[0.75rem] leading-relaxed sm:text-[0.8rem]">
-          {agentTrace.map((line, i) => (
-            <li
-              key={line.label}
-              ref={(el) => (lines.current[i] = el)}
-              data-state="pending"
-              data-kind={line.kind}
-              className="trace-line grid grid-cols-[1.75rem_1rem_minmax(0,1fr)_1rem] items-baseline gap-x-1.5 sm:grid-cols-[2rem_1rem_7.5rem_minmax(0,1fr)_1rem]"
-              style={{ "--chars": 0 } as CSSProperties}
-            >
-              <span className="text-ink/35">{String(i + 1).padStart(2, "0")}</span>
-              <span aria-hidden="true" className="trace-icon">
-                {ICONS[line.kind]}
-              </span>
-              {/* Label and command stack on narrow screens, sit side by side from sm up. */}
-              <span className="flex min-w-0 flex-col sm:contents">
-                <span className="truncate text-ink/55">{line.label}</span>
-                <span className="flex min-w-0 items-baseline">
-                  <span className="trace-text">{line.text}</span>
-                  <span aria-hidden="true" className="trace-caret" />
+      <Panel3D>
+        <div className="term text-ink">
+          <div className="flex items-center justify-between border-b border-ink/10 px-4 py-2.5">
+            <span className="label text-ink/60">{agentsCopy.traceTitle}</span>
+            <span className="label flex items-center gap-2 text-ink/60">
+              <span aria-hidden="true" className="trace-dot h-1.5 w-1.5 rounded-full bg-signal" />
+              <span ref={status}>in attesa</span>
+            </span>
+          </div>
+          <ol className="space-y-2 px-4 py-4 font-mono sm:space-y-1 text-[0.75rem] leading-relaxed sm:text-[0.8rem]">
+            {agentTrace.map((line, i) => (
+              <li
+                key={line.label}
+                ref={(el) => (lines.current[i] = el)}
+                data-state="pending"
+                data-kind={line.kind}
+                className="trace-line grid grid-cols-[1.75rem_1rem_minmax(0,1fr)_1rem] items-baseline gap-x-1.5 sm:grid-cols-[2rem_1rem_7.5rem_minmax(0,1fr)_1rem]"
+                style={{ "--chars": 0 } as CSSProperties}
+              >
+                <span className="text-ink/35">{String(i + 1).padStart(2, "0")}</span>
+                <span aria-hidden="true" className="trace-icon">
+                  {ICONS[line.kind]}
                 </span>
-              </span>
-              <span aria-hidden="true" className="trace-check text-right">
-                ✓
-              </span>
-            </li>
-          ))}
-        </ol>
-        <ul className="flex flex-wrap gap-1.5 border-t border-ink/10 px-4 py-3" aria-label="Agenti">
-          {AGENT_NAMES.map((name, k) => (
-            <li
-              key={name}
-              ref={(el) => (chips.current[k] = el)}
-              data-active="false"
-              className="trace-chip label rounded-full border border-ink/20 px-2.5 py-1 text-[0.625rem] text-ink/60"
-            >
-              {name}
-            </li>
-          ))}
-        </ul>
-      </div>
+                {/* Label and command stack on narrow screens, sit side by side from sm up. */}
+                <span className="flex min-w-0 flex-col sm:contents">
+                  <span className="truncate text-ink/55">{line.label}</span>
+                  <span className="flex min-w-0 items-baseline">
+                    <span className="trace-text">{line.text}</span>
+                    <span aria-hidden="true" className="trace-caret" />
+                  </span>
+                </span>
+                <span aria-hidden="true" className="trace-check text-right">
+                  ✓
+                </span>
+              </li>
+            ))}
+          </ol>
+          <ul className="flex flex-wrap gap-1.5 border-t border-ink/10 px-4 py-3" aria-label="Agenti">
+            {AGENT_NAMES.map((name, k) => (
+              <li
+                key={name}
+                ref={(el) => (chips.current[k] = el)}
+                data-active="false"
+                className="trace-chip label rounded-full border border-ink/20 px-2.5 py-1 text-[0.625rem] text-ink/60"
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Panel3D>
       <figcaption className="label mt-3 text-mute">
         {agentsCopy.traceCaption}
         {ref && (

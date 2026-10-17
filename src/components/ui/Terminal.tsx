@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { Panel3D } from "./Panel3D";
 
 interface TerminalProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   title: string;
@@ -8,20 +9,22 @@ interface TerminalProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   children: ReactNode;
 }
 
-/** A glass terminal / editor window: the building block of every section. */
-export function Terminal({ title, meta, className = "", bodyClassName = "p-5", children, ...rest }: TerminalProps) {
+/** A glass terminal / editor window floating in 3D: the building block of every section. */
+export function Terminal({ title, meta, bodyClassName = "p-5", children, ...rest }: TerminalProps) {
   return (
-    <div className={`term ${className}`} {...rest}>
-      <div className="term-bar" aria-hidden="true">
-        <span className="term-dots">
-          <span />
-          <span />
-          <span />
-        </span>
-        <span className="truncate">{title}</span>
-        {meta && <span className="ml-auto shrink-0">{meta}</span>}
+    <Panel3D {...rest}>
+      <div className="term">
+        <div className="term-bar" aria-hidden="true">
+          <span className="term-dots">
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="truncate">{title}</span>
+          {meta && <span className="ml-auto shrink-0">{meta}</span>}
+        </div>
+        <div className={bodyClassName}>{children}</div>
       </div>
-      <div className={bodyClassName}>{children}</div>
-    </div>
+    </Panel3D>
   );
 }
