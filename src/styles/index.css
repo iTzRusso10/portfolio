@@ -915,3 +915,24 @@ html.has-cursor * {
     background: rgb(14 9 30 / 0.9);
   }
 }
+
+/* Every word of every reveal block jumps in, after its block appears. */
+.js-motion .jw {
+  display: inline-block;
+  opacity: 0;
+  transform-origin: 50% 100%;
+}
+.js-motion .jw.jw-on {
+  animation: jump-in-soft 0.75s var(--ease-out) both;
+  animation-delay: calc(var(--delay, 0ms) + 90ms + var(--i, 0) * 16ms);
+}
+.hero-skip .jw {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .jw {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}

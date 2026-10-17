@@ -30,5 +30,6 @@ export function revealStep(el: HTMLElement): number {
     return stepFor(el.dataset.unit === "word" ? "jump-word" : "jump-char", units, stagger);
   }
   if (mode === "tokens") return stepFor("tokens", el.querySelectorAll(".token").length, 80);
-  return stepFor("block");
+  const words = el.querySelectorAll(":scope .jw").length;
+  return words > 0 ? stepFor("jump-word", Math.min(words, 36), 14) : stepFor("block");
 }

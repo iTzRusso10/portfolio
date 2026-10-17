@@ -19,6 +19,7 @@ function useSkipOnScroll() {
       if (!el || scrollState.scrollY < 40) return;
       el.classList.add("hero-skip");
       el.querySelectorAll("[data-reveal]").forEach((node) => node.classList.add("is-revealed"));
+      el.querySelectorAll(".jw").forEach((node) => node.classList.add("jw-on"));
       unsubscribe();
     });
     return unsubscribe;

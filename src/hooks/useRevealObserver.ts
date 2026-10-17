@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { jumpify, startWords } from "../animation/jumpify";
 import { revealStep } from "../animation/reveal";
 
 const FONT_TIMEOUT_MS = 900;
@@ -32,18 +33,21 @@ export function useRevealObserver() {
 
     const revealInstantly = (el: HTMLElement) => {
       el.classList.add("is-instant", "is-revealed");
+      startWords(el);
       observer?.unobserve(el);
     };
 
     const animate = (el: HTMLElement, group: RevealGroup, now: number) => {
       if (group.authored) {
         el.classList.add("is-revealed");
+        startWords(el);
         observer?.unobserve(el);
         return;
       }
       const start = Math.max(now, group.nextStart);
       el.style.setProperty("--delay", `${Math.round(start - now)}ms`);
       el.classList.add("is-revealed");
+      startWords(el);
       observer?.unobserve(el);
       group.nextStart = start + revealStep(el);
     };
@@ -83,6 +87,7 @@ export function useRevealObserver() {
       );
 
       document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+        if (el.dataset.reveal !== "jump" && el.dataset.reveal !== "tokens") jumpify(el);
         const section = el.closest("section") ?? document.body;
         if (section.id === "intro") {
           // Hand-tuned entrance: reveal on sight with the authored delays.
