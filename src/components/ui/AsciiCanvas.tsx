@@ -31,7 +31,9 @@ interface AsciiCanvasProps {
 /**
  * A 3D knot rendered live as terminal characters. Lazy-loads three.js after
  * first paint, renders only while on screen, follows the mouse and reacts to
- * taps with a glitch. Vertical swipes still scroll the page.
+ * taps with a glitch. Vertical swipes still scroll the page. On low-end and
+ * touch devices the WebGL context exists only near the viewport: phones
+ * can't hold one per section (they lose contexts or kill the tab).
  */
 export function AsciiCanvas({ shape, placement, className = "" }: AsciiCanvasProps) {
   const wrapper = useRef<HTMLDivElement>(null);
@@ -40,6 +42,7 @@ export function AsciiCanvas({ shape, placement, className = "" }: AsciiCanvasPro
   const [quality, setQuality] = useState<Quality | null>(null);
   const [status, setStatus] = useState<Status>("loading");
   const [visible, setVisible] = useState(false);
+  const [near, setNear] = useState(false);
 
   useEffect(() => {
     if (!supportsWebGL()) {
@@ -61,9 +64,22 @@ export function AsciiCanvas({ shape, placement, className = "" }: AsciiCanvasPro
     const observer = new IntersectionObserver(([entry]) => setVisible(Boolean(entry?.isIntersecting)), {
       rootMargin: "100px 0px",
     });
+    const nearObserver = new IntersectionObserver(([entry]) => setNear(Boolean(entry?.isIntersecting)), {
+      rootMargin: "100% 0px",
+    });
     observer.observe(el);
-    return () => observer.disconnect();
+    nearObserver.observe(el);
+    return () => {
+      observer.disconnect();
+      nearObserver.disconnect();
+    };
   }, []);
+
+  const mounted = Boolean(quality) && status !== "off" && (quality?.tier === "high" || near);
+  // Released while far away: fade in again when it comes back.
+  useEffect(() => {
+    if (!mounted) setStatus((s) => (s === "ready" ? "loading" : s));
+  }, [mounted]);
 
   // The knot leans toward the cursor wherever it is on the page.
   useEffect(() => {
@@ -97,7 +113,7 @@ export function AsciiCanvas({ shape, placement, className = "" }: AsciiCanvasPro
       onPointerDown={onPointerDown}
       aria-hidden="true"
     >
-      {quality && status !== "off" && (
+      {quality && mounted && (
         <SceneBoundary onError={disable}>
           <Suspense fallback={null}>
             <AsciiScene

@@ -204,6 +204,14 @@ export interface AsciiSceneProps {
 
 export default function AsciiScene({ quality, running, reducedMotion, onContextLost, ...props }: AsciiSceneProps) {
   const [atlas, setAtlas] = useState<Texture | null>(null);
+  // Unmounting releases the context on purpose; that loss is not a failure.
+  const alive = useRef(true);
+  useEffect(() => {
+    alive.current = true;
+    return () => {
+      alive.current = false;
+    };
+  }, []);
   useEffect(() => {
     let texture: Texture | null = null;
     let cancelled = false;
@@ -228,7 +236,7 @@ export default function AsciiScene({ quality, running, reducedMotion, onContextL
         gl.autoClear = false;
         gl.domElement.addEventListener("webglcontextlost", (event) => {
           event.preventDefault();
-          onContextLost();
+          if (alive.current) onContextLost();
         });
       }}
       aria-hidden="true"

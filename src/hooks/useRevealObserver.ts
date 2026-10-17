@@ -4,6 +4,16 @@ import { revealStep } from "../animation/reveal";
 
 const FONT_TIMEOUT_MS = 900;
 
+/** Entrance animations of words, letters and full stops (see index.css). */
+const ENTRANCES = new Set(["jump-in", "jump-in-soft", "ball-drop"]);
+
+/** Once a word has landed its animation is removed, so it no longer holds a compositing layer. */
+function land(event: AnimationEvent) {
+  if (ENTRANCES.has(event.animationName) && event.target instanceof HTMLElement) {
+    event.target.classList.add("is-landed");
+  }
+}
+
 interface RevealGroup {
   items: HTMLElement[];
   /** Keep the delays written in the markup instead of sequencing (hero). */
@@ -28,6 +38,7 @@ export function useRevealObserver() {
 
     let observer: IntersectionObserver | undefined;
     let cancelled = false;
+    document.addEventListener("animationend", land);
     const groups = new Map<Element, RevealGroup>();
     const groupOf = new Map<HTMLElement, RevealGroup>();
 
@@ -114,6 +125,7 @@ export function useRevealObserver() {
 
     return () => {
       cancelled = true;
+      document.removeEventListener("animationend", land);
       observer?.disconnect();
     };
   }, []);

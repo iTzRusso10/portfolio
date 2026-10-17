@@ -865,6 +865,13 @@ html.has-cursor * {
 .term-stage > .term {
   height: 100%;
 }
+.term-stage[data-idle="true"] {
+  transform: none;
+  will-change: auto;
+}
+.term-stage[data-idle="true"] > .term-plate {
+  display: none;
+}
 /* Glass plates stacked behind the window: they shift in parallax as it tilts. */
 .term-plate {
   position: absolute;
@@ -935,4 +942,14 @@ html.has-cursor * {
     opacity: 1 !important;
     animation: none !important;
   }
+}
+
+/*
+ * Entrance finished: drop the animation. A filled animation stays in effect
+ * forever, and Safari keeps a GPU layer for each one; with every word of the
+ * page animated that runs iOS out of memory before the end of the page.
+ */
+.is-landed {
+  opacity: 1 !important;
+  animation: none !important;
 }

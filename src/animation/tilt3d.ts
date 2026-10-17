@@ -23,6 +23,8 @@ export function wallTurn(centerX: number, viewportWidth: number, strength = 1) {
 interface Panel {
   el: HTMLElement;
   visible: boolean;
+  /** Just came back on screen: take the target pose at once instead of easing from flat. */
+  snap: boolean;
   hover: boolean;
   px: number;
   py: number;
@@ -74,9 +76,11 @@ function tick(now: number) {
 
   // …then writes.
   for (const [p, rx, ry, tz, mx, my] of targets) {
-    p.rx = damp(p.rx, rx, 9, dt);
-    p.ry = damp(p.ry, ry, 9, dt);
-    p.tz = damp(p.tz, tz, 9, dt);
+    const k = p.snap ? Infinity : 9;
+    p.snap = false;
+    p.rx = damp(p.rx, rx, k, dt);
+    p.ry = damp(p.ry, ry, k, dt);
+    p.tz = damp(p.tz, tz, k, dt);
     if (Math.abs(p.rx - rx) + Math.abs(p.ry - ry) + Math.abs(p.tz - tz) > 0.05) moving = true;
     const s = p.el.style;
     s.setProperty("--rx", `${p.rx.toFixed(2)}deg`);
@@ -88,6 +92,17 @@ function tick(now: number) {
   }
 
   frame = moving ? requestAnimationFrame(tick) : 0;
+}
+
+/**
+ * Off-screen panels go flat and drop their glass plates (data-idle), so they
+ * don't keep GPU layers alive: twenty 3D panels add up on a phone.
+ */
+function setVisible(p: Panel, visible: boolean) {
+  if (p.visible === visible) return;
+  p.visible = visible;
+  p.snap = visible;
+  p.el.dataset.idle = String(!visible);
 }
 
 function wake() {
@@ -105,7 +120,7 @@ function start() {
   observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        for (const p of panels) if (p.el === entry.target) p.visible = entry.isIntersecting;
+        for (const p of panels) if (p.el === entry.target) setVisible(p, entry.isIntersecting);
       }
       wake();
     },
@@ -128,7 +143,8 @@ function start() {
 /** Registers a panel stage (the element that receives the 3D transform). */
 export function registerPanel(el: HTMLElement) {
   start();
-  const panel: Panel = { el, visible: false, hover: false, px: 0, py: -1, rx: 0, ry: 0, tz: 0 };
+  el.dataset.idle = "true";
+  const panel: Panel = { el, visible: false, snap: false, hover: false, px: 0, py: -1, rx: 0, ry: 0, tz: 0 };
   panels.add(panel);
   observer?.observe(el);
   return () => {

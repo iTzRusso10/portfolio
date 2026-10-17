@@ -25,11 +25,18 @@ export function detectQuality(): Quality {
     : { tier: "high", cell: { width: 8, height: 13 }, segments: [260, 28], dpr: [1, 2] };
 }
 
+let webgl: boolean | undefined;
+
+/** Checked once per page; the probe context is released right away, so it doesn't count against the browser's limit. */
 export function supportsWebGL() {
+  if (webgl !== undefined) return webgl;
   try {
     const canvas = document.createElement("canvas");
-    return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
+    const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+    webgl = Boolean(gl);
   } catch {
-    return false;
+    webgl = false;
   }
+  return webgl;
 }
