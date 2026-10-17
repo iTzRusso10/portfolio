@@ -829,3 +829,11 @@ html.has-cursor * {
   touch-action: auto;
   cursor: default;
 }
+
+/* Revealed without animation: content the reader scrolled past or jumped over. */
+.js-motion [data-reveal].is-instant,
+.js-motion [data-reveal].is-instant * {
+  transition: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
