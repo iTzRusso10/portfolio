@@ -837,3 +837,15 @@ html.has-cursor * {
   animation-duration: 0s !important;
   animation-delay: 0s !important;
 }
+
+/* Hero entrance cut short by scrolling: everything jumps to its final state. */
+.hero-skip [data-reveal],
+.hero-skip .jump-unit,
+.hero-skip .jump-ball,
+.hero-skip .typed,
+.hero-skip .token {
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}

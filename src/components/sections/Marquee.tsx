@@ -25,7 +25,7 @@ function Row({ outline }: { outline: boolean }) {
  */
 export function Marquee() {
   return (
-    <div aria-hidden="true" className="above-scene relative overflow-hidden py-[10vh]">
+    <div aria-hidden="true" className="above-scene relative overflow-hidden py-6 lg:py-[10vh]">
       <div className="-rotate-[4deg] type-display select-none text-[clamp(3.5rem,13vw,12rem)] leading-[1.02]">
         <div className="marquee-row">
           <Row outline />

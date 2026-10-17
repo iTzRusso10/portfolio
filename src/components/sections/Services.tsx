@@ -10,7 +10,7 @@ const fileName = (index: number, name: string) =>
 
 export function Services() {
   return (
-    <section id="servizi" aria-labelledby="servizi-title" className="relative py-[16vh] lg:py-[20vh]">
+    <section id="servizi" aria-labelledby="servizi-title" className="relative py-14 sm:py-[12vh] lg:py-[18vh]">
       <div className="shell above-scene grid gap-12 lg:grid-cols-12 lg:gap-x-10">
         <div className="lg:col-span-7">
           <SectionLabel section="servizi" />

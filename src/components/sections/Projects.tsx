@@ -7,7 +7,7 @@ import { ProjectChapter } from "./projects/ProjectChapter";
 
 export function Projects() {
   return (
-    <section id="progetti" aria-labelledby="progetti-title" className="relative pb-[16vh] pt-[16vh] lg:pt-[22vh]">
+    <section id="progetti" aria-labelledby="progetti-title" className="relative pb-14 pt-14 sm:pb-[12vh] sm:pt-[12vh] lg:pt-[18vh]">
       <div className="shell above-scene">
         <header className="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-10">
           <div className="lg:col-span-7">

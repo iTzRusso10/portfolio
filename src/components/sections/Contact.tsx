@@ -36,7 +36,7 @@ export function Contact() {
 
   return (
     <section id="contatti" aria-labelledby="contatti-title" className="relative min-h-[100svh]">
-      <div className="relative mt-[var(--header-h)] h-[36svh] lg:absolute lg:inset-0 lg:mt-0 lg:h-auto">
+      <div className="relative mt-2 h-[28svh] lg:absolute lg:inset-0 lg:mt-0 lg:h-auto">
         <AsciiCanvas shape="cinquefoil" placement="contact" className="absolute inset-0" />
       </div>
       <div className="shell above-scene pointer-events-none flex flex-col pb-16 pt-6 lg:min-h-[100svh] lg:justify-center lg:pb-24 lg:pt-[16vh] [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_h2]:pointer-events-auto [&_p]:pointer-events-auto">

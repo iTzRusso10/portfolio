@@ -8,7 +8,7 @@ import { AgentTrace } from "./agents/AgentTrace";
 
 export function Agents() {
   return (
-    <section id="agenti" aria-labelledby="agenti-title" className="relative py-[16vh] lg:py-[22vh]">
+    <section id="agenti" aria-labelledby="agenti-title" className="relative py-14 sm:py-[12vh] lg:py-[18vh]">
       <div className="shell above-scene grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-x-12">
         <div className="lg:col-span-5">
           <SectionLabel section="agenti" />

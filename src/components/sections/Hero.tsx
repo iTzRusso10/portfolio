@@ -1,4 +1,5 @@
-import { useRef, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
+import { subscribeScroll, scrollState } from "../../animation/scroll";
 import { heroCopy, site } from "../../content/site";
 import { useGlitch } from "../../hooks/useGlitch";
 import { AsciiCanvas } from "../ui/AsciiCanvas";
@@ -9,17 +10,34 @@ import { Typed } from "../ui/Typed";
 
 const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
+/** If the visitor starts scrolling before the entrance is over, show the rest of the hero at once. */
+function useSkipOnScroll() {
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const unsubscribe = subscribeScroll(() => {
+      const el = ref.current;
+      if (!el || scrollState.scrollY < 40) return;
+      el.classList.add("hero-skip");
+      el.querySelectorAll("[data-reveal]").forEach((node) => node.classList.add("is-revealed"));
+      unsubscribe();
+    });
+    return unsubscribe;
+  }, []);
+  return ref;
+}
+
 export function Hero() {
   const title = useRef<HTMLDivElement>(null);
+  const section = useSkipOnScroll();
   useGlitch(title);
 
   return (
-    <section id="intro" aria-labelledby="intro-title" className="relative min-h-[100svh]">
+    <section ref={section} id="intro" aria-labelledby="intro-title" className="relative min-h-[100svh]">
       {/* Phones: the knot has its own box above the text. Desktop: it fills the section, right of the text. */}
       <div className="relative mt-[var(--header-h)] h-[42svh] lg:absolute lg:inset-0 lg:mt-0 lg:h-auto">
         <AsciiCanvas shape="trefoil" placement="hero" className="absolute inset-0" />
         <div className="above-scene pointer-events-none absolute inset-x-0 bottom-0 flex justify-center lg:bottom-12 lg:justify-end lg:px-[var(--gutter)]">
-          <p className="font-mono text-[0.7rem] text-mute" aria-hidden="true" data-reveal style={delay(3200)}>
+          <p className="font-mono text-[0.7rem] text-mute" aria-hidden="true" data-reveal style={delay(1500)}>
             [ <span className="lg:hidden">{heroCopy.coreHintTouch}</span>
             <span className="hidden lg:inline">{heroCopy.coreHint}</span> ]
           </p>
@@ -32,7 +50,7 @@ export function Hero() {
           <p className="font-mono text-[0.8rem] text-mute sm:text-sm">
             <span className="text-[rgb(var(--c-cyan))]">{heroCopy.prompt}</span>
             <span className="text-ink/60">:~$ </span>
-            <Typed text={heroCopy.command} delay={300} speed={70} className="text-ink" />
+            <Typed text={heroCopy.command} delay={150} speed={55} className="text-ink" />
           </p>
 
           <div ref={title} className="mt-4">
@@ -42,7 +60,7 @@ export function Hero() {
               id="intro-title"
               lines={[site.firstName, site.lastName]}
               srText={`${site.name}, ${site.role}`}
-              delay={800}
+              delay={350}
               stagger={40}
               after={<span className="block h-[0.14em] w-[0.14em] rounded-full bg-signal" />}
               className="type-display text-[clamp(3.2rem,15vw,6.5rem)] lg:text-[clamp(5rem,8.2vw,9.5rem)]"
@@ -51,10 +69,10 @@ export function Hero() {
 
           <p className="mt-5 font-mono text-[0.95rem] text-ink sm:text-lg">
             <span className="prompt" />
-            <Typed text={heroCopy.role} delay={1500} speed={38} />
+            <Typed text={heroCopy.role} delay={750} speed={22} />
             <span aria-hidden="true" className="caret" />
           </p>
-          <p className="mt-1 font-mono text-[0.8rem] text-mute sm:text-sm" data-reveal style={delay(2300)}>
+          <p className="mt-1 font-mono text-[0.8rem] text-mute sm:text-sm" data-reveal style={delay(1050)}>
             <span className="tok-com">{`// ${heroCopy.kicker}`}</span>
           </p>
 
@@ -62,12 +80,12 @@ export function Hero() {
             as="p"
             unit="word"
             lines={[heroCopy.intro]}
-            delay={2400}
-            stagger={14}
+            delay={1100}
+            stagger={8}
             className="mt-7 max-w-[32rem] text-[0.98rem] leading-relaxed text-ink/80 lg:text-[1.05rem]"
           />
 
-          <div className="mt-8 flex flex-wrap items-center gap-3" data-reveal style={delay(2800)}>
+          <div className="mt-8 flex flex-wrap items-center gap-3" data-reveal style={delay(1350)}>
             <Magnetic>
               <a href="#servizi" className="btn btn-solid font-mono text-sm">
                 <span aria-hidden="true">❯</span>
@@ -82,7 +100,7 @@ export function Hero() {
             </Magnetic>
           </div>
 
-          <dl className="mt-10 hidden gap-1 font-mono text-xs text-mute lg:grid" data-reveal style={delay(3000)}>
+          <dl className="mt-10 hidden gap-1 font-mono text-xs text-mute lg:grid" data-reveal style={delay(1500)}>
             {heroCopy.readout.map(([key, value]) => (
               <div key={key} className="flex gap-3">
                 <dt className="w-14 text-[rgb(var(--c-glow))]">{key}</dt>

@@ -16,7 +16,7 @@ export function ProjectChapter({ project, index }: ProjectChapterProps) {
   const titleId = `progetto-${project.id}-title`;
 
   return (
-    <article id={`progetto-${project.id}`} aria-labelledby={titleId} className="py-[12vh] lg:py-[16vh]">
+    <article id={`progetto-${project.id}`} aria-labelledby={titleId} className="py-12 sm:py-[10vh] lg:py-[14vh]">
       <div className="grid gap-y-8 lg:grid-cols-12 lg:gap-x-8">
         <header className={`lg:col-span-11 ${mirrored ? "lg:col-start-2 lg:text-right" : ""}`}>
           <p

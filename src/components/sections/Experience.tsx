@@ -7,7 +7,7 @@ import { Terminal } from "../ui/Terminal";
 /** Work history rendered as a `git log --graph`: the most recent role is HEAD. */
 export function Experience() {
   return (
-    <section id="esperienza" aria-labelledby="esperienza-title" className="relative py-[16vh] lg:py-[20vh]">
+    <section id="esperienza" aria-labelledby="esperienza-title" className="relative py-14 sm:py-[12vh] lg:py-[18vh]">
       <div className="shell above-scene grid gap-12 lg:grid-cols-12 lg:gap-x-10">
         <div className="lg:col-span-5 lg:sticky lg:top-[calc(var(--header-h)+3rem)] lg:self-start">
           <SectionLabel section="esperienza" />

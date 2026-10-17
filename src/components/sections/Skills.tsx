@@ -86,7 +86,7 @@ function BuildLog() {
 
 export function Skills() {
   return (
-    <section id="stack" aria-labelledby="stack-title" className="relative py-[16vh] lg:py-[20vh]">
+    <section id="stack" aria-labelledby="stack-title" className="relative py-14 sm:py-[12vh] lg:py-[18vh]">
       <div className="shell above-scene">
         <header className="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-10">
           <div className="lg:col-span-7">
