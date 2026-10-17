@@ -1,0 +1,831 @@
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource/jetbrains-mono/400.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Art direction — "Nebula"
+ * Violet-black night, lavender type, light coming from the scene: violet and
+ * magenta glows with a cyan accent. Colours are RGB triplets so Tailwind can
+ * apply opacity.
+ */
+:root {
+  --c-night: 7 5 16;
+  --c-ink: 237 233 254;
+  --c-mute: 161 151 204;
+  --c-line: 237 233 254;
+  --c-signal: 168 85 247;
+  --c-glow: 232 121 249;
+  --c-cyan: 103 232 249;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Overshoots and settles: the shared "jump" of every entrance. */
+  --ease-jump: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --header-h: 4.5rem;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    background: rgb(var(--c-night));
+    color: rgb(var(--c-ink));
+    scroll-padding-top: var(--header-h);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply font-display antialiased;
+    font-stretch: 100%;
+    font-size: 1rem;
+    line-height: 1.55;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgb(var(--c-signal));
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-signal));
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 112rem;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Content sits above the fixed WebGL layer (z 1) while section backgrounds stay below it. */
+  .above-scene {
+    position: relative;
+    z-index: 2;
+  }
+
+  .label {
+    @apply font-mono uppercase;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  .type-display {
+    font-weight: 800;
+    font-stretch: 118%;
+    letter-spacing: -0.045em;
+    line-height: 0.86;
+  }
+
+  .type-title {
+    font-weight: 700;
+    font-stretch: 112%;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    font-size: clamp(2.5rem, 7vw, 6.5rem);
+  }
+
+  .type-statement {
+    font-weight: 500;
+    font-stretch: 100%;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    font-size: clamp(1.9rem, 4.2vw, 4rem);
+  }
+
+  .type-serif {
+    @apply font-serif italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .hairline {
+    height: 1px;
+    background: rgb(var(--c-line) / 0.18);
+  }
+
+  /* Underline that draws in on hover/focus. */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s var(--ease-out);
+  }
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  .btn {
+    @apply relative inline-flex items-center gap-3 rounded-full font-display;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    font-stretch: 105%;
+    padding: 0.95rem 1.5rem;
+    transition:
+      background-color 0.4s var(--ease-out),
+      color 0.4s var(--ease-out),
+      border-color 0.4s var(--ease-out);
+    will-change: transform;
+  }
+  .btn-solid {
+    background: linear-gradient(120deg, rgb(var(--c-signal)), rgb(var(--c-glow)));
+    color: #fff;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.12) inset,
+      0 10px 40px -10px rgb(var(--c-signal) / 0.8);
+  }
+  .btn-solid:hover {
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.2) inset,
+      0 14px 60px -8px rgb(var(--c-glow) / 0.9);
+  }
+  .btn-ghost {
+    border: 1px solid rgb(var(--c-line) / 0.35);
+  }
+  .btn-ghost:hover {
+    border-color: rgb(var(--c-line));
+  }
+  .btn .btn-arrow {
+    transition: transform 0.5s var(--ease-out);
+  }
+  .btn:hover .btn-arrow {
+    transform: translate3d(3px, 0, 0);
+  }
+}
+
+/* ---------------------------------------------------------------- Scene */
+
+/* Violet aurora behind the page: slow, time-based drift, independent of scroll. */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  will-change: transform;
+}
+.aurora::before {
+  background:
+    radial-gradient(38% 32% at 72% 28%, rgb(124 58 237 / 0.42), transparent 70%),
+    radial-gradient(30% 28% at 20% 78%, rgb(192 38 211 / 0.26), transparent 70%),
+    radial-gradient(26% 24% at 85% 85%, rgb(34 211 238 / 0.12), transparent 70%);
+  animation: aurora-a 38s ease-in-out infinite alternate;
+}
+.aurora::after {
+  background:
+    radial-gradient(34% 30% at 30% 25%, rgb(91 33 182 / 0.35), transparent 70%),
+    radial-gradient(28% 26% at 65% 70%, rgb(168 85 247 / 0.22), transparent 70%);
+  animation: aurora-b 46s ease-in-out infinite alternate;
+}
+@keyframes aurora-a {
+  to {
+    transform: translate3d(-6%, 5%, 0) rotate(8deg) scale(1.08);
+  }
+}
+@keyframes aurora-b {
+  to {
+    transform: translate3d(7%, -4%, 0) rotate(-10deg) scale(1.12);
+  }
+}
+.stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #fff, transparent 60%),
+    radial-gradient(1px 1px at 68% 12%, #e9d5ff, transparent 60%),
+    radial-gradient(1.5px 1.5px at 84% 46%, #fff, transparent 60%),
+    radial-gradient(1px 1px at 36% 62%, #c4b5fd, transparent 60%),
+    radial-gradient(1px 1px at 52% 88%, #fff, transparent 60%),
+    radial-gradient(1.5px 1.5px at 8% 72%, #f5d0fe, transparent 60%),
+    radial-gradient(1px 1px at 92% 82%, #fff, transparent 60%),
+    radial-gradient(1px 1px at 26% 38%, #a5f3fc, transparent 60%);
+  background-size: 420px 420px;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  to {
+    opacity: 0.25;
+  }
+}
+
+/* Terminal grid behind everything, fading toward the edges. */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(var(--c-ink) / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--c-ink) / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
+}
+
+/* The ASCII scene fills its section; text sits on top. */
+.ascii-canvas {
+  touch-action: pan-y;
+}
+.ascii-canvas > div {
+  position: absolute !important;
+  inset: 0;
+}
+.ascii-canvas > div,
+.ascii-canvas canvas {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+}
+.ascii-canvas[data-status="ready"] > div,
+.ascii-canvas[data-status="ready"] canvas {
+  opacity: 1;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.35;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.22) 2px 3px);
+  mix-blend-mode: multiply;
+}
+
+/* --------------------------------------------------------------- Reveal */
+
+.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 1.75rem, 0);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.9s var(--ease-jump);
+  transition-delay: var(--delay, 0ms);
+}
+.js-motion [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Jump: letters/words hop into place with a squash on landing. */
+.jump-line {
+  display: block;
+}
+.jump-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.jump-unit,
+.jump-glyph,
+.jump-ball {
+  display: inline-block;
+  transform-origin: 50% 100%;
+}
+.jump-ball {
+  margin-left: 0.06em;
+}
+.js-motion [data-reveal="jump"] {
+  opacity: 1;
+  transform: none;
+}
+.js-motion [data-reveal="jump"] .jump-unit,
+.js-motion [data-reveal="jump"] .jump-ball {
+  opacity: 0;
+}
+.js-motion [data-reveal="jump"].is-revealed .jump-unit {
+  animation: jump-in 0.95s var(--ease-out) both;
+  animation-delay: calc(var(--delay, 0ms) + var(--i, 0) * var(--stagger, 26ms));
+}
+.js-motion [data-reveal="jump"][data-unit="word"].is-revealed .jump-unit {
+  animation-name: jump-in-soft;
+  animation-duration: 0.8s;
+}
+.js-motion [data-reveal="jump"].is-revealed .jump-ball {
+  animation: ball-drop 1.1s linear both;
+  animation-delay: calc(var(--delay, 0ms) + var(--i, 0) * var(--stagger, 26ms));
+}
+
+@keyframes jump-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0.75em, 0) scale(0.9, 1.12);
+  }
+  38% {
+    opacity: 1;
+    transform: translate3d(0, -0.26em, 0) scale(0.97, 1.04);
+  }
+  60% {
+    transform: translate3d(0, 0.04em, 0) scale(1.06, 0.9);
+  }
+  76% {
+    transform: translate3d(0, -0.05em, 0) scale(0.99, 1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes jump-in-soft {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0.6em, 0);
+  }
+  45% {
+    opacity: 1;
+    transform: translate3d(0, -0.14em, 0);
+  }
+  70% {
+    transform: translate3d(0, 0.03em, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The full stop falls from above and bounces twice, like a ball. */
+@keyframes ball-drop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -2.4em, 0);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  10% {
+    opacity: 1;
+  }
+  40% {
+    transform: translate3d(0, 0, 0) scale(1.35, 0.65);
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+  }
+  58% {
+    transform: translate3d(0, -0.7em, 0) scale(0.9, 1.1);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  74% {
+    transform: translate3d(0, 0, 0) scale(1.2, 0.8);
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+  }
+  86% {
+    transform: translate3d(0, -0.2em, 0);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hover: a single letter hops. */
+.jump-glyph.is-hopping {
+  animation: hop 0.55s var(--ease-out);
+}
+@keyframes hop {
+  0% {
+    transform: none;
+  }
+  30% {
+    transform: translate3d(0, -0.22em, 0) scale(0.96, 1.05);
+  }
+  55% {
+    transform: translate3d(0, 0, 0) scale(1.08, 0.9);
+  }
+  75% {
+    transform: translate3d(0, -0.04em, 0);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------- Cursor */
+
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+.cursor-dot,
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 999px;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: currentColor;
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1px solid currentColor;
+  transition:
+    width 0.45s var(--ease-out),
+    height 0.45s var(--ease-out),
+    margin 0.45s var(--ease-out),
+    opacity 0.3s;
+}
+.cursor[data-state="link"] .cursor-ring {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+}
+.cursor[data-hidden="true"] {
+  opacity: 0;
+}
+
+/* ------------------------------------------------------- Project media */
+
+.media-frame {
+  transform-style: preserve-3d;
+  transition: transform 0.9s var(--ease-out);
+  will-change: transform;
+}
+
+@keyframes scroll-hint {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.scroll-hint-line {
+  animation: scroll-hint 2.4s var(--ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint-line,
+  .jump-glyph.is-hopping,
+  .aurora::before,
+  .aurora::after,
+  .stars,
+  .marquee-row {
+    animation: none !important;
+  }
+  .media-frame,
+  .btn {
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------------------------------- Agent trace */
+
+.trace-line {
+  transition: opacity 0.4s var(--ease-out);
+}
+.trace-line[data-state="pending"] {
+  opacity: 0.28;
+}
+.trace-text {
+  display: inline-block;
+  max-width: calc(var(--chars, 0) * 1ch);
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+.trace-caret {
+  display: none;
+  flex: none;
+  width: 0.6ch;
+  height: 1.1em;
+  margin-left: 0.15ch;
+  align-self: center;
+  background: rgb(var(--c-signal));
+  animation: caret-blink 1s steps(1) infinite;
+}
+.trace-line[data-state="current"] .trace-caret {
+  display: block;
+}
+.trace-check {
+  opacity: 0;
+  color: rgb(var(--c-signal));
+  transition: opacity 0.3s;
+}
+.trace-line[data-state="done"] .trace-check {
+  opacity: 1;
+}
+.trace-line[data-kind="tool"] .trace-icon,
+.trace-line[data-kind="result"] .trace-icon {
+  color: rgb(var(--c-signal));
+}
+.trace-chip {
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out);
+}
+.trace-chip[data-active="true"] {
+  background: rgb(var(--c-signal));
+  border-color: rgb(var(--c-signal));
+  color: #fff;
+  box-shadow: 0 0 24px rgb(var(--c-signal) / 0.7);
+}
+.trace-dot {
+  animation: caret-blink 1.2s steps(1) infinite;
+}
+
+/* ---------------------------------------------------------- Token stream */
+
+.js-motion [data-reveal="tokens"] {
+  opacity: 1;
+  transform: none;
+}
+.js-motion [data-reveal="tokens"] .token {
+  opacity: 0;
+  filter: blur(6px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    filter 0.6s var(--ease-out);
+  transition-delay: calc(var(--delay, 0ms) + var(--i, 0) * 80ms);
+}
+.js-motion [data-reveal="tokens"].is-revealed .token {
+  opacity: 1;
+  filter: none;
+}
+.token-caret {
+  display: inline-block;
+  width: 0.42em;
+  height: 0.85em;
+  margin-left: 0.15em;
+  vertical-align: -0.05em;
+  background: rgb(var(--c-signal));
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .token-caret,
+  .trace-dot,
+  .trace-caret {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------- Glow & type */
+
+/* Accent lines of titles: each glyph takes its colour from its position, violet → magenta. */
+.jump-accent .jump-unit {
+  color: rgb(var(--c-signal));
+  color: color-mix(in oklab, rgb(var(--c-signal)) calc(100% - var(--t, 0) * 100%), rgb(var(--c-glow)));
+  text-shadow: 0 0 0.6em rgb(var(--c-signal) / 0.45);
+}
+
+.glow-text {
+  text-shadow: 0 0 1.2em rgb(var(--c-signal) / 0.35);
+}
+
+/* Soft violet light that follows the cursor (desktop). */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 44rem;
+  height: 44rem;
+  margin: -22rem 0 0 -22rem;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgb(var(--c-signal) / 0.16), rgb(var(--c-glow) / 0.05) 40%, transparent 70%);
+  will-change: transform;
+}
+
+/* Project frames: a gradient border that lights up on hover. */
+.media-frame {
+  position: relative;
+}
+.media-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, rgb(var(--c-signal) / 0.9), transparent 40%, transparent 60%, rgb(var(--c-glow) / 0.9));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.35;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.media-frame:hover::after {
+  opacity: 1;
+}
+
+/* Giant scrolling band of technologies. */
+.marquee-row {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+.marquee-row.is-reverse {
+  animation-direction: reverse;
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+.marquee-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(var(--c-ink) / 0.35);
+}
+.marquee-fill {
+  background: linear-gradient(90deg, rgb(var(--c-signal)), rgb(var(--c-glow)), rgb(var(--c-cyan)), rgb(var(--c-signal)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ------------------------------------------------------------- Terminal UI */
+
+.term {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  background: rgb(14 9 30 / 0.78);
+  box-shadow:
+    0 0 0 1px rgb(var(--c-ink) / 0.1),
+    0 30px 90px -40px rgb(var(--c-signal) / 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: box-shadow 0.5s var(--ease-out);
+}
+.term:hover {
+  box-shadow:
+    0 0 0 1px rgb(var(--c-signal) / 0.45),
+    0 30px 100px -30px rgb(var(--c-signal) / 0.6);
+}
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid rgb(var(--c-ink) / 0.08);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.6875rem;
+  color: rgb(var(--c-mute));
+}
+.term-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+.term-dots span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: rgb(var(--c-ink) / 0.18);
+}
+.term-dots span:first-child {
+  background: rgb(var(--c-glow) / 0.8);
+}
+
+.prompt::before {
+  content: "❯ ";
+  color: rgb(var(--c-cyan));
+}
+
+/* Syntax colours of the code panels. */
+.tok-key { color: rgb(var(--c-glow)); }
+.tok-str { color: rgb(190 242 100); }
+.tok-com { color: rgb(var(--c-mute) / 0.85); font-style: italic; }
+.tok-kw { color: rgb(var(--c-signal)); }
+.tok-fn { color: rgb(var(--c-cyan)); }
+
+.caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.1em;
+  vertical-align: -0.15em;
+  background: rgb(var(--c-cyan));
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+/* Typed command: characters revealed by width, monospace so 1ch = 1 character. */
+.typed {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  width: 0;
+  animation: typing var(--dur, 1s) steps(var(--chars), end) var(--delay, 0ms) forwards;
+}
+@keyframes typing {
+  to {
+    width: calc(var(--chars) * 1ch);
+  }
+}
+
+/* RGB-split glitch, triggered by the .is-glitching class (JS, every few seconds). */
+.is-glitching .jump-line {
+  animation: glitch-shift 0.36s steps(3) 1;
+}
+.is-glitching .jump-unit {
+  text-shadow:
+    0.04em 0 rgb(var(--c-cyan) / 0.9),
+    -0.04em 0 rgb(var(--c-glow) / 0.9) !important;
+}
+@keyframes glitch-shift {
+  0% {
+    transform: translate3d(0.03em, 0, 0);
+    clip-path: inset(10% 0 55% 0);
+  }
+  33% {
+    transform: translate3d(-0.04em, 0, 0);
+    clip-path: inset(55% 0 8% 0);
+  }
+  66% {
+    transform: translate3d(0.02em, 0, 0);
+    clip-path: inset(30% 0 30% 0);
+  }
+  100% {
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typed {
+    animation: none;
+    width: auto;
+  }
+  .caret,
+  .is-glitching .jump-line {
+    animation: none !important;
+  }
+}
+
+/* Scroll-driven donut widget: slides in after the hero. */
+.scroll-donut {
+  opacity: 0;
+  transform: translate3d(0, 1.5rem, 0) scale(0.92);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.7s var(--ease-jump);
+}
+.scroll-donut[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+.scroll-donut .ascii-canvas {
+  touch-action: auto;
+  cursor: default;
+}
