@@ -6,6 +6,10 @@ import { ExternalLink } from "../ui/ExternalLink";
 import { ArrowRight, ArrowUpRight, ChatIcon, CheckIcon, CopyIcon, InstagramIcon, LinkedInIcon, MailIcon } from "../ui/Icons";
 import { JumpText } from "../ui/JumpText";
 
+/** "393472693212" → "347 269 3212": the Italian number as people write it. */
+const formatPhone = (international: string) =>
+  international.replace(/^39/, "").replace(/^(\d{3})(\d{3})(\d+)$/, "$1 $2 $3");
+
 const SOCIAL_ICONS: Record<string, typeof InstagramIcon> = { Instagram: InstagramIcon, LinkedIn: LinkedInIcon };
 
 /** Selects the text of an element, so the visitor can copy it by hand when the clipboard is refused. */
@@ -211,6 +215,9 @@ export function Contact() {
                 <ChatIcon />
                 {contactCopy.whatsappLabel}
               </ExternalLink>
+              <p className="mt-2 text-sm text-mute">
+                oppure chiama il <span className="select-all font-semibold text-ink">{formatPhone(site.whatsapp)}</span>
+              </p>
             </li>
           )}
           {site.email && (

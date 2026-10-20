@@ -42,10 +42,22 @@ export function Websites() {
             {websiteOffer.price}
           </p>
           <p className="mt-2 text-lg font-semibold">{websiteOffer.priceNote}</p>
+          <ul className="mt-5 space-y-2.5">
+            {websiteOffer.priceExtras.map((extra) => (
+              <li key={extra} className="flex items-center gap-2.5 font-semibold">
+                <span className="tick !h-5 !w-5 bg-inchiostro text-[0.7rem] text-lime">
+                  <CheckIcon />
+                </span>
+                {extra}
+              </li>
+            ))}
+          </ul>
+          {/* Pushes the button to the bottom of the card, never closer than 2rem to the list. */}
+          <span aria-hidden="true" className="min-h-[2rem] flex-1" />
           <a
             href="#contatti"
             data-topic={contactCopy.topics[0]}
-            className="btn mt-8 bg-inchiostro text-bianco shadow-[0_4px_0_rgb(0_0_0/0.35)] lg:mt-auto"
+            className="btn bg-inchiostro text-bianco shadow-[0_4px_0_rgb(0_0_0/0.35)]"
           >
             {websiteOffer.cta}
             <ArrowRight className="btn-arrow" />

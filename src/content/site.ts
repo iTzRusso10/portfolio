@@ -23,7 +23,7 @@ export const site = {
    * WhatsApp number in international format, digits only (e.g. "393331234567").
    * When set, the contact section shows a "Scrivimi su WhatsApp" button.
    */
-  whatsapp: null as string | null,
+  whatsapp: "393472693212" as string | null,
   location: "Calabria · lavoro con clienti in tutta Italia",
   socials: [
     {
@@ -59,6 +59,8 @@ export const websiteOffer = {
     "Il tuo biglietto da visita online: chi sei, cosa fai, dove trovarti e come contattarti. Pensato per chi ha un'attività e vuole farsi trovare, senza spendere una fortuna.",
   price: "250 €",
   priceNote: "sito vetrina completo",
+  /** Shown under the price, in the lime card. */
+  priceExtras: ["Dominio e hosting gratis per 1 anno", "2 giri di modifiche inclusi"],
   cta: "Voglio il mio sito",
   /** What the 250 € website includes. */
   includes: [
@@ -67,6 +69,8 @@ export const websiteOffer = {
     "Pulsanti per chiamarti, scriverti o trovarti su Google Maps",
     "Pagina contatti e collegamento ai tuoi social",
     "Pronto per comparire su Google",
+    "Dominio e hosting gratuiti per il primo anno",
+    "2 giri di modifiche inclusi",
     "Messa online e assistenza dopo la consegna",
   ],
   idealFor: ["Negozi", "Ristoranti e bar", "Studi professionali", "Artigiani", "Centri estetici", "Palestre"],
