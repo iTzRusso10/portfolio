@@ -5,7 +5,7 @@ import { JumpText } from "../ui/JumpText";
 
 export function Process() {
   return (
-    <section id="metodo" aria-labelledby="metodo-title" className="theme-light sheet py-16 sm:py-[12vh] lg:py-[14vh]">
+    <section id="metodo" aria-labelledby="metodo-title" className="sheet py-16 sm:py-[12vh] lg:py-[14vh]">
       <div className="shell above-scene">
         <div className="max-w-[40rem]">
           <p className="kicker" data-reveal>
@@ -16,7 +16,7 @@ export function Process() {
         <ol className="mt-12 grid gap-5 md:grid-cols-3 lg:mt-16">
           {processCopy.steps.map((step, i) => (
             <li key={step.name} data-reveal style={{ "--delay": `${i * 110}ms` } as CSSProperties}>
-              <Card3D tone="white" className="h-full" bodyClassName="p-7 lg:p-8">
+              <Card3D className="h-full" bodyClassName="p-7 lg:p-8">
                 <p className="step-number text-[4.5rem]" aria-hidden="true">
                   {i + 1}
                 </p>

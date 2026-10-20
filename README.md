@@ -5,8 +5,8 @@ Built with React, TypeScript, Three.js / React Three Fiber and Tailwind CSS.
 
 Palette @giuseppewebdev: Inchiostro `#170B2E`, Viola `#7C3AED`, Lime `#D4FF3F`, Lavanda `#F3EEFF`,
 Viola chiaro `#A78BFA`, Grigio viola `#6B5E86`, Bianco `#FFFFFF` (tokens in `src/styles/index.css`).
-Dark sections alternate with light lavender "sheets"; the keyword of each title is lime (on light
-sections, a lime highlighter stroke). Cards float in 3D, leaning with the scroll and toward the pointer.
+Inchiostro is the main colour: every section is dark, the offer sections on slightly lighter rounded
+sheets; the keyword of each title is lime. Cards float in 3D, leaning with the scroll and toward the pointer.
 
 The 3D objects are rendered **live as ASCII**: each shape is drawn into a tiny render target (one
 texel per character cell), then a full-screen shader turns each cell into a glyph. Shapes

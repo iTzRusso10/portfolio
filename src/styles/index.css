@@ -15,9 +15,8 @@
  *   Grigio viola #6B5E86  testi secondari
  *   Bianco       #FFFFFF  testi su scuro, card
  *
- * Sections alternate between a dark theme (default) and a light one
- * (.theme-light). The semantic tokens below switch with the theme; colours
- * are RGB triplets so Tailwind can apply opacity.
+ * Inchiostro is the main colour: every section is dark. Colours are RGB
+ * triplets so Tailwind can apply opacity.
  */
 :root {
   --c-inchiostro: 23 11 46;
@@ -41,24 +40,6 @@
   --ease-jump: cubic-bezier(0.34, 1.56, 0.64, 1);
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --header-h: 4.5rem;
-  color-scheme: dark;
-}
-
-.theme-light {
-  --c-base: var(--c-lavanda);
-  --c-ink: var(--c-inchiostro);
-  --c-mute: var(--c-grigio-viola);
-  --c-line: var(--c-inchiostro);
-  --c-accent: var(--c-viola);
-  color-scheme: light;
-}
-/* Dark islands inside a light section (the 3D screens). */
-.theme-dark {
-  --c-base: var(--c-inchiostro);
-  --c-ink: var(--c-bianco);
-  --c-mute: 188 181 210;
-  --c-line: var(--c-lavanda);
-  --c-accent: var(--c-viola-chiaro);
   color-scheme: dark;
 }
 
@@ -117,13 +98,15 @@
     z-index: 2;
   }
 
-  /* Light sections are big rounded sheets laid over the dark page. */
+  /* Offer sections sit on big rounded sheets, a shade lighter than the page, to give it rhythm. */
   .sheet {
     position: relative;
     margin-inline: clamp(0.5rem, 1.2vw, 1.25rem);
     border-radius: clamp(1.75rem, 3.5vw, 3rem);
-    background: rgb(var(--c-base));
-    color: rgb(var(--c-ink));
+    background:
+      radial-gradient(60% 50% at 85% 0%, rgb(var(--c-viola) / 0.22), transparent 70%),
+      rgb(var(--c-viola) / 0.07);
+    box-shadow: inset 0 0 0 1px rgb(var(--c-lavanda) / 0.08);
     overflow: clip;
   }
 
@@ -149,10 +132,6 @@
     border-radius: 50%;
     background: rgb(var(--c-lime));
     box-shadow: 0 0 0 3px rgb(var(--c-lime) / 0.25);
-  }
-  .theme-light .kicker::before {
-    background: rgb(var(--c-viola));
-    box-shadow: 0 0 0 3px rgb(var(--c-viola) / 0.18);
   }
 
   .type-display {
@@ -202,7 +181,7 @@
   .btn:active {
     transform: translate3d(0, 1px, 0) scale(0.98);
   }
-  /* Primary: lime on dark, violet on light. A solid lip underneath makes it look pressable. */
+  /* Primary: lime, with a solid lip underneath so it looks pressable. */
   .btn-solid {
     background: rgb(var(--c-lime));
     color: rgb(var(--c-inchiostro));
@@ -214,18 +193,6 @@
     box-shadow:
       0 6px 0 rgb(132 170 0),
       0 20px 50px -12px rgb(var(--c-lime) / 0.85);
-  }
-  .theme-light .btn-solid {
-    background: rgb(var(--c-viola));
-    color: rgb(var(--c-bianco));
-    box-shadow:
-      0 4px 0 rgb(76 29 149),
-      0 14px 40px -12px rgb(var(--c-viola) / 0.7);
-  }
-  .theme-light .btn-solid:hover {
-    box-shadow:
-      0 6px 0 rgb(76 29 149),
-      0 20px 50px -12px rgb(var(--c-viola) / 0.8);
   }
   .btn-ghost {
     border: 1.5px solid rgb(var(--c-line) / 0.3);
@@ -241,28 +208,9 @@
     transform: translate3d(3px, 0, 0);
   }
 
-  /* Highlighted keyword: lime on dark; on light a lime highlighter stroke that draws in. */
+  /* Highlighted keyword of a title. */
   .mark-unit {
     color: rgb(var(--c-lime));
-  }
-  .theme-light .mark-unit {
-    color: inherit;
-  }
-  .theme-light .mark-word {
-    background-image: linear-gradient(rgb(var(--c-lime)), rgb(var(--c-lime)));
-    background-repeat: no-repeat;
-    background-position: 0 88%;
-    background-size: 100% 42%;
-    padding-inline: 0.04em;
-    margin-inline: -0.04em;
-  }
-  .js-motion .theme-light [data-reveal="jump"] .mark-word {
-    background-size: 0% 42%;
-    transition: background-size 0.8s var(--ease-out);
-    transition-delay: calc(var(--delay, 0ms) + 450ms);
-  }
-  .js-motion .theme-light [data-reveal="jump"].is-revealed .mark-word {
-    background-size: 100% 42%;
   }
 
   /* Ticked list items. */
@@ -610,20 +558,7 @@ html.has-cursor * {
     0 0 0 1px rgb(var(--c-viola-chiaro) / 0.45),
     0 30px 100px -30px rgb(var(--c-viola) / 0.7);
 }
-/* White card on light sections. */
-.card-white {
-  background: rgb(var(--c-bianco));
-  color: rgb(var(--c-inchiostro));
-  box-shadow:
-    0 0 0 1px rgb(var(--c-viola) / 0.08),
-    0 30px 70px -36px rgb(var(--c-viola) / 0.45);
-}
-.card-white:hover {
-  box-shadow:
-    0 0 0 1px rgb(var(--c-viola) / 0.3),
-    0 36px 80px -34px rgb(var(--c-viola) / 0.55);
-}
-/* Dark screen that holds a 3D object, also inside light sections. */
+/* Dark screen that holds a 3D object. */
 .card-screen {
   background:
     radial-gradient(70% 60% at 50% 40%, rgb(var(--c-viola) / 0.35), transparent 70%),
@@ -678,9 +613,6 @@ html.has-cursor * {
   box-shadow: none;
   transform: translateZ(-90px);
 }
-.theme-light .panel-plate-far {
-  border-color: rgb(var(--c-viola) / 0.25);
-}
 /* Glare that follows the pointer across the card. */
 .card::after {
   content: "";
@@ -712,7 +644,7 @@ html.has-cursor * {
   font-stretch: 112%;
   line-height: 0.8;
   letter-spacing: -0.05em;
-  color: rgb(var(--c-viola));
+  color: rgb(var(--c-viola-chiaro));
 }
 
 /* ------------------------------------------------------------- Form */

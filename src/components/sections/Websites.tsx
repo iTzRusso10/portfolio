@@ -7,7 +7,7 @@ import { Scene3D } from "../ui/Scene3D";
 
 export function Websites() {
   return (
-    <section id="siti" aria-labelledby="siti-title" className="theme-light sheet py-16 sm:py-[12vh] lg:py-[14vh]">
+    <section id="siti" aria-labelledby="siti-title" className="sheet py-16 sm:py-[12vh] lg:py-[14vh]">
       <div className="shell above-scene grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12 lg:gap-y-14">
         <div className="lg:col-span-6">
           <p className="kicker" data-reveal>
@@ -26,7 +26,7 @@ export function Websites() {
             <p className="label text-mute">Perfetto per</p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {websiteOffer.idealFor.map((item) => (
-                <li key={item} className="rounded-full bg-bianco px-3.5 py-1.5 text-sm font-semibold text-inchiostro shadow-[0_6px_20px_-12px_rgb(124_58_237/0.6)]">
+                <li key={item} className="rounded-full border border-line/15 bg-bianco/5 px-3.5 py-1.5 text-sm font-semibold">
                   {item}
                 </li>
               ))}
@@ -52,7 +52,7 @@ export function Websites() {
           </a>
         </Card3D>
 
-        <Card3D tone="white" className="lg:col-span-8" bodyClassName="p-7 lg:p-9" data-reveal>
+        <Card3D className="lg:col-span-8" bodyClassName="p-7 lg:p-9" data-reveal>
           <h3 className="text-xl font-bold">Cosa comprende</h3>
           <ul className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2">
             {websiteOffer.includes.map((item, i) => (

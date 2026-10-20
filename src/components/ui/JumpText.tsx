@@ -4,9 +4,8 @@ import { parseMarks, plainText } from "../../utils/marks";
 /**
  * Text that jumps into place, a letter (titles) or a word (paragraphs) at a
  * time, when it first enters the viewport. Words wrapped in *asterisks* are
- * the keyword of the line: lime on dark sections, a lime highlighter on light
- * ones. Assistive tech reads the plain text from a visually hidden copy; the
- * animated glyphs are aria-hidden.
+ * the keyword of the line, shown in lime. Assistive tech reads the plain text
+ * from a visually hidden copy; the animated glyphs are aria-hidden.
  */
 
 type Unit = "char" | "word";
@@ -67,7 +66,7 @@ export function JumpText({
             <span key={l} className="jump-line">
               {words.map((word, w) => (
                 <span key={w}>
-                  <span className={`jump-word ${word.mark ? "mark-word" : ""}`}>
+                  <span className="jump-word">
                     {unit === "word" ? (
                       <span className={`jump-unit ${word.mark ? "mark-unit" : ""}`} style={{ "--i": index++ } as CSSProperties}>
                         {word.chars.map((c) => c.char).join("")}
