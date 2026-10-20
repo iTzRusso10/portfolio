@@ -57,3 +57,7 @@ reveals and glitches are disabled and the knot stays still.
 
 Hosted on Vercel at https://giusepperussodev.it (see `vercel.json`: build `npm run build`, output `docs/`).
 The domain's DNS is managed on OVH and points to Vercel.
+
+Vercel deploys every push to `main`, but only when the commit **author** is the project owner's
+GitHub account (Giuseppe Russo, giusepperusso1003@gmail.com): commits by anyone else are not
+deployed. Set `git config user.name` / `user.email` accordingly before committing.
