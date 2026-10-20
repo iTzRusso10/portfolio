@@ -15,6 +15,8 @@ export function createObjectMaterial() {
       uPointerStrength: { value: 0 },
       uPulseAge: { value: 100 },
       uDeform: { value: 1 },
+      // Per-mesh brightness, set from Mesh.onBeforeRender (see shapes.ts).
+      uGain: { value: 1 },
     },
     vertexShader: /* glsl */ `
       ${SIMPLEX_3D}
@@ -42,14 +44,15 @@ export function createObjectMaterial() {
       uniform float uTime;
       uniform vec3 uLight;
       uniform float uPulseAge;
+      uniform float uGain;
       varying vec3 vNormalV;
       varying vec3 vPos;
       void main() {
         vec3 n = normalize(vNormalV);
         float diffuse = max(dot(n, normalize(uLight)), 0.0);
         float rim = pow(1.0 - max(n.z, 0.0), 2.0);
-        float lum = clamp(0.06 + diffuse * 0.66 + rim * 0.32 + exp(-uPulseAge * 2.0) * 0.3, 0.0, 1.0);
-        // Bands of "data" travelling along the shape: shown as cyan binary digits.
+        float lum = clamp(0.06 + diffuse * 0.66 + rim * 0.32 + exp(-uPulseAge * 2.0) * 0.3, 0.0, 1.0) * uGain;
+        // Bands of "data" travelling along the shape: shown as lime binary digits.
         float band = smoothstep(0.86, 1.0, sin(vPos.y * 3.2 + vPos.x * 1.4 - uTime * 1.6));
         gl_FragColor = vec4(lum, band, 0.0, 1.0);
       }
@@ -71,10 +74,11 @@ export function createAsciiMaterial(atlas: Texture, scene: Texture) {
       uIntro: { value: 0 },
       uGlitch: { value: 0 },
       uField: { value: 1 },
-      uViolet: { value: new Color("#a78bfa").convertLinearToSRGB() },
-      uMagenta: { value: new Color("#f0abfc").convertLinearToSRGB() },
-      uCyan: { value: new Color("#67e8f9").convertLinearToSRGB() },
-      uDim: { value: new Color("#7c6aa8").convertLinearToSRGB() },
+      // Palette: viola chiaro → lavanda on the shape, lime on the data bands, grigio viola behind.
+      uBase: { value: new Color("#a78bfa").convertLinearToSRGB() },
+      uHighlight: { value: new Color("#f3eeff").convertLinearToSRGB() },
+      uBand: { value: new Color("#d4ff3f").convertLinearToSRGB() },
+      uDim: { value: new Color("#6b5e86").convertLinearToSRGB() },
     },
     vertexShader: /* glsl */ `
       varying vec2 vUv;
@@ -91,9 +95,9 @@ export function createAsciiMaterial(atlas: Texture, scene: Texture) {
       uniform float uIntro;
       uniform float uGlitch;
       uniform float uField;
-      uniform vec3 uViolet;
-      uniform vec3 uMagenta;
-      uniform vec3 uCyan;
+      uniform vec3 uBase;
+      uniform vec3 uHighlight;
+      uniform vec3 uBand;
       uniform vec3 uDim;
       varying vec2 vUv;
 
@@ -140,9 +144,9 @@ export function createAsciiMaterial(atlas: Texture, scene: Texture) {
         vec2 atlasUv = vec2((glyphIndex + local.x) / TOTAL, 1.0 - local.y);
         float glyph = texture2D(uAtlas, atlasUv).r;
 
-        vec3 color = mix(uViolet, uMagenta, smoothstep(0.55, 1.0, lum));
-        color = mix(color, uCyan, step(0.5, band));
-        float alpha = covered > 0.5 ? glyph * (0.6 + 0.4 * lum) : glyph * fieldOn * 0.22;
+        vec3 color = mix(uBase, uHighlight, smoothstep(0.55, 1.0, lum));
+        color = mix(color, uBand, step(0.5, band));
+        float alpha = covered > 0.5 ? glyph * (0.7 + 0.3 * lum) : glyph * fieldOn * 0.22;
         color = covered > 0.5 ? color : uDim;
         gl_FragColor = vec4(color * alpha, alpha);
       }

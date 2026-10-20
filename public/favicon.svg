@@ -1,8 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#0f0f0e"/>
-  <g transform="translate(32 33)">
-    <path d="M-18 9 0 15 18 9 0 3z" fill="#2c2b28"/>
-    <path d="M-18 1 0 7 18 1 0-5z" fill="#e8e5de" fill-opacity=".85"/>
-    <path d="M-18-7 0-1 18-7 0-13z" fill="#ff4d1a"/>
-  </g>
+  <rect width="64" height="64" rx="16" fill="#7C3AED"/>
+  <text x="31" y="42" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#FFFFFF" letter-spacing="-1">GR</text>
+  <circle cx="52" cy="12" r="7" fill="#D4FF3F" stroke="#170B2E" stroke-width="3"/>
 </svg>

@@ -1,5 +1,4 @@
 @import "@fontsource-variable/archivo/wdth.css";
-@import "@fontsource/instrument-serif/400-italic.css";
 @import "@fontsource/jetbrains-mono/400.css";
 
 @tailwind base;
@@ -7,19 +6,35 @@
 @tailwind utilities;
 
 /*
- * Art direction — "Nebula"
- * Violet-black night, lavender type, light coming from the scene: violet and
- * magenta glows with a cyan accent. Colours are RGB triplets so Tailwind can
- * apply opacity.
+ * Palette @giuseppewebdev
+ *   Inchiostro   #170B2E  sfondi scuri, testi
+ *   Viola        #7C3AED  accento, numeri, icone
+ *   Lime         #D4FF3F  parola chiave, evidenziatore
+ *   Lavanda      #F3EEFF  sfondi chiari
+ *   Viola chiaro #A78BFA  accento su sfondo scuro
+ *   Grigio viola #6B5E86  testi secondari
+ *   Bianco       #FFFFFF  testi su scuro, card
+ *
+ * Sections alternate between a dark theme (default) and a light one
+ * (.theme-light). The semantic tokens below switch with the theme; colours
+ * are RGB triplets so Tailwind can apply opacity.
  */
 :root {
-  --c-night: 7 5 16;
-  --c-ink: 237 233 254;
-  --c-mute: 161 151 204;
-  --c-line: 237 233 254;
-  --c-signal: 168 85 247;
-  --c-glow: 232 121 249;
-  --c-cyan: 103 232 249;
+  --c-inchiostro: 23 11 46;
+  --c-viola: 124 58 237;
+  --c-lime: 212 255 63;
+  --c-lavanda: 243 238 255;
+  --c-viola-chiaro: 167 139 250;
+  --c-grigio-viola: 107 94 134;
+  --c-bianco: 255 255 255;
+
+  --c-base: var(--c-inchiostro);
+  --c-ink: var(--c-bianco);
+  /* Lavanda at 75% over inchiostro: secondary text that stays readable on dark. */
+  --c-mute: 188 181 210;
+  --c-line: var(--c-lavanda);
+  --c-accent: var(--c-viola-chiaro);
+
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   /* Overshoots and settles: the shared "jump" of every entrance. */
@@ -29,9 +44,27 @@
   color-scheme: dark;
 }
 
+.theme-light {
+  --c-base: var(--c-lavanda);
+  --c-ink: var(--c-inchiostro);
+  --c-mute: var(--c-grigio-viola);
+  --c-line: var(--c-inchiostro);
+  --c-accent: var(--c-viola);
+  color-scheme: light;
+}
+/* Dark islands inside a light section (the 3D screens). */
+.theme-dark {
+  --c-base: var(--c-inchiostro);
+  --c-ink: var(--c-bianco);
+  --c-mute: 188 181 210;
+  --c-line: var(--c-lavanda);
+  --c-accent: var(--c-viola-chiaro);
+  color-scheme: dark;
+}
+
 @layer base {
   html {
-    background: rgb(var(--c-night));
+    background: rgb(var(--c-inchiostro));
     color: rgb(var(--c-ink));
     scroll-padding-top: var(--header-h);
     -webkit-text-size-adjust: 100%;
@@ -53,14 +86,14 @@
   }
 
   ::selection {
-    background: rgb(var(--c-signal));
-    color: #fff;
+    background: rgb(var(--c-lime));
+    color: rgb(var(--c-inchiostro));
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--c-signal));
+    outline: 2px solid rgb(var(--c-accent));
     outline-offset: 4px;
-    border-radius: 2px;
+    border-radius: 4px;
   }
 
   img,
@@ -73,56 +106,68 @@
 @layer components {
   .shell {
     width: 100%;
-    max-width: 112rem;
+    max-width: 84rem;
     margin-inline: auto;
     padding-inline: var(--gutter);
   }
 
-  /* Content sits above the fixed WebGL layer (z 1) while section backgrounds stay below it. */
+  /* Content sits above the section's 3D canvas. */
   .above-scene {
     position: relative;
     z-index: 2;
   }
 
+  /* Light sections are big rounded sheets laid over the dark page. */
+  .sheet {
+    position: relative;
+    margin-inline: clamp(0.5rem, 1.2vw, 1.25rem);
+    border-radius: clamp(1.75rem, 3.5vw, 3rem);
+    background: rgb(var(--c-base));
+    color: rgb(var(--c-ink));
+    overflow: clip;
+  }
+
   .label {
-    @apply font-mono uppercase;
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  /* Small pill above every title: a lime dot and the section name. */
+  .kicker {
+    @apply label inline-flex items-center gap-2 rounded-full px-3.5 py-1.5;
+    border: 1px solid rgb(var(--c-line) / 0.16);
+    background: rgb(var(--c-ink) / 0.04);
+    color: rgb(var(--c-ink));
+  }
+  .kicker::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: rgb(var(--c-lime));
+    box-shadow: 0 0 0 3px rgb(var(--c-lime) / 0.25);
+  }
+  .theme-light .kicker::before {
+    background: rgb(var(--c-viola));
+    box-shadow: 0 0 0 3px rgb(var(--c-viola) / 0.18);
   }
 
   .type-display {
     font-weight: 800;
-    font-stretch: 118%;
-    letter-spacing: -0.045em;
-    line-height: 0.86;
+    font-stretch: 112%;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
   }
 
   .type-title {
-    font-weight: 700;
-    font-stretch: 112%;
+    font-weight: 800;
+    font-stretch: 108%;
     letter-spacing: -0.035em;
-    line-height: 0.95;
-    font-size: clamp(2.5rem, 7vw, 6.5rem);
-  }
-
-  .type-statement {
-    font-weight: 500;
-    font-stretch: 100%;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
-    font-size: clamp(1.9rem, 4.2vw, 4rem);
-  }
-
-  .type-serif {
-    @apply font-serif italic;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-  }
-
-  .hairline {
-    height: 1px;
-    background: rgb(var(--c-line) / 0.18);
+    line-height: 0.98;
+    font-size: clamp(2.3rem, 5.6vw, 4.6rem);
   }
 
   /* Underline that draws in on hover/focus. */
@@ -139,34 +184,55 @@
   }
 
   .btn {
-    @apply relative inline-flex items-center gap-3 rounded-full font-display;
-    font-weight: 600;
-    font-size: 0.9375rem;
+    @apply relative inline-flex items-center justify-center gap-2.5 rounded-full font-display;
+    font-weight: 700;
+    font-size: 0.975rem;
     font-stretch: 105%;
     padding: 0.95rem 1.5rem;
     transition:
       background-color 0.4s var(--ease-out),
       color 0.4s var(--ease-out),
-      border-color 0.4s var(--ease-out);
-    will-change: transform;
+      border-color 0.4s var(--ease-out),
+      box-shadow 0.4s var(--ease-out),
+      transform 0.4s var(--ease-jump);
   }
+  .btn:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+  .btn:active {
+    transform: translate3d(0, 1px, 0) scale(0.98);
+  }
+  /* Primary: lime on dark, violet on light. A solid lip underneath makes it look pressable. */
   .btn-solid {
-    background: linear-gradient(120deg, rgb(var(--c-signal)), rgb(var(--c-glow)));
-    color: #fff;
+    background: rgb(var(--c-lime));
+    color: rgb(var(--c-inchiostro));
     box-shadow:
-      0 0 0 1px rgb(255 255 255 / 0.12) inset,
-      0 10px 40px -10px rgb(var(--c-signal) / 0.8);
+      0 4px 0 rgb(132 170 0),
+      0 14px 40px -12px rgb(var(--c-lime) / 0.7);
   }
   .btn-solid:hover {
     box-shadow:
-      0 0 0 1px rgb(255 255 255 / 0.2) inset,
-      0 14px 60px -8px rgb(var(--c-glow) / 0.9);
+      0 6px 0 rgb(132 170 0),
+      0 20px 50px -12px rgb(var(--c-lime) / 0.85);
+  }
+  .theme-light .btn-solid {
+    background: rgb(var(--c-viola));
+    color: rgb(var(--c-bianco));
+    box-shadow:
+      0 4px 0 rgb(76 29 149),
+      0 14px 40px -12px rgb(var(--c-viola) / 0.7);
+  }
+  .theme-light .btn-solid:hover {
+    box-shadow:
+      0 6px 0 rgb(76 29 149),
+      0 20px 50px -12px rgb(var(--c-viola) / 0.8);
   }
   .btn-ghost {
-    border: 1px solid rgb(var(--c-line) / 0.35);
+    border: 1.5px solid rgb(var(--c-line) / 0.3);
+    color: rgb(var(--c-ink));
   }
   .btn-ghost:hover {
-    border-color: rgb(var(--c-line));
+    border-color: rgb(var(--c-ink));
   }
   .btn .btn-arrow {
     transition: transform 0.5s var(--ease-out);
@@ -174,11 +240,47 @@
   .btn:hover .btn-arrow {
     transform: translate3d(3px, 0, 0);
   }
+
+  /* Highlighted keyword: lime on dark; on light a lime highlighter stroke that draws in. */
+  .mark-unit {
+    color: rgb(var(--c-lime));
+  }
+  .theme-light .mark-unit {
+    color: inherit;
+  }
+  .theme-light .mark-word {
+    background-image: linear-gradient(rgb(var(--c-lime)), rgb(var(--c-lime)));
+    background-repeat: no-repeat;
+    background-position: 0 88%;
+    background-size: 100% 42%;
+    padding-inline: 0.04em;
+    margin-inline: -0.04em;
+  }
+  .js-motion .theme-light [data-reveal="jump"] .mark-word {
+    background-size: 0% 42%;
+    transition: background-size 0.8s var(--ease-out);
+    transition-delay: calc(var(--delay, 0ms) + 450ms);
+  }
+  .js-motion .theme-light [data-reveal="jump"].is-revealed .mark-word {
+    background-size: 100% 42%;
+  }
+
+  /* Ticked list items. */
+  .tick {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: rgb(var(--c-lime));
+    color: rgb(var(--c-inchiostro));
+  }
 }
 
 /* ---------------------------------------------------------------- Scene */
 
-/* Violet aurora behind the page: slow, time-based drift, independent of scroll. */
+/* Violet aurora behind the dark sections: slow, time-based drift, independent of scroll. */
 .aurora {
   position: fixed;
   inset: 0;
@@ -195,15 +297,15 @@
 }
 .aurora::before {
   background:
-    radial-gradient(38% 32% at 72% 28%, rgb(124 58 237 / 0.42), transparent 70%),
-    radial-gradient(30% 28% at 20% 78%, rgb(192 38 211 / 0.26), transparent 70%),
-    radial-gradient(26% 24% at 85% 85%, rgb(34 211 238 / 0.12), transparent 70%);
+    radial-gradient(38% 32% at 72% 28%, rgb(124 58 237 / 0.45), transparent 70%),
+    radial-gradient(30% 28% at 20% 78%, rgb(167 139 250 / 0.22), transparent 70%),
+    radial-gradient(22% 20% at 85% 85%, rgb(212 255 63 / 0.07), transparent 70%);
   animation: aurora-a 38s ease-in-out infinite alternate;
 }
 .aurora::after {
   background:
     radial-gradient(34% 30% at 30% 25%, rgb(91 33 182 / 0.35), transparent 70%),
-    radial-gradient(28% 26% at 65% 70%, rgb(168 85 247 / 0.22), transparent 70%);
+    radial-gradient(28% 26% at 65% 70%, rgb(124 58 237 / 0.2), transparent 70%);
   animation: aurora-b 46s ease-in-out infinite alternate;
 }
 @keyframes aurora-a {
@@ -216,41 +318,20 @@
     transform: translate3d(7%, -4%, 0) rotate(-10deg) scale(1.12);
   }
 }
-.stars {
-  position: absolute;
-  inset: 0;
-  opacity: 0.55;
-  background-image:
-    radial-gradient(1px 1px at 12% 18%, #fff, transparent 60%),
-    radial-gradient(1px 1px at 68% 12%, #e9d5ff, transparent 60%),
-    radial-gradient(1.5px 1.5px at 84% 46%, #fff, transparent 60%),
-    radial-gradient(1px 1px at 36% 62%, #c4b5fd, transparent 60%),
-    radial-gradient(1px 1px at 52% 88%, #fff, transparent 60%),
-    radial-gradient(1.5px 1.5px at 8% 72%, #f5d0fe, transparent 60%),
-    radial-gradient(1px 1px at 92% 82%, #fff, transparent 60%),
-    radial-gradient(1px 1px at 26% 38%, #a5f3fc, transparent 60%);
-  background-size: 420px 420px;
-  animation: twinkle 6s ease-in-out infinite alternate;
-}
-@keyframes twinkle {
-  to {
-    opacity: 0.25;
-  }
-}
 
-/* Terminal grid behind everything, fading toward the edges. */
+/* Soft grid behind everything, fading toward the edges. */
 .grid-bg {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgb(var(--c-ink) / 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--c-ink) / 0.045) 1px, transparent 1px);
+    linear-gradient(rgb(var(--c-lavanda) / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--c-lavanda) / 0.04) 1px, transparent 1px);
   background-size: 56px 56px;
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
   mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
 }
 
-/* The ASCII scene fills its section; text sits on top. */
+/* The ASCII scene fills its box; text sits on top. */
 .ascii-canvas {
   touch-action: pan-y;
 }
@@ -266,16 +347,6 @@
 .ascii-canvas[data-status="ready"] > div,
 .ascii-canvas[data-status="ready"] canvas {
   opacity: 1;
-}
-
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  opacity: 0.35;
-  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.22) 2px 3px);
-  mix-blend-mode: multiply;
 }
 
 /* --------------------------------------------------------------- Reveal */
@@ -424,6 +495,34 @@
   }
 }
 
+/* RGB-split glitch on the hero title, triggered by the .is-glitching class every few seconds. */
+.is-glitching .jump-line {
+  animation: glitch-shift 0.36s steps(3) 1;
+}
+.is-glitching .jump-unit {
+  text-shadow:
+    0.04em 0 rgb(var(--c-lime) / 0.85),
+    -0.04em 0 rgb(var(--c-viola) / 0.95) !important;
+}
+@keyframes glitch-shift {
+  0% {
+    transform: translate3d(0.03em, 0, 0);
+    clip-path: inset(10% 0 55% 0);
+  }
+  33% {
+    transform: translate3d(-0.04em, 0, 0);
+    clip-path: inset(55% 0 8% 0);
+  }
+  66% {
+    transform: translate3d(0.02em, 0, 0);
+    clip-path: inset(30% 0 30% 0);
+  }
+  100% {
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 /* --------------------------------------------------------------- Cursor */
 
 html.has-cursor,
@@ -474,162 +573,6 @@ html.has-cursor * {
   opacity: 0;
 }
 
-/* ------------------------------------------------------- Project media */
-
-.media-frame {
-  transform-style: preserve-3d;
-  transition: transform 0.9s var(--ease-out);
-  will-change: transform;
-}
-
-@keyframes scroll-hint {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-  45% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  55% {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
-}
-.scroll-hint-line {
-  animation: scroll-hint 2.4s var(--ease-in-out) infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroll-hint-line,
-  .jump-glyph.is-hopping,
-  .aurora::before,
-  .aurora::after,
-  .stars,
-  .marquee-row {
-    animation: none !important;
-  }
-  .media-frame,
-  .btn {
-    transition: none !important;
-  }
-}
-
-/* ---------------------------------------------------------- Agent trace */
-
-.trace-line {
-  transition: opacity 0.4s var(--ease-out);
-}
-.trace-line[data-state="pending"] {
-  opacity: 0.28;
-}
-.trace-text {
-  display: inline-block;
-  max-width: calc(var(--chars, 0) * 1ch);
-  overflow: hidden;
-  white-space: nowrap;
-  vertical-align: bottom;
-}
-.trace-caret {
-  display: none;
-  flex: none;
-  width: 0.6ch;
-  height: 1.1em;
-  margin-left: 0.15ch;
-  align-self: center;
-  background: rgb(var(--c-signal));
-  animation: caret-blink 1s steps(1) infinite;
-}
-.trace-line[data-state="current"] .trace-caret {
-  display: block;
-}
-.trace-check {
-  opacity: 0;
-  color: rgb(var(--c-signal));
-  transition: opacity 0.3s;
-}
-.trace-line[data-state="done"] .trace-check {
-  opacity: 1;
-}
-.trace-line[data-kind="tool"] .trace-icon,
-.trace-line[data-kind="result"] .trace-icon {
-  color: rgb(var(--c-signal));
-}
-.trace-chip {
-  transition:
-    background-color 0.4s var(--ease-out),
-    color 0.4s var(--ease-out),
-    border-color 0.4s var(--ease-out);
-}
-.trace-chip[data-active="true"] {
-  background: rgb(var(--c-signal));
-  border-color: rgb(var(--c-signal));
-  color: #fff;
-  box-shadow: 0 0 24px rgb(var(--c-signal) / 0.7);
-}
-.trace-dot {
-  animation: caret-blink 1.2s steps(1) infinite;
-}
-
-/* ---------------------------------------------------------- Token stream */
-
-.js-motion [data-reveal="tokens"] {
-  opacity: 1;
-  transform: none;
-}
-.js-motion [data-reveal="tokens"] .token {
-  opacity: 0;
-  filter: blur(6px);
-  transition:
-    opacity 0.5s var(--ease-out),
-    filter 0.6s var(--ease-out);
-  transition-delay: calc(var(--delay, 0ms) + var(--i, 0) * 80ms);
-}
-.js-motion [data-reveal="tokens"].is-revealed .token {
-  opacity: 1;
-  filter: none;
-}
-.token-caret {
-  display: inline-block;
-  width: 0.42em;
-  height: 0.85em;
-  margin-left: 0.15em;
-  vertical-align: -0.05em;
-  background: rgb(var(--c-signal));
-  animation: caret-blink 1s steps(1) infinite;
-}
-
-@keyframes caret-blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .token-caret,
-  .trace-dot,
-  .trace-caret {
-    animation: none !important;
-  }
-}
-
-/* ------------------------------------------------------------- Glow & type */
-
-/* Accent lines of titles: each glyph takes its colour from its position, violet → magenta. */
-.jump-accent .jump-unit {
-  color: rgb(var(--c-signal));
-  color: color-mix(in oklab, rgb(var(--c-signal)) calc(100% - var(--t, 0) * 100%), rgb(var(--c-glow)));
-  text-shadow: 0 0 0.6em rgb(var(--c-signal) / 0.45);
-}
-
-.glow-text {
-  text-shadow: 0 0 1.2em rgb(var(--c-signal) / 0.35);
-}
-
 /* Soft violet light that follows the cursor (desktop). */
 .cursor-glow {
   position: fixed;
@@ -641,177 +584,180 @@ html.has-cursor * {
   margin: -22rem 0 0 -22rem;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle, rgb(var(--c-signal) / 0.16), rgb(var(--c-glow) / 0.05) 40%, transparent 70%);
+  background: radial-gradient(circle, rgb(var(--c-viola) / 0.16), rgb(var(--c-viola-chiaro) / 0.05) 40%, transparent 70%);
   will-change: transform;
 }
 
-/* Project frames: a gradient border that lights up on hover. */
-.media-frame {
+/* ------------------------------------------------------------- Cards */
+
+.card {
   position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  transition: box-shadow 0.5s var(--ease-out);
 }
-.media-frame::after {
+/* Glass on dark sections. */
+.card-glass {
+  background: rgb(36 20 66 / 0.72);
+  box-shadow:
+    0 0 0 1px rgb(var(--c-lavanda) / 0.1),
+    0 30px 90px -40px rgb(var(--c-viola) / 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.card-glass:hover {
+  box-shadow:
+    0 0 0 1px rgb(var(--c-viola-chiaro) / 0.45),
+    0 30px 100px -30px rgb(var(--c-viola) / 0.7);
+}
+/* White card on light sections. */
+.card-white {
+  background: rgb(var(--c-bianco));
+  color: rgb(var(--c-inchiostro));
+  box-shadow:
+    0 0 0 1px rgb(var(--c-viola) / 0.08),
+    0 30px 70px -36px rgb(var(--c-viola) / 0.45);
+}
+.card-white:hover {
+  box-shadow:
+    0 0 0 1px rgb(var(--c-viola) / 0.3),
+    0 36px 80px -34px rgb(var(--c-viola) / 0.55);
+}
+/* Dark screen that holds a 3D object, also inside light sections. */
+.card-screen {
+  background:
+    radial-gradient(70% 60% at 50% 40%, rgb(var(--c-viola) / 0.35), transparent 70%),
+    rgb(var(--c-inchiostro));
+  box-shadow:
+    0 0 0 1px rgb(var(--c-viola-chiaro) / 0.25),
+    0 40px 90px -40px rgb(var(--c-viola) / 0.8);
+}
+/* The price tag: lime, the loudest thing on the page. */
+.card-lime {
+  background: rgb(var(--c-lime));
+  color: rgb(var(--c-inchiostro));
+  box-shadow: 0 30px 70px -30px rgb(132 170 0 / 0.8);
+}
+
+/* ------------------------------------------------------------ 3D panels */
+
+.panel-3d {
+  perspective: 1100px;
+}
+.panel-stage {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(var(--tz, 0px));
+  will-change: transform;
+}
+.panel-stage > .card {
+  height: 100%;
+}
+.panel-stage[data-idle="true"] {
+  transform: none;
+  will-change: auto;
+}
+.panel-stage[data-idle="true"] > .panel-plate {
+  display: none;
+}
+/* Glass plates stacked behind the card: they shift in parallax as it tilts. */
+.panel-plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  border: 1px solid rgb(var(--c-accent) / 0.55);
+  background: rgb(var(--c-accent) / 0.08);
+  box-shadow: 0 0 50px -8px rgb(var(--c-accent) / 0.45);
+  transform: translateZ(-45px);
+  pointer-events: none;
+}
+.panel-plate-far {
+  border-color: rgb(var(--c-lime) / 0.45);
+  background: transparent;
+  box-shadow: none;
+  transform: translateZ(-90px);
+}
+.theme-light .panel-plate-far {
+  border-color: rgb(var(--c-viola) / 0.25);
+}
+/* Glare that follows the pointer across the card. */
+.card::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 3;
   border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(140deg, rgb(var(--c-signal) / 0.9), transparent 40%, transparent 60%, rgb(var(--c-glow) / 0.9));
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.35;
-  transition: opacity 0.5s var(--ease-out);
   pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.1), transparent 45%);
+  transition: opacity 0.4s var(--ease-out);
 }
-.media-frame:hover::after {
+[data-hover="true"] > .card::after {
   opacity: 1;
 }
 
-/* Giant scrolling band of technologies. */
-.marquee-row {
-  display: flex;
-  width: max-content;
-  animation: marquee 60s linear infinite;
-}
-.marquee-row.is-reverse {
-  animation-direction: reverse;
-}
-@keyframes marquee {
-  to {
-    transform: translate3d(-33.333%, 0, 0);
+/* Touch devices: no live blur behind the glass cards (costly on mobile GPUs). */
+@media (hover: none) {
+  .card-glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgb(36 20 66 / 0.92);
   }
 }
-.marquee-outline {
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(var(--c-ink) / 0.35);
-}
-.marquee-fill {
-  background: linear-gradient(90deg, rgb(var(--c-signal)), rgb(var(--c-glow)), rgb(var(--c-cyan)), rgb(var(--c-signal)));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+
+/* Big step numbers of "Come lavoro". */
+.step-number {
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: rgb(var(--c-viola));
 }
 
-/* ------------------------------------------------------------- Terminal UI */
+/* ------------------------------------------------------------- Form */
 
-.term {
-  position: relative;
-  overflow: hidden;
+.field {
+  width: 100%;
   border-radius: 0.9rem;
-  background: rgb(14 9 30 / 0.78);
-  box-shadow:
-    0 0 0 1px rgb(var(--c-ink) / 0.1),
-    0 30px 90px -40px rgb(var(--c-signal) / 0.5);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  transition: box-shadow 0.5s var(--ease-out);
+  border: 1.5px solid rgb(var(--c-lavanda) / 0.16);
+  background: rgb(var(--c-inchiostro) / 0.55);
+  padding: 0.85rem 1rem;
+  color: rgb(var(--c-bianco));
+  transition:
+    border-color 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out);
 }
-.term:hover {
-  box-shadow:
-    0 0 0 1px rgb(var(--c-signal) / 0.45),
-    0 30px 100px -30px rgb(var(--c-signal) / 0.6);
+.field::placeholder {
+  color: rgb(var(--c-mute) / 0.7);
 }
-.term-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 1rem;
-  border-bottom: 1px solid rgb(var(--c-ink) / 0.08);
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.6875rem;
-  color: rgb(var(--c-mute));
+.field:focus {
+  outline: none;
+  border-color: rgb(var(--c-viola-chiaro));
+  background: rgb(var(--c-inchiostro) / 0.8);
 }
-.term-dots {
-  display: flex;
-  gap: 0.35rem;
+.chip {
+  @apply inline-flex cursor-pointer items-center rounded-full px-4 py-2 text-sm font-semibold;
+  border: 1.5px solid rgb(var(--c-lavanda) / 0.2);
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
 }
-.term-dots span {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: rgb(var(--c-ink) / 0.18);
+.chip:hover {
+  border-color: rgb(var(--c-lavanda) / 0.5);
 }
-.term-dots span:first-child {
-  background: rgb(var(--c-glow) / 0.8);
+input:checked + .chip {
+  background: rgb(var(--c-lime));
+  border-color: rgb(var(--c-lime));
+  color: rgb(var(--c-inchiostro));
 }
-
-.prompt::before {
-  content: "❯ ";
-  color: rgb(var(--c-cyan));
+input:focus-visible + .chip {
+  outline: 2px solid rgb(var(--c-viola-chiaro));
+  outline-offset: 3px;
 }
 
-/* Syntax colours of the code panels. */
-.tok-key { color: rgb(var(--c-glow)); }
-.tok-str { color: rgb(190 242 100); }
-.tok-com { color: rgb(var(--c-mute) / 0.85); font-style: italic; }
-.tok-kw { color: rgb(var(--c-signal)); }
-.tok-fn { color: rgb(var(--c-cyan)); }
-
-.caret {
-  display: inline-block;
-  width: 0.55em;
-  height: 1.05em;
-  margin-left: 0.1em;
-  vertical-align: -0.15em;
-  background: rgb(var(--c-cyan));
-  animation: caret-blink 1s steps(1) infinite;
-}
-
-/* Typed command: characters revealed by width, monospace so 1ch = 1 character. */
-.typed {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  vertical-align: bottom;
-  width: 0;
-  animation: typing var(--dur, 1s) steps(var(--chars), end) var(--delay, 0ms) forwards;
-}
-@keyframes typing {
-  to {
-    width: calc(var(--chars) * 1ch);
-  }
-}
-
-/* RGB-split glitch, triggered by the .is-glitching class (JS, every few seconds). */
-.is-glitching .jump-line {
-  animation: glitch-shift 0.36s steps(3) 1;
-}
-.is-glitching .jump-unit {
-  text-shadow:
-    0.04em 0 rgb(var(--c-cyan) / 0.9),
-    -0.04em 0 rgb(var(--c-glow) / 0.9) !important;
-}
-@keyframes glitch-shift {
-  0% {
-    transform: translate3d(0.03em, 0, 0);
-    clip-path: inset(10% 0 55% 0);
-  }
-  33% {
-    transform: translate3d(-0.04em, 0, 0);
-    clip-path: inset(55% 0 8% 0);
-  }
-  66% {
-    transform: translate3d(0.02em, 0, 0);
-    clip-path: inset(30% 0 30% 0);
-  }
-  100% {
-    transform: none;
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .typed {
-    animation: none;
-    width: auto;
-  }
-  .caret,
-  .is-glitching .jump-line {
-    animation: none !important;
-  }
-}
+/* ------------------------------------------------------------ Widgets */
 
 /* Scroll-driven donut widget: slides in after the hero. */
 .scroll-donut {
@@ -841,86 +787,11 @@ html.has-cursor * {
 /* Hero entrance cut short by scrolling: everything jumps to its final state. */
 .hero-skip [data-reveal],
 .hero-skip .jump-unit,
-.hero-skip .jump-ball,
-.hero-skip .typed,
-.hero-skip .token {
+.hero-skip .jump-ball {
   transition-duration: 0s !important;
   transition-delay: 0s !important;
   animation-duration: 0s !important;
   animation-delay: 0s !important;
-}
-
-/* ------------------------------------------------------------ 3D panels */
-
-.term-3d {
-  perspective: 1100px;
-}
-.term-stage {
-  position: relative;
-  height: 100%;
-  transform-style: preserve-3d;
-  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(var(--tz, 0px));
-  will-change: transform;
-}
-.term-stage > .term {
-  height: 100%;
-}
-.term-stage[data-idle="true"] {
-  transform: none;
-  will-change: auto;
-}
-.term-stage[data-idle="true"] > .term-plate {
-  display: none;
-}
-/* Glass plates stacked behind the window: they shift in parallax as it tilts. */
-.term-plate {
-  position: absolute;
-  inset: 0;
-  border-radius: 0.9rem;
-  border: 1px solid rgb(var(--c-signal) / 0.6);
-  background: rgb(var(--c-signal) / 0.08);
-  box-shadow: 0 0 50px -8px rgb(var(--c-signal) / 0.55);
-  transform: translateZ(-45px);
-  pointer-events: none;
-}
-.term-plate-far {
-  border-color: rgb(var(--c-glow) / 0.35);
-  background: transparent;
-  box-shadow: none;
-  transform: translateZ(-90px);
-}
-/* Glare that follows the pointer across the glass. */
-.term::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.09), transparent 45%);
-  transition: opacity 0.4s var(--ease-out);
-}
-[data-hover="true"] > .term::after {
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .term-stage {
-    transform: none;
-  }
-  .term-plate {
-    display: none;
-  }
-}
-
-/* Touch devices: no live blur behind the glass panels (costly on mobile GPUs). */
-@media (hover: none) {
-  .term {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: rgb(14 9 30 / 0.9);
-  }
 }
 
 /* Every word of every reveal block jumps in, after its block appears. */
@@ -937,12 +808,6 @@ html.has-cursor * {
   animation-duration: 0s !important;
   animation-delay: 0s !important;
 }
-@media (prefers-reduced-motion: reduce) {
-  .jw {
-    opacity: 1 !important;
-    animation: none !important;
-  }
-}
 
 /*
  * Entrance finished: drop the animation. A filled animation stays in effect
@@ -952,4 +817,28 @@ html.has-cursor * {
 .is-landed {
   opacity: 1 !important;
   animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jump-glyph.is-hopping,
+  .aurora::before,
+  .aurora::after,
+  .is-glitching .jump-line {
+    animation: none !important;
+  }
+  .btn,
+  .btn:hover {
+    transition: none !important;
+    transform: none;
+  }
+  .panel-stage {
+    transform: none;
+  }
+  .panel-plate {
+    display: none;
+  }
+  .jw {
+    opacity: 1 !important;
+    animation: none !important;
+  }
 }

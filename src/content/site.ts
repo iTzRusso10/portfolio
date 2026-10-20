@@ -1,7 +1,7 @@
 /**
- * Personal data and copy. Everything visible on the site that is not a
- * project or a skill lives here, so it can be edited without touching
- * components.
+ * Personal data and copy. Everything visible on the site lives here, so it
+ * can be edited without touching components. Written for clients, not for
+ * developers: no jargon.
  */
 
 export interface SocialLink {
@@ -14,90 +14,109 @@ export const site = {
   name: "Giuseppe Russo",
   firstName: "Giuseppe",
   lastName: "Russo",
-  role: "AI Developer",
-  /** Public URL of the deployed portfolio. */
+  role: "Siti web e gestionali",
+  /** Public URL of the deployed site. */
   url: "https://giusepperussodev.it/",
-  /** Public contact address, as published on giuseppe-portfolio-drab.vercel.app. Set to null to hide it. */
+  /** Public contact address. Set to null to hide it. */
   email: "russo.giuseppe.dev@gmail.com" as string | null,
-  location: "Calabria, Italia · remoto e ibrido",
+  /**
+   * WhatsApp number in international format, digits only (e.g. "393331234567").
+   * When set, the contact section shows a "Scrivimi su WhatsApp" button.
+   */
+  whatsapp: null as string | null,
+  location: "Calabria · lavoro con clienti in tutta Italia",
   socials: [
+    {
+      label: "Instagram",
+      handle: "@giuseppewebdev",
+      href: "https://www.instagram.com/giuseppewebdev/",
+    },
     {
       label: "LinkedIn",
       handle: "giuseppe-russo",
       href: "https://www.linkedin.com/in/giuseppe-russo-792900264/",
     },
-    {
-      label: "GitHub",
-      handle: "iTzRusso10",
-      href: "https://github.com/iTzRusso10",
-    },
   ] satisfies SocialLink[],
 } as const;
 
 export const heroCopy = {
-  prompt: "giuseppe@portfolio",
-  command: "whoami",
-  role: "AI Developer · LLM & AI Agents",
-  kicker: "applicazioni basate su LLM e agenti AI, dentro prodotti veri",
+  badge: "Siti web da 250 €",
+  /** The highlighted word of each line is wrapped in *asterisks*. */
+  title: ["Il tuo sito.", "Il tuo *gestionale*"],
   intro:
-    "Progetto e realizzo applicazioni basate su modelli linguistici e agenti AI, integrate in prodotti web moderni con Next.js, TypeScript e Node.js. Background full stack: so portare un modello dal prototipo all'interfaccia che usa il cliente.",
-  primaryCta: "Vedi cosa faccio",
+    "Creo siti web che fanno trovare la tua attività e gestionali che ti fanno risparmiare tempo. Parli sempre con me, dalla prima idea fino a quando è tutto online.",
+  primaryCta: "Scopri il sito da 250 €",
   secondaryCta: "Contattami",
-  /** Small key/value readout under the hero (desktop). */
-  readout: [
-    ["ruolo", "Sviluppatore AI @ G-Brain"],
-    ["focus", "LLM · agenti AI · prompt engineering"],
-    ["stack", "next.js · typescript · node.js · python"],
-  ] as const,
-  coreHint: "muovi il mouse · clicca il nodo",
-  coreHintTouch: "tocca il nodo",
+  points: ["Prezzi chiari", "Si vede bene da telefono", "Assistenza diretta"],
+  coreHint: "muovi il mouse · clicca la forma",
+  coreHintTouch: "tocca la forma",
 };
 
-export interface Service {
+export const websiteOffer = {
+  kicker: "Siti web",
+  title: ["Un sito che lavora", "per te, a *250\u00a0€*."],
+  intro:
+    "Il tuo biglietto da visita online: chi sei, cosa fai, dove trovarti e come contattarti. Pensato per chi ha un'attività e vuole farsi trovare, senza spendere una fortuna.",
+  price: "250 €",
+  priceNote: "sito vetrina completo",
+  cta: "Voglio il mio sito",
+  /** What the 250 € website includes. */
+  includes: [
+    "Design moderno, fatto su misura per la tua attività",
+    "Perfetto su telefono, tablet e computer",
+    "Pulsanti per chiamarti, scriverti o trovarti su Google Maps",
+    "Pagina contatti e collegamento ai tuoi social",
+    "Pronto per comparire su Google",
+    "Messa online e assistenza dopo la consegna",
+  ],
+  idealFor: ["Negozi", "Ristoranti e bar", "Studi professionali", "Artigiani", "Centri estetici", "Palestre"],
+};
+
+export interface Feature {
   name: string;
   text: string;
 }
 
-export const servicesCopy = {
-  statement: ["Un'applicazione AI è fatta di strati.", "Io li costruisco tutti."],
-  /** From the LinkedIn "Informazioni" section. */
-  bio: "Sono uno sviluppatore AI con un background da sviluppatore full stack. Mi piace trasformare problemi complessi in soluzioni concrete ed efficienti: dal modello e dagli strumenti che usa, fino all'interfaccia e al rilascio. Lavoro in metodologia Agile Scrum.",
-  services: [
-    {
-      name: "Agenti AI",
-      text: "Agenti che pianificano, chiamano strumenti e API e completano compiti in più passi, con controlli sui risultati intermedi.",
-    },
-    {
-      name: "Integrazione LLM",
-      text: "Modelli linguistici dentro prodotti esistenti: prompt progettati e versionati, output strutturati, costi e latenze sotto controllo.",
-    },
-    {
-      name: "Prodotti AI full-stack",
-      text: "Dall'idea al rilascio: backend, pipeline asincrone, interfacce in Next.js che mostrano cosa sta facendo l'AI.",
-    },
-    {
-      name: "Consulenza",
-      text: "Capire dove l'AI porta valore e dove no, scegliere modelli e architettura, prototipare in fretta per decidere con i dati.",
-    },
-  ] satisfies Service[],
-};
-
-export const skillsCopy = {
-  title: ["Lo stack", "che uso davvero."],
+export const managementOffer = {
+  kicker: "Gestionali",
+  title: ["Basta fogli e quaderni:", "*tutto in un posto*."],
   intro:
-    "Niente percentuali inventate: accanto a ogni voce c'è dove l'ho usata — in G-Brain o nei progetti qui sotto.",
+    "Un gestionale è un programma fatto apposta per il tuo lavoro. Clienti, appuntamenti, ordini e magazzino sempre in ordine, da computer e da telefono. Lo costruisco intorno a come lavori tu, non il contrario.",
+  cta: "Raccontami cosa ti serve",
+  priceNote: "Prezzo in base a cosa ti serve: ne parliamo e ti preparo un preventivo.",
+  features: [
+    { name: "Clienti", text: "Tutti i contatti e lo storico di ogni cliente, sempre a portata di mano." },
+    { name: "Appuntamenti", text: "Un'agenda condivisa con promemoria, niente più doppie prenotazioni." },
+    { name: "Ordini e magazzino", text: "Sai sempre cosa hai, cosa manca e cosa è stato venduto." },
+    { name: "Preventivi e documenti", text: "Preventivi e ricevute pronti in pochi clic, senza riscrivere tutto." },
+  ] satisfies Feature[],
 };
 
-export const projectsCopy = {
-  title: ["Progetti", "AI"],
-  intro: "Casi studio raccontati per intero: il problema, l'architettura, cosa ho costruito io.",
+export interface Step {
+  name: string;
+  text: string;
+}
+
+export const processCopy = {
+  kicker: "Come lavoro",
+  title: ["Semplice,", "in *tre passi*."],
+  steps: [
+    { name: "Ci sentiamo", text: "Mi racconti la tua attività e cosa ti serve. Una chiacchierata, senza impegno." },
+    { name: "Ti mostro la bozza", text: "Preparo una prima versione e la sistemiamo insieme finché non ti piace." },
+    { name: "Va online", text: "Pubblico tutto e ti spiego come funziona. Per qualsiasi cosa, mi scrivi." },
+  ] satisfies Step[],
 };
 
 export const contactCopy = {
-  title: ["Portiamo l'AI", "nel tuo", "prodotto."],
-  intro:
-    "Aziende che cercano uno sviluppatore AI, clienti con un processo da automatizzare o un prodotto da rendere intelligente: parliamone.",
+  kicker: "Contatti",
+  title: ["Parliamo del", "tuo *progetto*."],
+  intro: "Scrivimi cosa ti serve: ti rispondo io, personalmente.",
+  formTitle: "Scrivimi qui",
+  formNote: "Si apre la tua app di posta con il messaggio già pronto.",
+  topics: ["Sito web da 250 €", "Gestionale", "Altro"] as const,
+  submitLabel: "Invia il messaggio",
   copyLabel: "Copia indirizzo",
   copiedLabel: "Copiato",
-  credits: "Progettato e sviluppato da me: React, TypeScript, Three.js → ASCII in tempo reale.",
+  whatsappLabel: "Scrivimi su WhatsApp",
+  credits: "Sito progettato e realizzato da Giuseppe Russo.",
 };

@@ -16,7 +16,7 @@ export function ScrollProgress() {
   return (
     <div aria-hidden="true">
       <div className="fixed inset-x-0 top-0 z-[60] h-[2px]">
-        <div ref={bar} className="h-full origin-left scale-x-0 bg-gradient-to-r from-signal via-[rgb(var(--c-glow))] to-[rgb(var(--c-cyan))]" />
+        <div ref={bar} className="h-full origin-left scale-x-0 bg-gradient-to-r from-viola via-viola-chiaro to-lime" />
       </div>
     </div>
   );

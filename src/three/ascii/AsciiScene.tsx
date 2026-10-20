@@ -11,11 +11,11 @@ import { buildShape, type AsciiShape } from "./shapes";
 
 export type { AsciiShape };
 /**
- * "hero"/"contact": full-section canvas, shape beside the text on desktop.
+ * "hero": full-section canvas, shape beside the text on desktop.
  * "box": shape centred in its own box.
  * "scroll": centred, and its rotation is driven by the scroll position itself.
  */
-export type AsciiPlacement = "hero" | "contact" | "box" | "scroll";
+export type AsciiPlacement = "hero" | "box" | "scroll";
 
 const CAMERA_DISTANCE = 7;
 const CAMERA_FOV = 35;
@@ -102,7 +102,7 @@ function AsciiRenderer({ atlas, quality, input, shape, placement, reducedMotion,
     if (m.start < 0) m.start = elapsed;
 
     // One render-target texel per character cell; the small windows use a denser grid.
-    const density = placement === "scroll" ? 0.62 : placement === "box" ? 0.78 : 1;
+    const density = placement === "scroll" ? 0.62 : placement === "box" ? 0.6 : 1;
     const cols = Math.max(1, Math.ceil(size.width / (quality.cell.width * density)));
     const rows = Math.max(1, Math.ceil(size.height / (quality.cell.height * density)));
     if (resources.target.width !== cols || resources.target.height !== rows) resources.target.setSize(cols, rows);
@@ -119,7 +119,7 @@ function AsciiRenderer({ atlas, quality, input, shape, placement, reducedMotion,
       g.position.set(0, 0, 0);
       g.scale.setScalar((Math.min(halfW, halfH) * 0.82) / extent);
     } else {
-      g.position.set(halfW * (placement === "hero" ? 0.47 : 0.5), 0, 0);
+      g.position.set(halfW * 0.47, 0, 0);
       g.scale.setScalar(Math.min(halfW * 0.38, halfH * 0.72) / extent);
     }
     const intro = reducedMotion ? 1 : clamp((elapsed - m.start) / INTRO_SECONDS);
@@ -140,8 +140,9 @@ function AsciiRenderer({ atlas, quality, input, shape, placement, reducedMotion,
       m.scrollAngle = reducedMotion ? target : damp(m.scrollAngle, target, 9, dt);
       g.rotation.set(0.6 + m.scrollAngle * 0.55, m.scrollAngle, 0.25 + m.tiltY * 0.3);
     } else if (spin === "z") g.rotation.set(tilt[0] + wobbleX + m.tiltX, tilt[1] + wobbleY + m.tiltY, m.spin);
+    else if (spin === "none") g.rotation.set(tilt[0] + wobbleX * 0.5 + m.tiltX * 0.6, tilt[1] + wobbleY * 0.8 + m.tiltY * 0.6, 0);
     else g.rotation.set(tilt[0] + wobbleX * 0.5 + m.tiltX, m.spin * 1.4 + m.tiltY, tilt[1] + wobbleY * 0.3);
-    update?.(time);
+    update?.(time, m.spin);
     g.updateMatrixWorld();
 
     // Pointer direction in the knot's own space, so the bulge follows the cursor.

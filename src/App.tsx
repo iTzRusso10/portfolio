@@ -4,15 +4,11 @@ import { startScrollTracking } from "./animation/scroll";
 import { Footer } from "./components/layout/Footer";
 import { Header } from "./components/layout/Header";
 import { ScrollProgress } from "./components/layout/ScrollProgress";
-import { StatusBar } from "./components/layout/StatusBar";
-import { Agents } from "./components/sections/Agents";
 import { Contact } from "./components/sections/Contact";
-import { Experience } from "./components/sections/Experience";
 import { Hero } from "./components/sections/Hero";
-import { Marquee } from "./components/sections/Marquee";
-import { Projects } from "./components/sections/Projects";
-import { Services } from "./components/sections/Services";
-import { Skills } from "./components/sections/Skills";
+import { Management } from "./components/sections/Management";
+import { Process } from "./components/sections/Process";
+import { Websites } from "./components/sections/Websites";
 import { Cursor } from "./components/ui/Cursor";
 import { ScrollDonut } from "./components/ui/ScrollDonut";
 import { useFinePointer, useReducedMotion } from "./hooks/useMediaQuery";
@@ -37,22 +33,16 @@ export function App() {
       <Header />
       <div className="aurora" aria-hidden="true">
         <div className="grid-bg" />
-        <div className="stars" />
       </div>
-      <div className="grain" aria-hidden="true" />
       {finePointer && !reducedMotion && <Cursor />}
       <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
-        <Services />
-        <Agents />
-        <Experience />
-        <Skills />
-        <Marquee />
-        <Projects />
+        <Websites />
+        <Management />
+        <Process />
         <Contact />
       </main>
       <Footer />
-      <StatusBar />
       <ScrollDonut />
     </>
   );

@@ -1,12 +1,10 @@
 /** Page chapters, in scroll order. */
 export const sections = [
-  { id: "intro", label: "Intro", index: "00" },
-  { id: "servizi", label: "Servizi", index: "01" },
-  { id: "agenti", label: "Agenti", index: "02" },
-  { id: "esperienza", label: "Esperienza", index: "03" },
-  { id: "stack", label: "Stack", index: "04" },
-  { id: "progetti", label: "Progetti", index: "05" },
-  { id: "contatti", label: "Contatti", index: "06" },
+  { id: "intro", label: "Intro" },
+  { id: "siti", label: "Siti web" },
+  { id: "gestionali", label: "Gestionali" },
+  { id: "metodo", label: "Come lavoro" },
+  { id: "contatti", label: "Contatti" },
 ] as const;
 
 export type SectionId = (typeof sections)[number]["id"];

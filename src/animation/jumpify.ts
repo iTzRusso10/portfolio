@@ -40,6 +40,8 @@ export function jumpify(root: HTMLElement) {
       if (!parent || parent.closest(SKIP)) return NodeFilter.FILTER_REJECT;
       // Text of a nested reveal block is that block's job.
       if (parent.closest("[data-reveal]") !== root) return NodeFilter.FILTER_REJECT;
+      // In a flex or grid container each word would become an item and take the gap.
+      if (/flex|grid/.test(getComputedStyle(parent).display)) return NodeFilter.FILTER_REJECT;
       return NodeFilter.FILTER_ACCEPT;
     },
   });

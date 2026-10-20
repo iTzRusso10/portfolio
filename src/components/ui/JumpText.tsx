@@ -1,21 +1,22 @@
 import { type CSSProperties, type ElementType, type PointerEvent, type ReactNode } from "react";
+import { parseMarks, plainText } from "../../utils/marks";
 
 /**
  * Text that jumps into place, a letter (titles) or a word (paragraphs) at a
- * time, replaying whenever it re-enters the viewport, in step with the 3D
- * scene changing shape. Assistive tech reads the plain text from a visually
- * hidden copy; the animated glyphs are aria-hidden.
+ * time, when it first enters the viewport. Words wrapped in *asterisks* are
+ * the keyword of the line: lime on dark sections, a lime highlighter on light
+ * ones. Assistive tech reads the plain text from a visually hidden copy; the
+ * animated glyphs are aria-hidden.
  */
 
 type Unit = "char" | "word";
 
 interface JumpTextProps {
-  /** One entry per visual line. */
+  /** One entry per visual line. `*word*` marks the highlighted keyword. */
   lines: readonly string[];
   as?: ElementType;
   unit?: Unit;
   className?: string;
-  lineClassName?: (index: number) => string;
   /** Milliseconds before the first glyph moves. */
   delay?: number;
   /** Milliseconds between consecutive glyphs. */
@@ -24,8 +25,6 @@ interface JumpTextProps {
   after?: ReactNode;
   /** Accessible text when it should differ from the visible lines. */
   srText?: string;
-  /** Colours the last line with the violet → magenta gradient. */
-  accentLast?: boolean;
   id?: string;
 }
 
@@ -43,16 +42,13 @@ export function JumpText({
   as: Tag = "h2",
   unit = "char",
   className = "",
-  lineClassName,
   delay = 0,
   stagger = unit === "char" ? 26 : 22,
   after,
   srText,
-  accentLast = false,
   id,
 }: JumpTextProps) {
   let index = 0;
-  const text = srText ?? lines.join(" ");
 
   return (
     <Tag
@@ -63,27 +59,22 @@ export function JumpText({
       style={{ "--delay": `${delay}ms`, "--stagger": `${stagger}ms` } as CSSProperties}
       onPointerOver={unit === "char" ? hop : undefined}
     >
-      <span className="sr-only">{text}</span>
+      <span className="sr-only">{srText ?? plainText(lines)}</span>
       <span aria-hidden="true">
         {lines.map((line, l) => {
-          const words = line.split(" ");
-          const accent = accentLast && l === lines.length - 1;
-          // Position of each unit along the line (0..1), used by the accent gradient.
-          const units = unit === "word" ? words.length : line.replace(/ /g, "").length;
-          let position = 0;
-          const t = () => (units > 1 ? position++ / (units - 1) : 0);
+          const words = parseMarks(line);
           return (
-            <span key={l} className={`jump-line ${accent ? "jump-accent" : ""} ${lineClassName?.(l) ?? ""}`}>
+            <span key={l} className="jump-line">
               {words.map((word, w) => (
                 <span key={w}>
-                  <span className="jump-word">
+                  <span className={`jump-word ${word.mark ? "mark-word" : ""}`}>
                     {unit === "word" ? (
-                      <span className="jump-unit" style={{ "--i": index++, "--t": t() } as CSSProperties}>
-                        {word}
+                      <span className={`jump-unit ${word.mark ? "mark-unit" : ""}`} style={{ "--i": index++ } as CSSProperties}>
+                        {word.chars.map((c) => c.char).join("")}
                       </span>
                     ) : (
-                      Array.from(word).map((char, c) => (
-                        <span key={c} className="jump-unit" style={{ "--i": index++, "--t": t() } as CSSProperties}>
+                      word.chars.map(({ char, mark }, c) => (
+                        <span key={c} className={`jump-unit ${mark ? "mark-unit" : ""}`} style={{ "--i": index++ } as CSSProperties}>
                           <span className="jump-glyph">{char}</span>
                         </span>
                       ))

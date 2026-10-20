@@ -30,21 +30,13 @@ export function ScrollDonut() {
       ref={root}
       data-shown="false"
       aria-hidden="true"
-      className="scroll-donut pointer-events-none fixed bottom-3 right-3 z-40 w-[5rem] sm:w-32 lg:bottom-11 lg:right-6 lg:w-40"
+      className="scroll-donut pointer-events-none fixed bottom-3 right-3 z-40 w-[4.5rem] sm:w-28 lg:bottom-6 lg:right-6 lg:w-32"
     >
-      <div className="term">
-      <div className="term-bar !gap-2 !px-2.5 !py-1.5 !text-[0.6rem]">
-        <span className="term-dots">
-          <span />
-          <span />
-          <span />
-        </span>
-        <span className="hidden sm:inline">donut.c</span>
-        <span ref={percent} className="ml-auto text-[rgb(var(--c-cyan))]">
+      <div className="card card-screen !rounded-full">
+        <AsciiCanvas shape="donut" placement="scroll" className="relative aspect-square w-full" />
+        <span ref={percent} className="absolute inset-x-0 bottom-[14%] text-center text-[0.6rem] font-bold text-lime sm:text-xs">
           0%
         </span>
-      </div>
-      <AsciiCanvas shape="donut" placement="scroll" className="relative aspect-square w-full" />
       </div>
     </div>
   );
