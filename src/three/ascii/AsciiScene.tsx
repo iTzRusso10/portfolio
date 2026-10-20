@@ -111,7 +111,8 @@ function AsciiRenderer({ atlas, quality, input, shape, placement, reducedMotion,
     const halfH = Math.tan(((CAMERA_FOV / 2) * Math.PI) / 180) * CAMERA_DISTANCE;
     const aspect = size.width / Math.max(1, size.height);
     const halfW = halfH * aspect;
-    const compact = placement === "box" || placement === "scroll" || size.width < 1024 || aspect < 0.9;
+    // Wide but tall windows keep the shape beside the text (smaller), never behind it.
+    const compact = placement === "box" || placement === "scroll" || size.width < 1024;
     const g = resources.group;
     const { extent, spin, tilt, update } = resources.shapeRig;
     if (compact) {

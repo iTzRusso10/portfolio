@@ -57,8 +57,16 @@
     }
   }
 
+  /*
+   * The body paints the page colour itself (hosts such as embeds can give it a
+   * white one). isolation makes it a stacking context, so the fixed aurora
+   * (z-index -1) still draws above this background and below the content.
+   */
   body {
     @apply font-display antialiased;
+    background: rgb(var(--c-inchiostro));
+    color: rgb(var(--c-ink));
+    isolation: isolate;
     font-stretch: 100%;
     font-size: 1rem;
     line-height: 1.55;
