@@ -14,7 +14,8 @@ texel per character cell), then a full-screen shader turns each cell into a glyp
 pop up (Siti web), two meshing gears that spin faster while scrolling (Gestionali), a knot in Contatti
 and a donut that turns with the scroll. Each canvas renders only while visible.
 
-The contact form has no backend: it opens the visitor's mail app with the message already written.
+The contact form has no backend: it writes the message, then the visitor opens it in their mail app
+or copies it (nothing navigates on its own, so blocked mail links never blank the page).
 Set `site.whatsapp` in `src/content/site.ts` to also show a WhatsApp button.
 
 ## Scripts

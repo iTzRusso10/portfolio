@@ -3,31 +3,46 @@ import { contactCopy, site } from "../../content/site";
 import { AsciiCanvas } from "../ui/AsciiCanvas";
 import { Card3D } from "../ui/Card3D";
 import { ExternalLink } from "../ui/ExternalLink";
-import { ArrowRight, ArrowUpRight, ChatIcon, CopyIcon, InstagramIcon, LinkedInIcon, MailIcon } from "../ui/Icons";
+import { ArrowRight, ArrowUpRight, ChatIcon, CheckIcon, CopyIcon, InstagramIcon, LinkedInIcon, MailIcon } from "../ui/Icons";
 import { JumpText } from "../ui/JumpText";
 
 const SOCIAL_ICONS: Record<string, typeof InstagramIcon> = { Instagram: InstagramIcon, LinkedIn: LinkedInIcon };
 
-function CopyEmail({ email }: { email: string }) {
-  const [copied, setCopied] = useState(false);
+/** Selects the text of an element, so the visitor can copy it by hand when the clipboard is refused. */
+function selectText(id: string) {
+  const el = document.getElementById(id);
+  const selection = window.getSelection();
+  if (!el || !selection) return;
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
+
+/** Copies `text`; if the browser refuses, selects the element `selectId` instead. */
+function CopyButton({ text, label, selectId, className = "" }: { text: string; label: string; selectId: string; className?: string }) {
+  const [state, setState] = useState<"idle" | "copied" | "selected">("idle");
   const timer = useRef<number>();
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      window.clearTimeout(timer.current);
-      timer.current = window.setTimeout(() => setCopied(false), 2200);
+      await navigator.clipboard.writeText(text);
+      setState("copied");
     } catch {
-      window.location.href = `mailto:${email}`;
+      selectText(selectId);
+      setState("selected");
     }
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setState("idle"), 2600);
   };
 
   return (
-    <button type="button" onClick={copy} className="inline-flex items-center gap-2 text-sm font-semibold text-mute transition-colors hover:text-ink">
+    <button type="button" onClick={copy} className={`inline-flex items-center gap-2 text-sm font-semibold ${className}`}>
       <CopyIcon />
-      <span aria-live="polite">{copied ? contactCopy.copiedLabel : contactCopy.copyLabel}</span>
+      <span aria-live="polite">
+        {state === "copied" ? contactCopy.copiedLabel : state === "selected" ? contactCopy.selectedLabel : label}
+      </span>
     </button>
   );
 }
@@ -44,23 +59,78 @@ function useTopicLinks(setTopic: (topic: string) => void) {
   }, [setTopic]);
 }
 
-/** No backend: the form opens the visitor's mail app with the message already written. */
+interface Draft {
+  subject: string;
+  body: string;
+}
+
+/**
+ * No backend: the form writes the message, then the visitor sends it from
+ * their own mail app (or copies it). Nothing navigates on its own: a mailto
+ * opened from script blanks the page where mail links are blocked, and does
+ * nothing on computers without a mail app.
+ */
 function ContactForm({ email }: { email: string }) {
   const [topic, setTopic] = useState<string>(contactCopy.topics[0]);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [draft, setDraft] = useState<Draft | null>(null);
+  const ready = useRef<HTMLHeadingElement>(null);
   useTopicLinks(setTopic);
+  useEffect(() => {
+    if (draft) ready.current?.focus();
+  }, [draft]);
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
-    const subject = `${topic} — ${name.trim() || "richiesta dal sito"}`;
-    const body = `Ciao Giuseppe,\n\n${message.trim()}\n\n${name.trim()}`;
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setDraft({
+      subject: `${topic} — ${name.trim() || "richiesta dal sito"}`,
+      body: `Ciao Giuseppe,\n\n${message.trim()}\n\n${name.trim()}`.trim(),
+    });
   };
 
+  if (draft) {
+    const mailto = `mailto:${email}?subject=${encodeURIComponent(draft.subject)}&body=${encodeURIComponent(draft.body)}`;
+    const fullText = `Oggetto: ${draft.subject}\n\n${draft.body}`;
+    return (
+      <div className="space-y-5" data-no-jump>
+        <h4 ref={ready} tabIndex={-1} className="flex items-center gap-3 text-lg font-bold outline-none">
+          <span className="tick">
+            <CheckIcon />
+          </span>
+          {contactCopy.readyTitle}
+        </h4>
+        <p className="text-sm leading-relaxed text-mute">
+          {contactCopy.readyText} <span className="select-all font-semibold text-ink">{email}</span>.
+        </p>
+        <pre id="contact-draft" className="field max-h-56 overflow-auto whitespace-pre-wrap font-display text-sm leading-relaxed">
+          {fullText}
+        </pre>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <a href={mailto} target="_blank" rel="noopener noreferrer" className="btn btn-solid">
+            <MailIcon />
+            {contactCopy.openMailLabel}
+          </a>
+          {site.whatsapp && (
+            <ExternalLink
+              href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(draft.body)}`}
+              className="btn bg-[#25D366] text-inchiostro shadow-[0_4px_0_rgb(18_140_67)]"
+            >
+              <ChatIcon />
+              WhatsApp
+            </ExternalLink>
+          )}
+          <CopyButton text={fullText} label={contactCopy.copyMessageLabel} selectId="contact-draft" />
+          <button type="button" onClick={() => setDraft(null)} className="text-sm font-semibold text-mute hover:text-ink">
+            {contactCopy.editLabel}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <form onSubmit={submit} className="space-y-5" data-no-jump>
-      <fieldset>
+    <form onSubmit={submit} className="space-y-5" data-no-jump>      <fieldset>
         <legend className="text-sm font-semibold">Di cosa hai bisogno?</legend>
         <div className="mt-3 flex flex-wrap gap-2">
           {contactCopy.topics.map((t) => (
@@ -145,14 +215,21 @@ export function Contact() {
           )}
           {site.email && (
             <li>
-              <a href={`mailto:${site.email}`} className="group inline-flex max-w-full items-center gap-3 break-all text-lg font-bold sm:text-xl">
+              <a
+                href={`mailto:${site.email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex max-w-full items-center gap-3 break-all text-lg font-bold sm:text-xl"
+              >
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-viola text-lg text-bianco">
                   <MailIcon />
                 </span>
-                <span className="link-draw">{site.email}</span>
+                <span id="contact-email" className="link-draw">
+                  {site.email}
+                </span>
               </a>
               <div className="ml-14 mt-1">
-                <CopyEmail email={site.email} />
+                <CopyButton text={site.email} label={contactCopy.copyLabel} selectId="contact-email" className="text-mute transition-colors hover:text-ink" />
               </div>
             </li>
           )}
