@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://giusepperussodev.it/</loc>
     <lastmod>2026-10-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://giusepperussodev.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://giusepperussodev.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://giusepperussodev.it/"/>
+  </url>
+  <url>
+    <loc>https://giusepperussodev.it/sviluppatore-web-calabria/</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://giusepperussodev.it/sviluppatore-web-corigliano-rossano/</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://giusepperussodev.it/sviluppatore-web-cosenza/</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://giusepperussodev.it/sviluppatore-software-gestionali/</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://giusepperussodev.it/quanto-costa-un-sito-web/</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://giusepperussodev.it/en/</loc>
+    <lastmod>2026-10-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://giusepperussodev.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://giusepperussodev.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://giusepperussodev.it/"/>
   </url>
 </urlset>
