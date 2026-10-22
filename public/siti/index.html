@@ -425,7 +425,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
       </div>
     </div>
     <div class="phones hero-proof" aria-hidden="true">
-      <div class="portrait"><img src="img/giuseppe.jpg" alt="" width="640" height="768" decoding="async"></div>
+      <div class="portrait"><img src="/siti/img/giuseppe.jpg" alt="" width="640" height="768" decoding="async"></div>
       <div class="sticker">Bozza gratis<small>prima di decidere</small></div>
     </div>
   </div>
@@ -572,7 +572,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
 <section class="light" id="chi-sono" aria-labelledby="chi-title">
   <div class="wrap about">
     <div class="portrait">
-      <img src="img/giuseppe.jpg" alt="Ritratto di Giuseppe Russo, sviluppatore web" width="640" height="768" loading="lazy" decoding="async">
+      <img src="/siti/img/giuseppe.jpg" alt="Ritratto di Giuseppe Russo, sviluppatore web" width="640" height="768" loading="lazy" decoding="async">
       <p class="tagcard"><b>Dal 2020</b>sviluppatore web</p>
     </div>
     <div class="copy">
@@ -653,7 +653,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
     <div>
       <p class="eyebrow"><span>Contatti</span></p>
       <h2 class="h2" id="contatti-title">Chiedi la tua <span class="hl-v">bozza gratis.</span></h2>
-      <p class="lead">Compila i campi: si apre la tua email con il messaggio già scritto, tu premi Invia. Ti rispondo io, di persona, appena lo leggo.</p>
+      <p class="lead">Compila i campi: si apre WhatsApp con il messaggio già scritto, tu premi Invia. Ti rispondo io, di persona, appena lo leggo.</p>
       <ul class="contact-points">
         <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Nessun anticipo: paghi solo a sito consegnato e approvato</span></li>
         <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Parli solo con me, dalla bozza alla consegna</span></li>
@@ -684,16 +684,12 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
         <input id="f-link" name="link" type="text" inputmode="url" autocapitalize="off" placeholder="Incolla qui il link">
       </div>
       <div class="field">
-        <label for="f-tel">Il tuo numero, se preferisci che ti scriva su WhatsApp <span class="opt">(facoltativo)</span></label>
-        <input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" placeholder="Es. 333 123 4567">
-      </div>
-      <div class="field">
         <label for="f-msg">Messaggio <span class="opt">(facoltativo)</span></label>
         <textarea id="f-msg" name="messaggio" placeholder="Hai già un sito? Cosa vorresti mostrare ai clienti?"></textarea>
       </div>
       <button class="btn btn-violet" type="submit"><span class="js-submit-label">Chiedi la bozza gratis</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-      <p class="form-note">Il messaggio parte dalla tua email: su questo sito non viene salvato nulla. <a href="privacy.html">Informativa privacy</a></p>
+      <p class="form-note">Il messaggio parte dal tuo WhatsApp: su questo sito non viene salvato nulla. <a href="/siti/privacy.html">Informativa privacy</a></p>
     </form>
   </div>
 </section>
@@ -730,7 +726,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
       <li><a href="#bozza">La bozza</a></li>
       <li><a href="#faq">Domande frequenti</a></li>
     </ul>
-    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Rossano (CS) · <a href="privacy.html">Privacy e cookie</a></p>
+    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Rossano (CS) · <a href="/siti/privacy.html">Privacy e cookie</a></p>
   </div>
 </footer>
 
@@ -743,6 +739,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
 /* Numero WhatsApp/telefono: 393472693212 (deciso da Giuseppe il 22/10). */
 const CONFIG = {
   email: "russo.giuseppe.dev@gmail.com",
+  whatsapp: "393472693212",
   instagramDm: "https://ig.me/m/giuseppewebdev",
   intents: {
     draft: { value: "la bozza gratuita del sito", subject: "Richiesta bozza gratuita sito", button: "Chiedi la bozza gratis", ph: "Hai già un sito? Cosa vorresti mostrare ai clienti?" },
@@ -789,16 +786,16 @@ const CONFIG = {
     if (firstBad) { status.textContent = "Compila nome e attività, poi riprova."; firstBad.focus(); return; }
 
     var nome = f.nome.value.trim(), att = f.attivita.value.trim(), citta = f.citta.value.trim();
-    var link = f.link.value.trim(), tel = f.telefono.value.trim(), msg = f.messaggio.value.trim();
+    var link = f.link.value.trim(), msg = f.messaggio.value.trim();
     var body = "Ciao Giuseppe, sono " + nome + ".\nVorrei " + richiesta.value + " per la mia attività: " + att + (citta ? " (" + citta + ")" : "") + ".";
     if (link) body += "\n\nLink: " + link;
-    if (tel) body += "\n\nPreferisco essere ricontattato su WhatsApp: " + tel;
     if (msg) body += "\n\n" + msg;
     var subject = current.subject + " – " + att;
-    var url = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    var mail = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    var wa = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(body);
 
-    status.innerHTML = 'Si apre la tua app email con il messaggio già scritto: premi Invia. Non si apre? <a href="' + CONFIG.instagramDm + '" target="_blank" rel="noopener">Scrivimi su Instagram</a>.';
-    window.location.href = url;
+    status.innerHTML = 'Si apre WhatsApp con il messaggio già scritto: premi Invia. Non hai WhatsApp? <a href="' + mail + '">Mandalo via email</a> o <a href="' + CONFIG.instagramDm + '" target="_blank" rel="noopener">scrivimi su Instagram</a>.';
+    window.location.href = wa;
   });
 
   // Nasconde la barra mobile quando il form è a schermo
