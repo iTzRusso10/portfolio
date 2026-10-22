@@ -13,5 +13,47 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/pricing",
+      "destination": "/#prezzo",
+      "permanent": true
+    },
+    {
+      "source": "/pricing/:path*",
+      "destination": "/#prezzo",
+      "permanent": true
+    },
+    {
+      "source": "/projects",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/#chi-sono",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/#contatti",
+      "permanent": true
+    },
+    {
+      "source": "/contatti",
+      "destination": "/#contatti",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/",
+      "permanent": false
+    }
   ]
 }
