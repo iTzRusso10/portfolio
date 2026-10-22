@@ -1,4 +1,20 @@
 User-agent: *
 Allow: /
 
+# Motori di ricerca e assistenti AI: accesso consentito per comparire nelle risposte
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+
 Sitemap: https://giusepperussodev.it/sitemap.xml
