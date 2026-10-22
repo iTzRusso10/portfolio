@@ -309,21 +309,38 @@ footer .legal{grid-column:1/-1;border-top:1px solid rgba(244,240,255,.1);padding
 .todo{background:#FFE066;color:#1A0D33;padding:0 .25em;border-radius:4px;font-weight:700;font-family:ui-monospace,monospace;font-size:.85em}
 a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
 
-/* ===== Animazioni: parole che saltano, comparse, 3D ===== */
-.js-anim .jump .wi{display:inline-block;opacity:0;transform:translateY(.9em) rotate(5deg);will-change:transform}
-.js-anim .jump.in .wi{animation:jump .75s cubic-bezier(.2,.9,.25,1.25) both;animation-delay:calc(var(--i) * 55ms)}
-.js-anim .jump.in .hl-l .wi,.js-anim .jump.in .hl-v .wi{animation-name:jumpBig}
-@keyframes jump{0%{opacity:0;transform:translateY(.9em) rotate(5deg)}55%{opacity:1;transform:translateY(-.16em) rotate(-2deg)}78%{transform:translateY(.04em)}100%{opacity:1;transform:none}}
-@keyframes jumpBig{0%{opacity:0;transform:translateY(1em) scale(.9) rotate(6deg)}50%{opacity:1;transform:translateY(-.28em) scale(1.06,.96) rotate(-3deg)}72%{transform:translateY(.06em) scale(.98,1.03)}88%{transform:translateY(-.03em)}100%{opacity:1;transform:none}}
-.js-anim .rise{opacity:0;transform:translateY(28px)}
-.js-anim .rise.in{opacity:1;transform:none;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.9,.25,1.15);transition-delay:calc(var(--d,0) * 70ms)}
-.tilt3d{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;transform-style:preserve-3d}
-.js-anim .rise.in.tilt3d{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+/* ===== Animazioni come nel portfolio: lettere e parole che saltano, comparse in sequenza, 3D ===== */
+:root{--ease-out:cubic-bezier(.16,1,.3,1);--ease-jump:cubic-bezier(.34,1.56,.64,1)}
+.js-motion [data-reveal]{opacity:0;transform:translate3d(0,1.75rem,0);transition:opacity .7s var(--ease-out),transform .9s var(--ease-jump);transition-delay:var(--delay,0ms)}
+.js-motion [data-reveal].is-revealed{opacity:1;transform:none}
+.js-motion [data-reveal].is-instant{transition:none}
+.jump-word{display:inline-block;white-space:nowrap}
+.jump-unit,.jump-ball{display:inline-block;transform-origin:50% 100%}
+.js-motion [data-reveal="jump"]{opacity:1;transform:none}
+.js-motion [data-reveal="jump"] .jump-unit,.js-motion [data-reveal="jump"] .jump-ball{opacity:0}
+.js-motion [data-reveal="jump"].is-revealed .jump-unit{animation:jump-in .95s var(--ease-out) both;animation-delay:calc(var(--delay,0ms) + var(--i,0) * var(--stagger,26ms))}
+.js-motion [data-reveal="jump"].is-revealed .jump-ball{animation:ball-drop 1.1s linear both;animation-delay:calc(var(--delay,0ms) + var(--i,0) * var(--stagger,26ms))}
+.js-motion .jw{display:inline-block;opacity:0;transform-origin:50% 100%}
+.js-motion .jw.jw-on{animation:jump-in-soft .75s var(--ease-out) both;animation-delay:calc(var(--delay,0ms) + 90ms + var(--i,0) * 16ms)}
+.is-instant .jump-unit,.is-instant .jump-ball,.is-instant .jw{animation-duration:0s!important;animation-delay:0s!important}
+.is-landed{opacity:1!important;animation:none!important}
+.jump-unit.is-hopping{animation:hop .55s var(--ease-out)!important;opacity:1!important}
+@keyframes jump-in{0%{opacity:0;transform:translate3d(0,.75em,0) scale(.9,1.12)}38%{opacity:1;transform:translate3d(0,-.26em,0) scale(.97,1.04)}60%{transform:translate3d(0,.04em,0) scale(1.06,.9)}76%{transform:translate3d(0,-.05em,0) scale(.99,1.02)}100%{opacity:1;transform:none}}
+@keyframes jump-in-soft{0%{opacity:0;transform:translate3d(0,.6em,0)}45%{opacity:1;transform:translate3d(0,-.14em,0)}70%{transform:translate3d(0,.03em,0)}100%{opacity:1;transform:none}}
+@keyframes ball-drop{0%{opacity:0;transform:translate3d(0,-2.4em,0);animation-timing-function:cubic-bezier(.55,0,1,.45)}10%{opacity:1}40%{transform:translate3d(0,0,0) scale(1.35,.65);animation-timing-function:cubic-bezier(0,.55,.45,1)}58%{transform:translate3d(0,-.7em,0) scale(.9,1.1);animation-timing-function:cubic-bezier(.55,0,1,.45)}74%{transform:translate3d(0,0,0) scale(1.2,.8);animation-timing-function:cubic-bezier(0,.55,.45,1)}86%{transform:translate3d(0,-.2em,0);animation-timing-function:cubic-bezier(.55,0,1,.45)}100%{opacity:1;transform:none}}
+@keyframes hop{0%{transform:none}30%{transform:translate3d(0,-.22em,0) scale(.96,1.05)}55%{transform:translate3d(0,0,0) scale(1.08,.9)}75%{transform:translate3d(0,-.04em,0)}100%{transform:none}}
+.tilt3d{transform:perspective(900px) rotateX(var(--rx,0deg));transition:transform .25s ease-out}
+.js-motion [data-reveal].tilt3d{transition:opacity .7s var(--ease-out),transform .9s var(--ease-jump)}
+.js-motion [data-reveal].tilt3d.is-revealed{transform:perspective(900px) rotateX(var(--rx,0deg));transition:opacity .7s var(--ease-out),transform .35s ease-out}
+@media (prefers-reduced-motion:reduce){.jw,.jump-unit,.jump-ball{opacity:1!important;animation:none!important}}
 
 /* Cubo 3D nell'hero */
-.cube-wrap{position:absolute;top:22px;right:14px;width:66px;height:66px;perspective:520px;z-index:2;pointer-events:none}
-@media(min-width:720px){.cube-wrap{top:40px;right:32px;width:84px;height:84px}}
-@media(min-width:960px){.cube-wrap{top:150px;right:calc(max(0px,(100% - 1160px) / 2) + 300px);width:120px;height:120px}}
+.cube-wrap{--cs:84px;position:relative;width:var(--cs);height:var(--cs);margin:52px auto 40px;perspective:560px;pointer-events:none}
+@media(min-width:960px){.cube-wrap{--cs:118px;position:absolute;margin:0;top:150px;right:calc(max(0px,(100% - 1160px) / 2) + 300px);z-index:1}}
+.top{transform:translateZ(0)}
+.facts{margin-top:28px}
+[data-reveal="jump"]>[aria-hidden]{word-spacing:.1em}
+@media(max-width:859px){.about .copy{order:-1}.about .portrait{max-width:320px;margin:0 auto}}
 .cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;transform:rotateX(var(--cx,-22deg)) rotateY(var(--cy,35deg));animation:cubeFloat 6s ease-in-out infinite}
 .cube .f{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:14px;font-family:var(--head);font-weight:800;letter-spacing:-.03em;line-height:1;text-align:center;backface-visibility:hidden;font-size:clamp(.95rem,2.6vw,1.6rem);box-shadow:inset 0 0 0 2px rgba(23,11,46,.18)}
 .cube .f small{display:block;font-family:var(--body);font-weight:700;font-size:.5em;letter-spacing:0;margin-top:.25em}
@@ -335,9 +352,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
 .cube .f4{transform:rotateY(-90deg) translateZ(calc(var(--cs) / 2))}
 .cube .f5{transform:rotateX(90deg) translateZ(calc(var(--cs) / 2))}
 .cube .f6{transform:rotateX(-90deg) translateZ(calc(var(--cs) / 2))}
-.cube-wrap{--cs:66px}@media(min-width:720px){.cube-wrap{--cs:84px}}@media(min-width:960px){.cube-wrap{--cs:120px}}
 @keyframes cubeFloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
-@media(max-width:959px){.hero .pill{max-width:calc(100% - 84px)}}
 .hero-proof{perspective:1100px}
 .hero-proof .portrait,.hero-proof .sticker{transition:transform .3s ease-out}
 .hero-proof .portrait{transform:rotateY(var(--py,0deg)) rotateX(var(--px,0deg))}
@@ -385,14 +400,6 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
 
 <!-- HERO -->
 <section class="hero dark" id="top" aria-labelledby="hero-title">
-    <div class="cube-wrap" aria-hidden="true"><div class="cube" id="cube">
-      <div class="f f1">48h<small>online</small></div>
-      <div class="f f2">250€<small>tutto incluso</small></div>
-      <div class="f f3">0€<small>anticipo</small></div>
-      <div class="f f4">5,0★<small>su Google</small></div>
-      <div class="f f5">Bozza<small>gratis</small></div>
-      <div class="f f6">Su<small>misura</small></div>
-    </div></div>
   <div class="wrap hero-grid">
     <div>
       <p class="pill"><b>250€</b> tutto compreso · paghi solo a consegna</p>
@@ -403,6 +410,14 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
         <a class="btn btn-lime" href="#contatti" data-intent="draft">Chiedi la bozza gratis<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ghost" href="#come-funziona">Come funziona</a>
       </div>
+      <div class="cube-wrap" aria-hidden="true"><div class="cube" id="cube">
+      <div class="f f1">48h<small>online</small></div>
+      <div class="f f2">250€<small>tutto incluso</small></div>
+      <div class="f f3">0€<small>anticipo</small></div>
+      <div class="f f4">5,0★<small>su Google</small></div>
+      <div class="f f5">Bozza<small>gratis</small></div>
+      <div class="f f6">Su<small>misura</small></div>
+    </div></div>
       <div class="facts" role="list">
         <div class="fact" role="listitem"><strong>0€</strong><span>di anticipo</span></div>
         <div class="fact" role="listitem"><strong>250€</strong><span>tutto compreso il 1° anno</span></div>
@@ -809,39 +824,108 @@ const CONFIG = {
   (function () {
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!("IntersectionObserver" in window)) return;
-    document.documentElement.classList.add("js-anim");
+    var html = document.documentElement; html.classList.add("js-motion");
 
-    // 1. Titoli: ogni parola salta dentro quando il titolo entra a schermo
-    document.querySelectorAll("h1, h2.h2").forEach(function (h) {
-      h.classList.add("jump");
-      var i = 0, walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT, null), texts = [], t;
-      while ((t = walker.nextNode())) texts.push(t);
-      texts.forEach(function (node) {
+    // 1. Titoli: lettere che saltano (come nel portfolio), il punto finale cade come una pallina
+    document.querySelectorAll("h1, h2.h2, h2.lbl").forEach(function (h) {
+      var text = h.textContent.replace(/\s+/g, " ").trim();
+      var sr = document.createElement("span"); sr.className = "sr-only"; sr.textContent = text;
+      var vis = document.createElement("span"); vis.setAttribute("aria-hidden", "true");
+      while (h.firstChild) vis.appendChild(h.firstChild);
+      h.appendChild(sr); h.appendChild(vis);
+      h.setAttribute("data-reveal", "jump"); h.style.setProperty("--stagger", h.tagName === "H1" ? "24ms" : "20ms");
+      var i = 0, walker = document.createTreeWalker(vis, NodeFilter.SHOW_TEXT, null), nodes = [], n;
+      while ((n = walker.nextNode())) if (n.nodeValue.trim() || /\s/.test(n.nodeValue)) nodes.push(n);
+      var lastUnit = null;
+      nodes.forEach(function (node) {
         var frag = document.createDocumentFragment();
         node.nodeValue.split(/([ \n\t]+)/).forEach(function (part) {
           if (!part) return;
-          if (/^[ \n\t]+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-          var w = document.createElement("span"); w.className = "wi"; w.style.setProperty("--i", i++); w.textContent = part; frag.appendChild(w);
+          if (/^[ \n\t]+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+          var word = document.createElement("span"); word.className = "jump-word";
+          Array.from(part).forEach(function (ch) {
+            var u = document.createElement("span"); u.className = "jump-unit"; u.style.setProperty("--i", i++); u.textContent = ch; word.appendChild(u); lastUnit = u;
+          });
+          frag.appendChild(word);
         });
         node.parentNode.replaceChild(frag, node);
       });
-    });
-
-    // 2. Blocchi che salgono e si inclinano in 3D con lo scroll
-    var groups = [".signals li", ".step", ".incl li", ".quotes blockquote", ".price-card", ".faq details", ".facts .fact", ".portrait", "#lead-form"];
-    var tilts = [];
-    groups.forEach(function (sel) {
-      document.querySelectorAll(sel).forEach(function (el, k) {
-        if (el.closest(".hero-proof")) return;
-        el.classList.add("rise"); el.style.setProperty("--d", k % 6);
-        if (!el.matches(".faq details, #lead-form, .facts .fact")) { el.classList.add("tilt3d"); tilts.push(el); }
+      if (lastUnit && /[.!?]/.test(lastUnit.textContent)) { lastUnit.className = "jump-ball"; lastUnit.style.setProperty("--i", i + 4); }
+      // Hover: una lettera saltella (solo mouse)
+      h.addEventListener("pointerover", function (ev) {
+        if (ev.pointerType !== "mouse") return;
+        var u = ev.target.closest && ev.target.closest(".jump-unit");
+        if (!u || u.classList.contains("is-hopping")) return;
+        u.classList.add("is-hopping");
+        u.addEventListener("animationend", function () { u.classList.remove("is-hopping"); }, { once: true });
       });
     });
 
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
-    document.querySelectorAll(".jump, .rise").forEach(function (el) { io.observe(el); });
+    // 2. Blocchi: compaiono in ordine di lettura, poi le loro parole saltano dentro
+    var blockSel = [".hero .pill", ".hero .lead", ".stars-inline", ".hero .btn-row", ".facts .fact", ".eyebrow", "section .lead", ".score", ".quotes blockquote",
+      ".signals li", ".check-cta", ".step", ".note", ".incl li", ".price-card", ".side-card", ".about p", ".portrait", ".faq details", ".contact-points li", "#lead-form", ".final .btn-row", "section .sub"];
+    var tilts = [];
+    document.querySelectorAll(blockSel.join(",")).forEach(function (el) {
+      if (el.closest(".hero-proof") || el.hasAttribute("data-reveal") || el.closest("[data-reveal]")) return;
+      el.setAttribute("data-reveal", "");
+      if (el.matches(".step, .price-card, .side-card, .quotes blockquote, .incl li")) { el.classList.add("tilt3d"); tilts.push(el); }
+    });
+    var SKIP = "[aria-hidden='true'],svg,script,style,.sr-only,input,textarea,select,button,.btn,summary .pm";
+    function jumpify(root) {
+      var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentElement; if (!p || p.closest(SKIP)) return NodeFilter.FILTER_REJECT;
+        if (p.closest("[data-reveal]") !== root) return NodeFilter.FILTER_REJECT;
+        if (/flex|grid/.test(getComputedStyle(p).display)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT; } }), list = [], t, k = 0;
+      while ((t = w.nextNode())) list.push(t);
+      list.forEach(function (node) {
+        var frag = document.createDocumentFragment();
+        node.nodeValue.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var sp = document.createElement("span"); sp.className = "jw"; sp.style.setProperty("--i", Math.min(k++, 36)); sp.textContent = part; frag.appendChild(sp);
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+    }
+    function startWords(root) { root.querySelectorAll(".jw").forEach(function (wd) { if (wd.parentElement.closest("[data-reveal]") === root) wd.classList.add("jw-on"); }); }
+    function stepFor(el) {
+      if (el.getAttribute("data-reveal") === "jump") { var u = el.querySelectorAll(".jump-unit").length, st = parseFloat(el.style.getPropertyValue("--stagger")) || 26; return Math.min(Math.max(u * st * 0.75 + 320, 380), 1100); }
+      var words = el.querySelectorAll(".jw").length;
+      return words ? Math.min(Math.max(Math.min(words, 36) * 14 * 0.45 + 160, 220), 700) : 110;
+    }
+    document.addEventListener("animationend", function (ev) {
+      if (/^(jump-in|jump-in-soft|ball-drop)$/.test(ev.animationName) && ev.target.classList) ev.target.classList.add("is-landed");
+    });
+
+    var groups = new Map(), groupOf = new Map(), io;
+    function revealInstantly(el) { el.classList.add("is-instant", "is-revealed"); startWords(el); io.unobserve(el); }
+    function reveal(target) {
+      var g = groupOf.get(target); if (!g) return; var now = performance.now();
+      for (var a = 0; a < g.items.length; a++) {
+        var el = g.items[a];
+        if (!el.classList.contains("is-revealed")) {
+          if (el.getBoundingClientRect().bottom < 0) revealInstantly(el);
+          else { var start = Math.max(now, g.next); el.style.setProperty("--delay", Math.round(start - now) + "ms"); el.classList.add("is-revealed"); startWords(el); io.unobserve(el); g.next = start + stepFor(el); }
+        }
+        if (el === target) break;
+      }
+    }
+    var fontsReady = Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(function (r) { setTimeout(r, 900); })]);
+    fontsReady.then(function () {
+      io = new IntersectionObserver(function (entries) {
+        entries.filter(function (e) { return e.isIntersecting; }).map(function (e) { return e.target; })
+          .sort(function (a, b) { return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1; }).forEach(reveal);
+      }, { rootMargin: "0px 0px -6% 0px", threshold: 0.01 });
+      document.querySelectorAll("[data-reveal]").forEach(function (el) {
+        if (el.getAttribute("data-reveal") !== "jump") jumpify(el);
+        var sec = el.closest("section") || document.body, g = groups.get(sec);
+        if (!g) { g = { items: [], next: 0 }; groups.set(sec, g); }
+        g.items.push(el); groupOf.set(el, g); io.observe(el);
+      });
+      groups.forEach(function (g) { g.items.forEach(function (el) { if (el.getBoundingClientRect().bottom < 0) revealInstantly(el); }); });
+    });
 
     // 3. Inclinazione in base alla posizione nello schermo + cubo che gira con lo scroll
     var cube = document.getElementById("cube"), ticking = false;
