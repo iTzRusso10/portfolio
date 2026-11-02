@@ -651,6 +651,13 @@ footer .pages a:hover{color:var(--ink-light)}
 .nav a[aria-current]{color:var(--lime)}
 /* Le parole animate sono <span>: non devono prendere gli stili di ".fact span", ".incl span" ecc. */
 .js-motion .jw{font-size:inherit;color:inherit;margin:0;line-height:inherit;letter-spacing:inherit;font-weight:inherit}
+
+/* ===== Accessibilità (WCAG 2.2 AA) ===== */
+.reviews :focus-visible{outline-color:var(--ink-dark)}
+input,textarea{border-color:#857799}
+input:focus-visible,textarea:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+@media(max-width:899px){html{scroll-padding-bottom:96px}}
+.cube{animation-duration:2.5s;animation-iteration-count:2}
 </style>
 </head>
 <body>
@@ -681,12 +688,12 @@ footer .pages a:hover{color:var(--ink-light)}
 </svg>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Giuseppe Russo, home page">giuseppe<span>/</span>webdev</a>
+    <a class="brand" href="/">giuseppe<span>/</span>webdev<span class="sr-only"> – home page</span></a>
     <nav class="nav" aria-label="Pages">
       <a href="/en/" aria-current="page">Web developer</a>
       <a href="/#prezzo">Italiano</a>
     </nav>
-    <a class="btn btn-lime top-cta" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener">Free draft</a>
+    <a class="btn btn-lime top-cta" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener">Free draft<span class="sr-only"> (opens in a new tab)</span></a>
   </div>
 </header>
 <main id="main">
@@ -696,9 +703,9 @@ footer .pages a:hover{color:var(--ink-light)}
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Web developer in Calabria, Italy</span></li></ol></nav>
       <h1 id="hero-title">Web developer <span class="hl-l">in Calabria, Italy</span></h1>
       <p class="lead">I'm Giuseppe Russo, a freelance web developer since 2020, based in Rossano, Calabria. I build custom business websites for €250 all-inclusive, live within 48 hours of receiving your texts and photos. You get a free homepage draft first, and you pay only once you've approved the finished site.</p>
-      <p class="stars-inline"><span class="s" aria-hidden="true">★★★★★</span><span>5.0 on Google (7 reviews) · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">read them</a></span></p>
+      <p class="stars-inline"><span class="s" aria-hidden="true">★★★★★</span><span>5.0 on Google (7 reviews) · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">read them<span class="sr-only"> (opens in a new tab)</span></a></span></p>
       <div class="btn-row">
-        <a class="btn btn-lime" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Ask for the free draft</a>
+        <a class="btn btn-lime" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Ask for the free draft<span class="sr-only"> (opens in a new tab)</span></a>
         <a class="btn btn-ghost" href="/#contatti">Use the form</a>
       </div>
       <div class="facts" role="list"><div class="fact" role="listitem"><strong>€0</strong><span>deposit</span></div><div class="fact" role="listitem"><strong>€250</strong><span>all-inclusive, first year</span></div><div class="fact" role="listitem"><strong>48h</strong><span>from texts and photos</span></div></div>
@@ -767,10 +774,10 @@ footer .pages a:hover{color:var(--ink-light)}
       </div>
     </div>
     <div class="quotes">
-      <blockquote lang="it"><p>«Il sito realizzato è veloce, intuitivo e perfettamente ottimizzato sia da desktop che da mobile.»</p><span class="orig" lang="en">"The website is fast, intuitive and perfectly optimised for both desktop and mobile."</span><cite>Simone Z. · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Google review</a></cite></blockquote>
-      <blockquote lang="it"><p>«Giuseppe ha realizzato il sito web per la mia attività di cosmetica con grande professionalità. È stato sempre puntuale nelle consegne e disponibile ogni volta che ne avevo bisogno.»</p><span class="orig" lang="en">"Giuseppe built the website for my cosmetics business very professionally. He always delivered on time and was available whenever I needed him."</span><cite>Rosaria P., cosmetics business · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Google review</a></cite></blockquote>
+      <blockquote lang="it"><p>«Il sito realizzato è veloce, intuitivo e perfettamente ottimizzato sia da desktop che da mobile.»</p><span class="orig" lang="en">"The website is fast, intuitive and perfectly optimised for both desktop and mobile."</span><cite>Simone Z. · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Google review<span class="sr-only"> (opens in a new tab)</span></a></cite></blockquote>
+      <blockquote lang="it"><p>«Giuseppe ha realizzato il sito web per la mia attività di cosmetica con grande professionalità. È stato sempre puntuale nelle consegne e disponibile ogni volta che ne avevo bisogno.»</p><span class="orig" lang="en">"Giuseppe built the website for my cosmetics business very professionally. He always delivered on time and was available whenever I needed him."</span><cite>Rosaria P., cosmetics business · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Google review<span class="sr-only"> (opens in a new tab)</span></a></cite></blockquote>
     </div>
-    <a class="btn btn-ink" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Read the reviews on Google<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn-ink" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Read the reviews on Google<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
   </div>
 </section>
 
@@ -844,7 +851,7 @@ footer .pages a:hover{color:var(--ink-light)}
       <div style="margin-top:22px">
         <p>I've been a <strong>web developer since 2020</strong> and I live in <strong>Rossano, on the Ionian coast of Calabria</strong>. I've built applications and platforms for companies, and today I also make websites for small businesses and professionals all over Italy.</p>
         <p><strong>I work on my own, with no agency and no middlemen.</strong> That's why the website costs €250, and why you always deal with me, from the draft to delivery.</p>
-        <p class="verify">Want to check who I am first? <a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram</a> · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Google profile</a></p>
+        <p class="verify">Want to check who I am first? <a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a> · <a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram<span class="sr-only"> (opens in a new tab)</span></a> · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Google profile<span class="sr-only"> (opens in a new tab)</span></a></p>
       </div>
       <p class="sign">Giuseppe Russo</p>
     </div>
@@ -864,7 +871,7 @@ footer .pages a:hover{color:var(--ink-light)}
     <h2 class="h2" id="final-title">The draft is free. You pay only if you like it.</h2>
     <p class="lead">Send me your business name: within one working day you get your homepage to look at on your phone, with no commitment.</p>
     <div class="btn-row">
-      <a class="btn btn-lime" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Ask for the free draft</a>
+      <a class="btn btn-lime" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Ask for the free draft<span class="sr-only"> (opens in a new tab)</span></a>
       <a class="btn btn-ghost" href="mailto:russo.giuseppe.dev@gmail.com?subject=Free%20website%20draft"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Email me</a>
     </div>
     <p class="alt">Prefer a form? Use the <a href="/#contatti">contact form on the Italian page</a> or call <a href="tel:+393472693212">+39 347 269 3212</a>.</p>
@@ -879,16 +886,16 @@ footer .pages a:hover{color:var(--ink-light)}
     </div>
     <ul aria-label="Contact">
       <li><a href="mailto:russo.giuseppe.dev@gmail.com">russo.giuseppe.dev@gmail.com</a></li>
-      <li><a href="https://wa.me/393472693212" target="_blank" rel="noopener">WhatsApp 347 269 3212</a></li>
-      <li><a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram @giuseppewebdev</a></li>
-      <li><a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://wa.me/393472693212" target="_blank" rel="noopener">WhatsApp 347 269 3212<span class="sr-only"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram @giuseppewebdev<span class="sr-only"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></li>
     </ul>
     <ul class="pages" aria-label="Pages"><li><a href="/">Home (Italian)</a></li><li><a href="/sviluppatore-web-calabria/">Calabria</a></li><li><a href="/sviluppatore-web-corigliano-rossano/">Corigliano-Rossano</a></li><li><a href="/sviluppatore-web-cosenza/">Cosenza and Rende</a></li><li><a href="/sviluppatore-software-gestionali/">Software and web apps</a></li><li><a href="/quanto-costa-un-sito-web/">Website prices</a></li></ul>
-    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Rossano (CS), Italy · <a href="/siti/privacy.html">Privacy</a> · <a href="/cookie-policy/">Cookie policy</a> (Italian) · <a href="/cookie-policy/" data-cookie-prefs>Cookie preferences</a></p>
+    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Rossano (CS), Italy · <a href="/siti/privacy.html">Privacy</a> · <a href="/cookie-policy/">Cookie policy</a> · <a href="/accessibilita/" hreflang="it">Accessibility (Italian)</a> (Italian) · <a href="/cookie-policy/" data-cookie-prefs>Cookie preferences</a></p>
   </div>
 </footer>
 <nav class="mbar" id="mbar" aria-label="Quick contact">
-  <a class="btn btn-lime" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener">Free draft<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a class="btn btn-lime" href="https://wa.me/393472693212?text=Hi%20Giuseppe%2C%20I%27d%20like%20the%20free%20homepage%20draft%20for%20my%20business.%20It%27s%20called%3A%20" target="_blank" rel="noopener">Free draft<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
   <a class="btn btn-violet" href="/#contatti">Contact</a>
 </nav>
 <script>
@@ -1020,6 +1027,18 @@ footer .pages a:hover{color:var(--ink-light)}
   window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();
 })();
+</script>
+<script>
+/* Accessibilità: il focus da tastiera non deve finire sotto l'header o la barra fissa in basso (WCAG 2.4.11) */
+document.addEventListener("focusin", function (ev) {
+  var el = ev.target; if (!el || !el.getBoundingClientRect) return;
+  var r = el.getBoundingClientRect(), top = 0, bottom = window.innerHeight;
+  var h = document.querySelector(".top"); if (h) top = h.getBoundingClientRect().bottom;
+  var m = document.querySelector(".mbar"); if (m && getComputedStyle(m).display !== "none" && !m.contains(el) && !m.classList.contains("is-hidden")) bottom = m.getBoundingClientRect().top;
+  if (h && h.contains(el)) return;
+  if (r.bottom > bottom - 8) window.scrollBy(0, r.bottom - bottom + 16);
+  else if (r.top < top + 8) window.scrollBy(0, r.top - top - 16);
+});
 </script>
 <script src="/consent.js" defer></script>
 </body>

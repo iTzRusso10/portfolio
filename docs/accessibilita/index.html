@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessibilità | Giuseppe Russo</title>
+<meta name="description" content="Dichiarazione di accessibilità di giusepperussodev.it: standard seguito, verifiche fatte, limiti noti e come segnalare un problema.">
+<link rel="canonical" href="https://giusepperussodev.it/accessibilita/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root{--ink:#170B2E;--bg:#F3EEFF;--v:#7C3AED}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{overflow-wrap:anywhere;max-width:720px;margin:0 auto;padding:40px 16px 64px}
+h1{font-size:30px;line-height:1.2;margin:0 0 8px}
+h2{font-size:20px;margin:32px 0 6px}
+a{color:var(--v)}
+:focus-visible{outline:3px solid var(--v);outline-offset:3px;border-radius:4px}
+.small{color:#4A3D66;font-size:15px}
+ul{padding-left:1.2em}
+li+li{margin-top:6px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none}
+.skip:focus{top:12px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+<main id="main">
+<p><a href="/">← Torna alla pagina</a></p>
+<h1>Accessibilità</h1>
+<p class="small">Ultimo aggiornamento: 2 novembre 2026 · Sito: giusepperussodev.it · Responsabile: Giuseppe Russo, Rossano (CS)</p>
+
+<h2>In breve</h2>
+<p>Voglio che questo sito si possa usare da tutti: con la tastiera, con uno screen reader, ingrandendo il testo o con le animazioni ridotte. Il riferimento che seguo sono le <strong>WCAG 2.2 livello AA</strong>, la stessa base della norma europea EN 301 549.</p>
+<p>Lavoro da solo: per la legge italiana (d.lgs. 82/2022, che recepisce l'European Accessibility Act) sono una microimpresa e questa dichiarazione non è obbligatoria. La pubblico lo stesso, perché un sito deve funzionare per chiunque lo apra.</p>
+
+<h2>Stato di conformità</h2>
+<p>Il sito è <strong>parzialmente conforme</strong> alle WCAG 2.2 AA: rispetta i requisiti che ho verificato, con i limiti scritti più sotto.</p>
+
+<h2>Cosa trovi sul sito</h2>
+<ul>
+<li>Il link "Vai al contenuto" all'inizio di ogni pagina, per saltare il menu con la tastiera.</li>
+<li>Un contorno ben visibile sull'elemento selezionato mentre navighi con Tab.</li>
+<li>Testo alternativo sulle immagini che danno informazioni. Quelle solo decorative vengono saltate dagli screen reader.</li>
+<li>Un modulo contatti con etichette su ogni campo e messaggi di errore che lo screen reader legge.</li>
+<li>Animazioni che si fermano se sul tuo dispositivo è attivo "Riduci movimento".</li>
+<li>Testi e colori con il contrasto richiesto, e pagine che restano leggibili ingrandite fino al 400%.</li>
+</ul>
+
+<h2>Limiti noti</h2>
+<ul>
+<li>Il modulo contatti apre WhatsApp con il messaggio già scritto. Da lì in poi l'accessibilità dipende da WhatsApp. Se ti è scomodo, puoi scrivermi per email o chiamarmi.</li>
+<li>Le recensioni e i profili social portano a Google, Instagram e LinkedIn, che non gestisco io.</li>
+</ul>
+
+<h2>Come ho verificato</h2>
+<p>Ultima verifica: 2 novembre 2026, fatta da me. Test automatici con axe-core su tutte le pagine, da computer e da telefono, più controlli a mano: navigazione completa da tastiera, focus mai coperto da barre fisse, zoom e larghezza di 320 pixel, spaziatura del testo aumentata, contrasti e riduzione del movimento.</p>
+
+<h2>Segnala un problema</h2>
+<p>Se qualcosa non funziona con la tastiera, con lo screen reader o in qualsiasi altro modo, scrivimi. Dimmi la pagina e cosa stavi provando a fare: ti rispondo io e, se si può, lo sistemo.</p>
+<ul>
+<li>Email: <a href="mailto:russo.giuseppe.dev@gmail.com?subject=Problema%20di%20accessibilit%C3%A0%20sul%20sito">russo.giuseppe.dev@gmail.com</a></li>
+<li>Telefono: <a href="tel:+393472693212">347 269 3212</a></li>
+<li>WhatsApp: <a href="https://wa.me/393472693212" target="_blank" rel="noopener">scrivimi su WhatsApp<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap"> (si apre in una nuova scheda)</span></a></li>
+</ul>
+<p>Se non ricevi una risposta soddisfacente, puoi rivolgerti ad AgID, l'Agenzia per l'Italia Digitale, tramite il modulo su <a href="https://segnalazioni.agid.gov.it/">segnalazioni.agid.gov.it</a>.</p>
+</main>
+<script src="/consent.js" defer></script>
+</body>
+</html>

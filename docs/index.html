@@ -612,6 +612,14 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
 .hero-proof .portrait{transform:rotateY(var(--py,0deg)) rotateX(var(--px,0deg))}
 .hero-proof .sticker{transform:translateZ(60px) rotateY(var(--py,0deg)) rotateX(var(--px,0deg)) rotate(-4deg)}
 @media (prefers-reduced-motion:reduce){.cube{animation:none}.tilt3d,.hero-proof .portrait,.hero-proof .sticker{transform:none!important}}
+
+/* ===== Accessibilità (WCAG 2.2 AA) ===== */
+.reviews :focus-visible{outline-color:var(--ink-dark)}
+input,textarea{border-color:#857799}
+input:focus-visible,textarea:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+@media(max-width:899px){html{scroll-padding-bottom:96px}}
+.cube{animation-duration:2.5s;animation-iteration-count:2}
+.price-card,.big{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -638,7 +646,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Giuseppe Russo, torna all'inizio">giuseppe<span>/</span>webdev</a>
+    <a class="brand" href="#top">giuseppe<span>/</span>webdev<span class="sr-only"> – torna all'inizio</span></a>
     <nav class="nav" aria-label="Sezioni">
       <a href="#come-funziona">Come funziona</a>
       <a href="#prezzo">Prezzo</a>
@@ -659,7 +667,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
       <p class="pill"><b>250€</b> tutto compreso · paghi solo a consegna</p>
       <h1 id="hero-title">Il sito della tua attività in 48&nbsp;ore. <span class="hl-l">Prima lo vedi, poi paghi.</span></h1>
       <p class="lead">Mi dici come si chiama la tua attività e dove si trova. Ti preparo gratis la homepage, su misura per te, e la guardi dal telefono. Se non ti convince, non mi devi niente.</p>
-      <p class="stars-inline"><span class="s" aria-hidden="true">★★★★★</span><span>5,0 su Google (7 recensioni) · <a class="js-google" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">leggile</a></span></p>
+      <p class="stars-inline"><span class="s" aria-hidden="true">★★★★★</span><span>5,0 su Google (7 recensioni) · <a class="js-google" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">leggile<span class="sr-only"> (si apre in una nuova scheda)</span></a></span></p>
       <p class="local-line">Sviluppatore web a <strong>Corigliano-Rossano</strong>, in Calabria · siti per attività in tutta Italia</p>
       <div class="btn-row">
         <a class="btn btn-lime" href="#contatti" data-intent="draft">Chiedi la bozza gratis<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -698,10 +706,10 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
       </div>
     </div>
     <div class="quotes">
-      <blockquote><p>«Il sito realizzato è veloce, intuitivo e perfettamente ottimizzato sia da desktop che da mobile.»</p><cite>Simone Z. · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google</a></cite></blockquote>
-      <blockquote><p>«Giuseppe ha realizzato il sito web per la mia attività di cosmetica con grande professionalità. È stato sempre puntuale nelle consegne e disponibile ogni volta che ne avevo bisogno.»</p><cite>Rosaria P., attività di cosmetica · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google</a></cite></blockquote>
+      <blockquote><p>«Il sito realizzato è veloce, intuitivo e perfettamente ottimizzato sia da desktop che da mobile.»</p><cite>Simone Z. · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google<span class="sr-only"> (si apre in una nuova scheda)</span></a></cite></blockquote>
+      <blockquote><p>«Giuseppe ha realizzato il sito web per la mia attività di cosmetica con grande professionalità. È stato sempre puntuale nelle consegne e disponibile ogni volta che ne avevo bisogno.»</p><cite>Rosaria P., attività di cosmetica · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google<span class="sr-only"> (si apre in una nuova scheda)</span></a></cite></blockquote>
     </div>
-    <a class="btn btn-ink js-google" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Leggi le recensioni su Google<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn-ink js-google" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Leggi le recensioni su Google<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a>
   </div>
 </section>
 
@@ -776,7 +784,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
     <div class="price-grid">
       <div class="price-card">
         <p class="pre">Sito vetrina su misura per la tua attività</p>
-        <p class="big" aria-label="250 euro">250€</p>
+        <p class="big">250€</p>
         <p class="sub">Una volta sola. Dominio e hosting del primo anno inclusi.</p>
         <ul class="checks">
           <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Bozza della homepage gratis, prima di decidere</li>
@@ -837,7 +845,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
         <p>Sono uno <strong>sviluppatore web dal 2020</strong> e vivo a <strong>Rossano, in Calabria</strong>. Ho costruito applicazioni e piattaforme per aziende, e oggi faccio siti anche per attività e liberi professionisti in tutta Italia: parrucchieri, ristoranti, B&amp;B, palestre, studi.</p>
         <p><strong>Lavoro da solo, senza agenzia e senza intermediari.</strong> Per questo il sito costa 250€, e quando mi scrivi parli sempre con me, dalla bozza alla consegna.</p>
         <p>Ogni sito lo disegno da zero per l'attività che ho davanti: niente modelli riempiti con il tuo nome.</p>
-        <p class="verify">Vuoi sapere chi sono prima di scrivermi? <a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram</a> · <a class="js-google" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Scheda Google</a></p>
+        <p class="verify">Vuoi sapere chi sono prima di scrivermi? <a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (si apre in una nuova scheda)</span></a> · <a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a> · <a class="js-google" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Scheda Google<span class="sr-only"> (si apre in una nuova scheda)</span></a></p>
       </div>
       <p class="sign">Giuseppe Russo</p>
     </div>
@@ -912,9 +920,9 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
       <ul class="contact-points">
         <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Nessun anticipo: paghi solo a sito consegnato e approvato</span></li>
         <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Parli solo con me, dalla bozza alla consegna</span></li>
-        <li><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg><span>Non usi l'email? <a href="https://ig.me/m/giuseppewebdev" target="_blank" rel="noopener">Scrivimi su Instagram</a></span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg><span>Non usi l'email? <a href="https://ig.me/m/giuseppewebdev" target="_blank" rel="noopener">Scrivimi su Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a></span></li>
         <li><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:russo.giuseppe.dev@gmail.com?subject=Richiesta%20bozza%20gratuita%20sito">russo.giuseppe.dev@gmail.com</a></li>
-        <li><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg><a class="js-wa" href="https://wa.me/393472693212" target="_blank" rel="noopener">Scrivimi su WhatsApp</a></li>
+        <li><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg><a class="js-wa" href="https://wa.me/393472693212" target="_blank" rel="noopener">Scrivimi su WhatsApp<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
         <li><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><a class="js-tel" href="tel:+393472693212">Chiamami</a></li>
       </ul>
     </div>
@@ -956,7 +964,7 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
     <p class="lead">Lasciami il nome della tua attività: entro un giorno lavorativo hai la homepage del tuo sito da guardare, senza impegno.</p>
     <div class="btn-row">
       <a class="btn btn-lime" href="#contatti" data-intent="draft">Chiedi la bozza gratis<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <a class="btn btn-ghost js-wa" href="https://wa.me/393472693212" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+      <a class="btn btn-ghost js-wa" href="https://wa.me/393472693212" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp<span class="sr-only"> (si apre in una nuova scheda)</span></a>
       <a class="btn btn-ghost js-tel" href="tel:+393472693212"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Chiamami</a>
     </div>
   </div>
@@ -973,8 +981,8 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
     <ul aria-label="Contatti">
       <li><a href="mailto:russo.giuseppe.dev@gmail.com">russo.giuseppe.dev@gmail.com</a></li>
       <li><a href="https://giusepperussodev.it" rel="noopener">giusepperussodev.it</a></li>
-      <li><a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram @giuseppewebdev</a></li>
-      <li><a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram @giuseppewebdev<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+      <li><a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
     </ul>
     <ul aria-label="Pagina">
       <li><a href="#prezzo">Prezzo</a></li>
@@ -987,15 +995,15 @@ a.todo-link{outline:2px dashed #FFB020;outline-offset:3px}
       <li><a href="/sviluppatore-web-corigliano-rossano/">Sviluppatore web a Corigliano-Rossano</a></li>
       <li><a href="/sviluppatore-web-cosenza/">Sviluppatore web a Cosenza e Rende</a></li>
       <li><a href="/sviluppatore-software-gestionali/">Gestionali e software su misura</a></li>
-      <li><a href="/en/" hreflang="en">Web developer in Calabria (English)</a></li>
+      <li><a href="/en/" hreflang="en" lang="en">Web developer in Calabria (English)</a></li>
     </ul>
-    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Corigliano-Rossano (CS) · <a href="/siti/privacy.html">Privacy</a> · <a href="/cookie-policy/">Cookie policy</a> · <a href="/cookie-policy/" data-cookie-prefs>Preferenze cookie</a></p>
+    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Corigliano-Rossano (CS) · <a href="/siti/privacy.html">Privacy</a> · <a href="/cookie-policy/">Cookie policy</a> · <a href="/accessibilita/">Accessibilità</a> · <a href="/cookie-policy/" data-cookie-prefs>Preferenze cookie</a></p>
   </div>
 </footer>
 
 <nav class="mbar" id="mbar" aria-label="Contatto rapido">
   <a class="btn btn-lime" href="#contatti" data-intent="draft">Bozza gratis<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a class="btn btn-violet js-wa" href="https://wa.me/393472693212" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn btn-violet js-wa" href="https://wa.me/393472693212" target="_blank" rel="noopener">WhatsApp<span class="sr-only"> (si apre in una nuova scheda)</span></a>
 </nav>
 
 <script>
@@ -1057,7 +1065,7 @@ const CONFIG = {
     var mail = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     var wa = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(body);
 
-    status.innerHTML = 'Si apre WhatsApp con il messaggio già scritto: premi Invia. Non hai WhatsApp? <a href="' + mail + '">Mandalo via email</a> o <a href="' + CONFIG.instagramDm + '" target="_blank" rel="noopener">scrivimi su Instagram</a>.';
+    status.innerHTML = 'Si apre WhatsApp con il messaggio già scritto: premi Invia. Non hai WhatsApp? <a href="' + mail + '">Mandalo via email</a> o <a href="' + CONFIG.instagramDm + '" target="_blank" rel="noopener">scrivimi su Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a>.';
     window.location.href = wa;
   });
 
@@ -1214,6 +1222,18 @@ const CONFIG = {
     }
   })();
 })();
+</script>
+<script>
+/* Accessibilità: il focus da tastiera non deve finire sotto l'header o la barra fissa in basso (WCAG 2.4.11) */
+document.addEventListener("focusin", function (ev) {
+  var el = ev.target; if (!el || !el.getBoundingClientRect) return;
+  var r = el.getBoundingClientRect(), top = 0, bottom = window.innerHeight;
+  var h = document.querySelector(".top"); if (h) top = h.getBoundingClientRect().bottom;
+  var m = document.querySelector(".mbar"); if (m && getComputedStyle(m).display !== "none" && !m.contains(el) && !m.classList.contains("is-hidden")) bottom = m.getBoundingClientRect().top;
+  if (h && h.contains(el)) return;
+  if (r.bottom > bottom - 8) window.scrollBy(0, r.bottom - bottom + 16);
+  else if (r.top < top + 8) window.scrollBy(0, r.top - top - 16);
+});
 </script>
 <script src="/consent.js" defer></script>
 </body>

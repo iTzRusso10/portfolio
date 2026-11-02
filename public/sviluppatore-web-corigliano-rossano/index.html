@@ -698,6 +698,13 @@ footer .pages a:hover{color:var(--ink-light)}
 .nav a[aria-current]{color:var(--lime)}
 /* Le parole animate sono <span>: non devono prendere gli stili di ".fact span", ".incl span" ecc. */
 .js-motion .jw{font-size:inherit;color:inherit;margin:0;line-height:inherit;letter-spacing:inherit;font-weight:inherit}
+
+/* ===== Accessibilità (WCAG 2.2 AA) ===== */
+.reviews :focus-visible{outline-color:var(--ink-dark)}
+input,textarea{border-color:#857799}
+input:focus-visible,textarea:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+@media(max-width:899px){html{scroll-padding-bottom:96px}}
+.cube{animation-duration:2.5s;animation-iteration-count:2}
 </style>
 </head>
 <body>
@@ -728,7 +735,7 @@ footer .pages a:hover{color:var(--ink-light)}
 </svg>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Giuseppe Russo, torna alla home">giuseppe<span>/</span>webdev</a>
+    <a class="brand" href="/">giuseppe<span>/</span>webdev<span class="sr-only"> – torna alla home</span></a>
     <nav class="nav" aria-label="Pagine">
       <a href="/sviluppatore-web-calabria/">Calabria</a>
       <a href="/sviluppatore-web-corigliano-rossano/" aria-current="page">Corigliano-Rossano</a>
@@ -736,7 +743,7 @@ footer .pages a:hover{color:var(--ink-light)}
       <a href="/sviluppatore-software-gestionali/">Gestionali</a>
       <a href="/quanto-costa-un-sito-web/">Prezzi</a>
     </nav>
-    <a class="btn btn-lime top-cta" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener">Bozza gratis</a>
+    <a class="btn btn-lime top-cta" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener">Bozza gratis<span class="sr-only"> (si apre in una nuova scheda)</span></a>
   </div>
 </header>
 <main id="main">
@@ -746,9 +753,9 @@ footer .pages a:hover{color:var(--ink-light)}
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/sviluppatore-web-calabria/">Sviluppatore web Calabria</a></li><li><span aria-current="page">Corigliano-Rossano</span></li></ol></nav>
       <h1 id="hero-title">Sviluppatore web <span class="hl-l">a Corigliano-Rossano</span></h1>
       <p class="lead">Sono Giuseppe Russo, sviluppatore web: vivo a Rossano e realizzo siti vetrina su misura per le attività di Corigliano-Rossano e della Sibaritide. 250€ tutto compreso, con la bozza della homepage gratis entro un giorno lavorativo. Paghi solo quando il sito è online e ti piace.</p>
-      <p class="stars-inline"><span class="s" aria-hidden="true">★★★★★</span><span>5,0 su Google (7 recensioni) · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">leggile</a></span></p>
+      <p class="stars-inline"><span class="s" aria-hidden="true">★★★★★</span><span>5,0 su Google (7 recensioni) · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">leggile<span class="sr-only"> (si apre in una nuova scheda)</span></a></span></p>
       <div class="btn-row">
-        <a class="btn btn-lime" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Chiedi la bozza su WhatsApp</a>
+        <a class="btn btn-lime" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Chiedi la bozza su WhatsApp<span class="sr-only"> (si apre in una nuova scheda)</span></a>
         <a class="btn btn-ghost" href="/#contatti">Compila il modulo</a>
       </div>
       <div class="facts" role="list"><div class="fact" role="listitem"><strong>0€</strong><span>di anticipo</span></div><div class="fact" role="listitem"><strong>250€</strong><span>tutto compreso il 1° anno</span></div><div class="fact" role="listitem"><strong>48h</strong><span>da quando ho testi e foto</span></div></div>
@@ -862,10 +869,10 @@ footer .pages a:hover{color:var(--ink-light)}
       </div>
     </div>
     <div class="quotes">
-      <blockquote><p>«Il sito realizzato è veloce, intuitivo e perfettamente ottimizzato sia da desktop che da mobile.»</p><cite>Simone Z. · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google</a></cite></blockquote>
-      <blockquote><p>«Giuseppe ha realizzato il sito web per la mia attività di cosmetica con grande professionalità. È stato sempre puntuale nelle consegne e disponibile ogni volta che ne avevo bisogno.»</p><cite>Rosaria P., attività di cosmetica · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google</a></cite></blockquote>
+      <blockquote><p>«Il sito realizzato è veloce, intuitivo e perfettamente ottimizzato sia da desktop che da mobile.»</p><cite>Simone Z. · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google<span class="sr-only"> (si apre in una nuova scheda)</span></a></cite></blockquote>
+      <blockquote><p>«Giuseppe ha realizzato il sito web per la mia attività di cosmetica con grande professionalità. È stato sempre puntuale nelle consegne e disponibile ogni volta che ne avevo bisogno.»</p><cite>Rosaria P., attività di cosmetica · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Recensione su Google<span class="sr-only"> (si apre in una nuova scheda)</span></a></cite></blockquote>
     </div>
-    <a class="btn btn-ink" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Leggi le recensioni su Google<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn-ink" href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Leggi le recensioni su Google<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a>
   </div>
 </section>
 
@@ -908,7 +915,7 @@ footer .pages a:hover{color:var(--ink-light)}
         <p>Sono uno <strong>sviluppatore web dal 2020</strong> e vivo a <strong>Rossano</strong>. Ho costruito applicazioni e piattaforme per aziende, e oggi faccio siti per attività e professionisti, a partire da quelle della mia zona.</p>
         <p><strong>Lavoro da solo, senza agenzia e senza intermediari.</strong> Per questo il sito costa 250€ e parli sempre con me, dalla bozza alla consegna.</p>
         <p>Vivendo qui so che a Schiavonea è la stagione a decidere gli orari, che molti scrivono ancora «Corigliano Calabro» e che un turista nel centro storico di Rossano cerca tutto dal telefono. Ne tengo conto quando scrivo il tuo sito.</p>
-        <p class="verify">Vuoi sapere chi sono prima di scrivermi? <a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram</a> · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Scheda Google</a></p>
+        <p class="verify">Vuoi sapere chi sono prima di scrivermi? <a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (si apre in una nuova scheda)</span></a> · <a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a> · <a href="https://share.google/MdoVr2kfzLAAhaV79" target="_blank" rel="noopener">Scheda Google<span class="sr-only"> (si apre in una nuova scheda)</span></a></p>
       </div>
       <p class="sign">Giuseppe Russo</p>
     </div>
@@ -952,7 +959,7 @@ footer .pages a:hover{color:var(--ink-light)}
   <div class="wrap">
     <p class="eyebrow"><span>Continua a leggere</span></p>
     <h2 class="h2" id="links-title">Altre pagine utili</h2>
-    <ul class="links"><li><a href="/"><strong>Home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Il sito vetrina su misura a 250€, come funziona e il modulo per la bozza</span></a></li><li><a href="/sviluppatore-web-calabria/"><strong>Sviluppatore web in Calabria<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Le zone servite, da remoto in tutta la regione</span></a></li><li><a href="/sviluppatore-web-cosenza/"><strong>Cosenza e Rende<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Siti per attività e studi professionali dell&#x27;area urbana</span></a></li><li><a href="/sviluppatore-software-gestionali/"><strong>Gestionali e web app<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Software su misura e automazioni con l&#x27;AI, su preventivo</span></a></li><li><a href="/quanto-costa-un-sito-web/"><strong>Quanto costa un sito web<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Guida 2026 ai prezzi in Italia, con le fonti</span></a></li><li><a href="/en/" hreflang="en"><strong>English version<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Web developer in Calabria, Italy</span></a></li></ul>
+    <ul class="links"><li><a href="/"><strong>Home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Il sito vetrina su misura a 250€, come funziona e il modulo per la bozza</span></a></li><li><a href="/sviluppatore-web-calabria/"><strong>Sviluppatore web in Calabria<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Le zone servite, da remoto in tutta la regione</span></a></li><li><a href="/sviluppatore-web-cosenza/"><strong>Cosenza e Rende<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Siti per attività e studi professionali dell&#x27;area urbana</span></a></li><li><a href="/sviluppatore-software-gestionali/"><strong>Gestionali e web app<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Software su misura e automazioni con l&#x27;AI, su preventivo</span></a></li><li><a href="/quanto-costa-un-sito-web/"><strong>Quanto costa un sito web<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Guida 2026 ai prezzi in Italia, con le fonti</span></a></li><li><a href="/en/" hreflang="en" lang="en"><strong>English version<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></strong><span>Web developer in Calabria, Italy</span></a></li></ul>
   </div>
 </section>
 
@@ -961,7 +968,7 @@ footer .pages a:hover{color:var(--ink-light)}
     <h2 class="h2" id="final-title">La bozza è gratis. Paghi solo se ti piace.</h2>
     <p class="lead">Mandami il nome della tua attività: entro un giorno lavorativo hai la homepage del tuo sito da guardare sul telefono, senza impegno.</p>
     <div class="btn-row">
-      <a class="btn btn-lime" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Chiedi la bozza su WhatsApp</a>
+      <a class="btn btn-lime" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener"><svg class="i fill" aria-hidden="true"><use href="#i-wa"/></svg>Chiedi la bozza su WhatsApp<span class="sr-only"> (si apre in una nuova scheda)</span></a>
       <a class="btn btn-ghost" href="/#contatti">Compila il modulo<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
     <p class="alt">Preferisci compilare un modulo? <a href="/#contatti">Vai al modulo nella home</a> oppure chiamami al <a href="tel:+393472693212">347 269 3212</a>.</p>
@@ -976,16 +983,16 @@ footer .pages a:hover{color:var(--ink-light)}
     </div>
     <ul aria-label="Contatti">
       <li><a href="mailto:russo.giuseppe.dev@gmail.com">russo.giuseppe.dev@gmail.com</a></li>
-      <li><a href="https://wa.me/393472693212" target="_blank" rel="noopener">WhatsApp 347 269 3212</a></li>
-      <li><a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram @giuseppewebdev</a></li>
-      <li><a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://wa.me/393472693212" target="_blank" rel="noopener">WhatsApp 347 269 3212<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+      <li><a href="https://www.instagram.com/giuseppewebdev/" target="_blank" rel="noopener">Instagram @giuseppewebdev<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+      <li><a href="https://www.linkedin.com/in/giuseppe-russo-792900264/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
     </ul>
-    <ul class="pages" aria-label="Pagine"><li><a href="/">Home</a></li><li><a href="/sviluppatore-web-calabria/">Sviluppatore web in Calabria</a></li><li><a href="/sviluppatore-web-corigliano-rossano/">Corigliano-Rossano e Sibaritide</a></li><li><a href="/sviluppatore-web-cosenza/">Cosenza e Rende</a></li><li><a href="/sviluppatore-software-gestionali/">Gestionali e web app</a></li><li><a href="/quanto-costa-un-sito-web/">Quanto costa un sito web</a></li><li><a href="/en/" hreflang="en">English version</a></li></ul>
-    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Rossano (CS) · <a href="/siti/privacy.html">Privacy</a> · <a href="/cookie-policy/">Cookie policy</a> · <a href="/cookie-policy/" data-cookie-prefs>Preferenze cookie</a></p>
+    <ul class="pages" aria-label="Pagine"><li><a href="/">Home</a></li><li><a href="/sviluppatore-web-calabria/">Sviluppatore web in Calabria</a></li><li><a href="/sviluppatore-web-corigliano-rossano/">Corigliano-Rossano e Sibaritide</a></li><li><a href="/sviluppatore-web-cosenza/">Cosenza e Rende</a></li><li><a href="/sviluppatore-software-gestionali/">Gestionali e web app</a></li><li><a href="/quanto-costa-un-sito-web/">Quanto costa un sito web</a></li><li><a href="/en/" hreflang="en" lang="en">English version</a></li></ul>
+    <p class="legal">© <span id="year">2026</span> Giuseppe Russo · Rossano (CS) · <a href="/siti/privacy.html">Privacy</a> · <a href="/cookie-policy/">Cookie policy</a> · <a href="/accessibilita/">Accessibilità</a> · <a href="/cookie-policy/" data-cookie-prefs>Preferenze cookie</a></p>
   </div>
 </footer>
 <nav class="mbar" id="mbar" aria-label="Contatto rapido">
-  <a class="btn btn-lime" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener">Bozza gratis<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a class="btn btn-lime" href="https://wa.me/393472693212?text=Ciao%20Giuseppe%2C%20ho%20un%27attivit%C3%A0%20a%20Corigliano-Rossano%20e%20vorrei%20la%20bozza%20gratuita%20del%20sito.%20Si%20chiama%3A%20" target="_blank" rel="noopener">Bozza gratis<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a>
   <a class="btn btn-violet" href="/#contatti">Contatti</a>
 </nav>
 <script>
@@ -1117,6 +1124,18 @@ footer .pages a:hover{color:var(--ink-light)}
   window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();
 })();
+</script>
+<script>
+/* Accessibilità: il focus da tastiera non deve finire sotto l'header o la barra fissa in basso (WCAG 2.4.11) */
+document.addEventListener("focusin", function (ev) {
+  var el = ev.target; if (!el || !el.getBoundingClientRect) return;
+  var r = el.getBoundingClientRect(), top = 0, bottom = window.innerHeight;
+  var h = document.querySelector(".top"); if (h) top = h.getBoundingClientRect().bottom;
+  var m = document.querySelector(".mbar"); if (m && getComputedStyle(m).display !== "none" && !m.contains(el) && !m.classList.contains("is-hidden")) bottom = m.getBoundingClientRect().top;
+  if (h && h.contains(el)) return;
+  if (r.bottom > bottom - 8) window.scrollBy(0, r.bottom - bottom + 16);
+  else if (r.top < top + 8) window.scrollBy(0, r.top - top - 16);
+});
 </script>
 <script src="/consent.js" defer></script>
 </body>
